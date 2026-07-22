@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Ranjita Naik — writing</title>
+<link>https://ranjita-naik.github.io/</link>
+<description>From-scratch writing and visual explainers by Ranjita Naik.</description>
+<language>en</language>
+<atom:link href="https://ranjita-naik.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>Build a webpage with an AI agent — no code</title>
+<link>https://ranjita-naik.github.io/learn/build-with-an-agent.html</link>
+<guid isPermaLink="true">https://ranjita-naik.github.io/learn/build-with-an-agent.html</guid>
+<description>In about 20 minutes, get a real webpage open in your browser without writing a line of code — by describing what you want to an AI agent.</description>
+<pubDate>Wed, 22 Jul 2026 09:00:00 GMT</pubDate>
+</item>
+<item>
+<title>What actually is an AI agent? A plain-English guide</title>
+<link>https://ranjita-naik.github.io/posts/what-is-an-ai-agent.html</link>
+<guid isPermaLink="true">https://ranjita-naik.github.io/posts/what-is-an-ai-agent.html</guid>
+<description>The chatbot-vs-agent distinction, the three ingredients, and the questions worth asking before you build or buy one.</description>
+<pubDate>Tue, 21 Jul 2026 09:00:00 GMT</pubDate>
+</item>
+<item>
+<title>The agent loop, animated — an interactive explainer</title>
+<link>https://ranjita-naik.github.io/learn/agent-loop.html</link>
+<guid isPermaLink="true">https://ranjita-naik.github.io/learn/agent-loop.html</guid>
+<description>Step through a real agent run: thoughts, tool calls, a failure and its recovery, with live token and cost counters.</description>
+<pubDate>Mon, 20 Jul 2026 09:00:00 GMT</pubDate>
+</item>
+<item>
+<title>Start here: AI, LLMs and agents — explained like you're smart but new</title>
+<link>https://ranjita-naik.github.io/posts/start-here-llms-and-agents.html</link>
+<guid isPermaLink="true">https://ranjita-naik.github.io/posts/start-here-llms-and-agents.html</guid>
+<description>Assumes nothing — not even what LLM means. What an LLM is, what an agent is, and why people are talking about them.</description>
+<pubDate>Sun, 19 Jul 2026 09:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>
