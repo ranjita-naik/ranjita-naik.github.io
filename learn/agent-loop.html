@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="The Agent Loop, animated — an interactive explainer — Ranjita Naik">
+<meta property="og:description" content="Watch an AI agent actually work: step through the think–act–observe loop, see the context window fill, watch a failure get handled, and see what it all costs.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/learn/agent-loop.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik — all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>The Agent Loop, animated — an interactive explainer — Ranjita Naik</title>
+<meta name="description" content="Watch an AI agent actually work: step through the think–act–observe loop, see the context window fill, watch a failure get handled, and see what it all costs.">
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+<style>
+/* ---- explainer-specific ---- */
+.explainer-wrap { max-width: 1060px; margin: 0 auto; padding: 0 22px; }
+.controls {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 14px 16px; margin: 22px 0;
+}
+.controls button {
+  font: inherit; font-weight: 600; font-size: 0.95rem;
+  border-radius: 8px; padding: 8px 18px; cursor: pointer;
+  border: 1px solid var(--line); background: #fff; color: var(--ink);
+}
+.controls button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.controls button.primary:hover { background: var(--accent-dark); }
+.controls button:disabled { opacity: 0.4; cursor: default; }
+.controls label.fail {
+  display: flex; align-items: center; gap: 7px; font-size: 0.9rem; color: var(--muted);
+  margin-left: auto; cursor: pointer;
+}
+.stage-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 18px; align-items: start; }
+@media (max-width: 860px) { .stage-grid { grid-template-columns: 1fr; } }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+.panel h3 { margin: 0 0 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+/* loop diagram */
+#loopsvg { width: 100%; height: auto; display: block; }
+.node rect { fill: #fff; stroke: var(--line); stroke-width: 1.5; rx: 10; }
+.node text { font-family: inherit; }
+.node .lbl { font-size: 14px; font-weight: 700; fill: var(--ink); }
+.node .sub { font-size: 11px; fill: var(--muted); }
+.node.active rect { stroke-width: 3; }
+.node.n-goal.active rect  { stroke: #8a4f9e; fill: #f7effa; }
+.node.n-model.active rect { stroke: #0e8a72; fill: #e9f6f2; }
+.node.n-tool.active rect  { stroke: #4356c0; fill: #eef0fb; }
+.node.n-obs.active rect   { stroke: #a86b00; fill: #faf3e4; }
+.node.n-done.active rect  { stroke: #0e8a72; fill: #e9f6f2; }
+.edge { stroke: #c9c4b8; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+.edge.active { stroke: var(--ink); stroke-width: 2.6; }
+/* narration */
+.narration {
+  border-left: 3px solid var(--accent); background: #eef6f3;
+  border-radius: 0 10px 10px 0; padding: 12px 16px; min-height: 74px;
+  font-size: 0.98rem; margin-top: 16px;
+}
+.narration .stepno { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-dark); display: block; margin-bottom: 3px; }
+/* counters */
+.counters { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.counter { flex: 1; min-width: 100px; background: #f7f4ee; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; text-align: center; }
+.counter .v { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+.counter .k { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); }
+/* context log */
+.ctxmeter { margin: 4px 0 14px; }
+.ctxmeter .bar { height: 12px; background: #efece4; border-radius: 6px; overflow: hidden; }
+.ctxmeter .fill { height: 100%; width: 0%; background: var(--accent); border-radius: 6px; transition: width 0.5s ease; }
+.ctxmeter .cap { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+#msglog { max-height: 430px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 4px; }
+.msg { border-radius: 10px; padding: 9px 12px; font-size: 0.86rem; line-height: 1.5; border: 1px solid var(--line); background: #fff; animation: pop .35s ease; }
+@keyframes pop { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: none; } }
+.msg .who { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 2px; }
+.msg.system      { background: #f7f4ee; color: var(--muted); }           .msg.system .who { color: var(--muted); }
+.msg.user        { border-left: 3px solid #8a4f9e; }                     .msg.user .who { color: #8a4f9e; }
+.msg.model       { border-left: 3px solid #0e8a72; }                     .msg.model .who { color: #0e8a72; }
+.msg.toolcall    { border-left: 3px solid #4356c0; background: #fafbff; }.msg.toolcall .who { color: #4356c0; }
+.msg.toolresult  { border-left: 3px solid #a86b00; background: #fffdf7; }.msg.toolresult .who { color: #a86b00; }
+.msg.error       { border-left: 3px solid #b3261e; background: #fdf6f5; }.msg.error .who { color: #b3261e; }
+.msg code { background: #f0ede6; border-radius: 4px; padding: 0 5px; font-size: 0.92em; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.78rem; color: var(--muted); margin-top: 12px; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.footer-cta { margin: 40px 0 10px; }
+/* roomier layout for this wide interactive */
+.layout { max-width: 1300px; }
+@media (max-width: 1080px) { .stage-grid { grid-template-columns: 1fr; } }
+.narration { font-size: 0.95rem; }
+</style>
+</head>
+<body data-palette="#0e8a72,#4356c0,#a86b00,#8a4f9e">
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+    <nav><a href="mailto:ranjitawrites@gmail.com">Email</a></nav>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="All posts, grouped by month">
+  <div class="sb-title">All posts</div>
+  <details class="sb-group" open>
+    <summary>July 2026</summary>
+    <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item on" href="../learn/agent-loop.html"><span class="sb-d">Jul 20</span><span>The agent loop, animated</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 21</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage, no code</span></a>
+  </details>
+</aside>
+<main class="content wide">
+  <article style="padding: 40px 0 10px;">
+    <h1>The agent loop, animated</h1>
+    <div class="meta">20 July 2026</div>
+    <p style="max-width: 700px;">Every AI agent — no matter the framework, no matter the vendor — is the same small machine: a model that <strong>thinks</strong>, <strong>acts</strong> through tools, <strong>observes</strong> what happened, and loops until the goal is done. Below, a real (simulated) agent answers the question <em>"How much did we spend on software subscriptions last quarter?"</em> Step through it and watch the machine run. Then flip on <strong>"inject a failure"</strong> to see the part that makes it an agent and not a script.</p>
+  </article>
+
+  <div class="controls" role="group" aria-label="Simulation controls">
+    <button id="btnStep" class="primary">Step ›</button>
+    <button id="btnPlay">▶ Auto-play</button>
+    <button id="btnReset">↺ Reset</button>
+    <label class="fail"><input type="checkbox" id="chkFail"> Inject a failure (watch it recover)</label>
+  </div>
+
+  <div class="stage-grid">
+    <section class="panel">
+      <h3>The loop</h3>
+      <svg id="loopsvg" viewBox="0 0 440 330" role="img" aria-label="Diagram of the agent loop: goal in, model decides, tool runs, observation returns to model, done when finished.">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#c9c4b8"/>
+          </marker>
+        </defs>
+        <!-- edges -->
+        <path id="e-goal-model" class="edge" d="M 110 62 C 150 62, 170 85, 190 108"/>
+        <path id="e-model-tool" class="edge" d="M 300 150 C 340 160, 350 185, 345 210"/>
+        <path id="e-tool-obs" class="edge" d="M 270 260 C 230 275, 190 275, 152 262"/>
+        <path id="e-obs-model" class="edge" d="M 95 212 C 90 185, 110 160, 150 145"/>
+        <path id="e-model-done" class="edge" d="M 290 112 C 330 90, 350 78, 368 66"/>
+        <!-- nodes -->
+        <g id="n-goal" class="node n-goal"><rect x="18" y="34" width="96" height="52" rx="10"/><text class="lbl" x="66" y="57" text-anchor="middle">GOAL</text><text class="sub" x="66" y="74" text-anchor="middle">user's ask</text></g>
+        <g id="n-model" class="node n-model"><rect x="155" y="100" width="150" height="60" rx="10"/><text class="lbl" x="230" y="126" text-anchor="middle">MODEL decides</text><text class="sub" x="230" y="144" text-anchor="middle">reads context, picks next act</text></g>
+        <g id="n-tool" class="node n-tool"><rect x="272" y="210" width="130" height="56" rx="10"/><text class="lbl" x="337" y="234" text-anchor="middle">TOOL runs</text><text class="sub" x="337" y="251" text-anchor="middle">code, not the model</text></g>
+        <g id="n-obs" class="node n-obs"><rect x="30" y="212" width="126" height="56" rx="10"/><text class="lbl" x="93" y="236" text-anchor="middle">OBSERVATION</text><text class="sub" x="93" y="253" text-anchor="middle">result → context</text></g>
+        <g id="n-done" class="node n-done"><rect x="352" y="26" width="76" height="52" rx="10"/><text class="lbl" x="390" y="49" text-anchor="middle">DONE ✓</text><text class="sub" x="390" y="66" text-anchor="middle">loop exits</text></g>
+      </svg>
+
+      <div class="narration" aria-live="polite"><span class="stepno" id="stepno">Ready</span><span id="narr">Press <strong>Step</strong> to begin. Nothing here is magic — you'll see every move the agent makes.</span></div>
+
+      <div class="counters">
+        <div class="counter"><div class="v" id="cIter">0</div><div class="k">Loop turns</div></div>
+        <div class="counter"><div class="v" id="cCalls">0</div><div class="k">Model calls</div></div>
+        <div class="counter"><div class="v" id="cTools">0</div><div class="k">Tool calls</div></div>
+        <div class="counter"><div class="v" id="cCost">$0.000</div><div class="k">Est. cost</div></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h3>The context window <span style="font-weight:400; text-transform:none; letter-spacing:0;">— everything the model can "see"</span></h3>
+      <div class="ctxmeter">
+        <div class="bar"><div class="fill" id="ctxfill"></div></div>
+        <div class="cap"><span id="ctxtok">0 tokens</span><span>window: 200,000 tokens · bar zoomed to first 2,000</span></div>
+      </div>
+      <div id="msglog" aria-live="polite"></div>
+      <div class="legend">
+        <span><i style="background:#8a4f9e"></i> user goal</span>
+        <span><i style="background:#0e8a72"></i> model turn</span>
+        <span><i style="background:#4356c0"></i> tool call</span>
+        <span><i style="background:#a86b00"></i> tool result</span>
+        <span><i style="background:#b3261e"></i> error</span>
+      </div>
+    </section>
+  </div>
+
+  <article style="padding: 34px 0 0; max-width: 700px;">
+    <h2>What you just watched</h2>
+    <p>Three things are worth noticing. First, <strong>the model never touches the world directly</strong> — it only emits structured requests ("call <code>read_file</code> with this path"), and ordinary code executes them. Second, <strong>the context window is the agent's entire memory</strong>: every thought, call, and result gets appended, which is why long tasks get expensive and why "context engineering" is a real discipline. Third — flip the failure switch if you haven't — <strong>the loop is the intelligence</strong>. A script would have crashed on the error; the agent reads the error as just another observation and routes around it. That single property is most of what separates agents from automation.</p>
+    <div class="note" style="margin-top:28px;"><strong>Sources &amp; further reading</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building Effective Agents — Anthropic</a> and <a href="https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf">OpenAI’s A Practical Guide to Building Agents</a>: the architecture this simulation animates.</li>
+      <li>Costs shown are illustrative averages, not quotes — check current <a href="https://docs.claude.com/en/docs/about-claude/models">model pricing</a>.</li>
+    </ul>
+  </div>
+
+  </article>
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap explainer-wrap" style="padding-left:0; padding-right:0;">
+    © 2026 Ranjita Naik · <a href="mailto:ranjitawrites@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var COST_PER_CALL = 0.014; // illustrative avg $/model call at current mid-tier pricing
+
+  function buildSteps(fail) {
+    var s = [];
+    s.push({ node: "goal", edge: null, msg: { cls: "system", who: "system prompt + tools", body: "You are a helpful finance assistant. Tools available: <code>list_files</code>, <code>read_file</code>, <code>calculator</code>, <code>send_email</code>. Work step by step; stop when the goal is met." }, narr: "Setup. Before anything runs, the context window is loaded with instructions and tool definitions. This alone costs ~800 tokens — agents pay rent on every token, every model call.", tok: 800 });
+    s.push({ node: "goal", edge: "e-goal-model", msg: { cls: "user", who: "user", body: "How much did we spend on software subscriptions last quarter? Email me a summary." }, narr: "The goal arrives. Note what's NOT here: no steps, no file names, no plan. Working that out is the agent's job.", tok: 40 });
+    s.push({ node: "model", edge: null, call: true, iter: true, msg: { cls: "model", who: "model · turn 1", body: "I need the subscription data first. I'll see what files exist in the finance folder." }, narr: "Model call #1. The model reads the whole context and decides an action. This 'thought' is generated text — planning is just prediction, steered by the instructions.", tok: 60 });
+    s.push({ node: "tool", edge: "e-model-tool", tool: true, msg: { cls: "toolcall", who: "tool call", body: "<code>list_files(\"finance/\")</code>" }, narr: "The model emits a structured tool call. It cannot list files itself — plain code receives this request and runs it. This boundary — plain code, not the model, deciding what actually runs — is where a lot of agent safety lives.", tok: 25 });
+    s.push({ node: "obs", edge: "e-tool-obs", msg: { cls: "toolresult", who: "observation", body: "[\"q2_subscriptions.csv\", \"q1_subscriptions.csv\", \"payroll_2026.xlsx\", \"receipts/\"]" }, narr: "The result is appended to the context as an observation. The model hasn't seen it yet — it will on its next turn.", tok: 45 });
+
+    if (fail) {
+      s.push({ node: "model", edge: "e-obs-model", call: true, iter: true, msg: { cls: "model", who: "model · turn 2", body: "Last quarter is Q2. <code>q2_subscriptions.csv</code> is the file I need." }, narr: "Model call #2. New context, new decision. It picked the right file by reasoning over the observation — nothing was hard-coded.", tok: 55 });
+      s.push({ node: "tool", edge: "e-model-tool", tool: true, msg: { cls: "toolcall", who: "tool call", body: "<code>read_file(\"finance/q2_subscriptions.csv\")</code>" }, narr: "Second tool call goes out.", tok: 25 });
+      s.push({ node: "obs", edge: "e-tool-obs", msg: { cls: "error", who: "observation · error", body: "ERROR: file is locked by another process (finance_sync.exe). Try again later or use a copy." }, narr: "⚠ The failure. Here's the whole ballgame: to the agent this error is not an exception — it's just another observation. Watch what it does with it.", tok: 40 });
+      s.push({ node: "model", edge: "e-obs-model", call: true, iter: true, msg: { cls: "model", who: "model · turn 3", body: "The file is locked. The listing showed a <code>receipts/</code> folder — but faster: sync copies usually exist. I'll check for a copy, falling back to retrying." }, narr: "Model call #3. Recovery, unprompted. No one wrote a rule for 'file locked' — the model read the error and formed a plan B. A script dies here; a loop adapts.", tok: 70 });
+      s.push({ node: "tool", edge: "e-model-tool", tool: true, msg: { cls: "toolcall", who: "tool call", body: "<code>read_file(\"finance/q2_subscriptions.csv\", mode=\"snapshot_copy\")</code>" }, narr: "It retries with a different strategy.", tok: 30 });
+    } else {
+      s.push({ node: "model", edge: "e-obs-model", call: true, iter: true, msg: { cls: "model", who: "model · turn 2", body: "Last quarter is Q2. <code>q2_subscriptions.csv</code> is the file I need." }, narr: "Model call #2. Each loop turn re-reads the ENTIRE context — the model is stateless; the appended history is the only memory it has.", tok: 55 });
+      s.push({ node: "tool", edge: "e-model-tool", tool: true, msg: { cls: "toolcall", who: "tool call", body: "<code>read_file(\"finance/q2_subscriptions.csv\")</code>" }, narr: "Second tool call. Notice the rhythm settling in: decide → act → observe.", tok: 25 });
+    }
+
+    s.push({ node: "obs", edge: "e-tool-obs", msg: { cls: "toolresult", who: "observation", body: "12 rows · monthly: Figma 45.00, Slack 87.50, Notion 96.00, AWS 412.80, HubSpot 890.00, Zoom 79.90, GitHub 84.00, Linear 64.00, Datadog 231.00, Google WS 144.00, 1Password 35.88, Adobe 119.88 — monthly total column absent." }, narr: "Real data lands in context (~180 tokens of it). One catch: no total column. The model will have to compute — and LLMs are unreliable calculators, which is exactly why a calculator tool exists.", tok: 180 });
+    s.push({ node: "model", edge: "e-obs-model", call: true, iter: true, msg: { cls: "model", who: "model · turn " + (fail ? 4 : 3), body: "I should not do this arithmetic in my head. Summing 12 monthly fees, then ×3 for the quarter — I'll use the calculator." }, narr: "Model call #" + (fail ? 4 : 3) + ". A well-instructed agent knows its own weaknesses. Delegating arithmetic to a tool is the difference between a right answer and a plausible one.", tok: 60 });
+    s.push({ node: "tool", edge: "e-model-tool", tool: true, msg: { cls: "toolcall", who: "tool call", body: "<code>calculator(\"(45+87.50+96+412.80+890+79.90+84+64+231+144+35.88+119.88)*3\")</code>" }, narr: "Deterministic code does the math.", tok: 35 });
+    s.push({ node: "obs", edge: "e-tool-obs", msg: { cls: "toolresult", who: "observation", body: "6869.88" }, narr: "$6,869.88 for the quarter. The number is now in context, computed — not hallucinated.", tok: 15 });
+    s.push({ node: "model", edge: "e-obs-model", call: true, iter: true, msg: { cls: "model", who: "model · turn " + (fail ? 5 : 4), body: "I have everything. Drafting the summary email now." }, narr: "Model call #" + (fail ? 5 : 4) + ". Goal check happens every turn: is anything missing? Not anymore — time for the final action.", tok: 50 });
+    s.push({ node: "tool", edge: "e-model-tool", tool: true, msg: { cls: "toolcall", who: "tool call", body: "<code>send_email(to=\"ranjita@…\", subject=\"Q2 software subscriptions: $6,869.88\", body=\"12 active subscriptions · $2,289.96/mo · top 3: HubSpot $890, AWS $412.80, Datadog $231 …\")</code>" }, narr: "The consequential action. In production this is where you'd put a guardrail — spending money and sending messages are the actions that deserve human approval gates.", tok: 90 });
+    s.push({ node: "obs", edge: "e-tool-obs", msg: { cls: "toolresult", who: "observation", body: "{ \"status\": \"sent\", \"id\": \"em_8842\" }" }, narr: "Confirmation lands in context.", tok: 15 });
+    s.push({ node: "done", edge: "e-model-done", call: true, msg: { cls: "model", who: "model · final", body: "Done — Q2 software subscription spend was $6,869.88 across 12 services ($2,289.96/mo). Summary emailed. ✓" }, narr: "The model decides the goal is met and answers WITHOUT calling a tool — and that absence of a tool call is literally the exit condition. The loop ends. Total: " + (fail ? "6" : "5") + " model calls, " + (fail ? "5" : "4") + " tool calls, ≈$" + ((fail ? 6 : 5) * COST_PER_CALL).toFixed(2) + ". Multiply by thousands of runs and you see why cost is a design constraint, not a footnote.", tok: 70 });
+    return s;
+  }
+
+  var steps = buildSteps(false), idx = -1, timer = null;
+  var calls = 0, tools = 0, iters = 0, tok = 0;
+
+  function setNode(active) {
+    ["n-goal", "n-model", "n-tool", "n-obs", "n-done"].forEach(function (n) { $(n).classList.remove("active"); });
+    ["e-goal-model", "e-model-tool", "e-tool-obs", "e-obs-model", "e-model-done"].forEach(function (e) { $(e).classList.remove("active"); });
+    if (active.node === "goal") $("n-goal").classList.add("active");
+    else $("n-" + active.node).classList.add("active");
+    if (active.edge) $(active.edge).classList.add("active");
+  }
+
+  function step() {
+    if (idx >= steps.length - 1) return;
+    idx++;
+    var s = steps[idx];
+    if (s.call) calls++;
+    if (s.tool) tools++;
+    if (s.iter) iters++;
+    tok += s.tok;
+    setNode(s);
+    var d = document.createElement("div");
+    d.className = "msg " + s.msg.cls;
+    d.innerHTML = "<span class='who'>" + s.msg.who + "</span>" + s.msg.body;
+    $("msglog").appendChild(d);
+    $("msglog").scrollTop = $("msglog").scrollHeight;
+    $("stepno").textContent = "Step " + (idx + 1) + " of " + steps.length;
+    $("narr").innerHTML = s.narr;
+    $("cIter").textContent = iters;
+    $("cCalls").textContent = calls;
+    $("cTools").textContent = tools;
+    $("cCost").textContent = "$" + (calls * COST_PER_CALL).toFixed(3);
+    $("ctxfill").style.width = Math.min(100, (tok / 2000) * 100) + "%";
+    $("ctxtok").textContent = tok.toLocaleString() + " tokens";
+    if (idx >= steps.length - 1) { $("btnStep").disabled = true; stopPlay(); }
+  }
+
+  function reset() {
+    stopPlay();
+    steps = buildSteps($("chkFail").checked);
+    idx = -1; calls = 0; tools = 0; iters = 0; tok = 0;
+    $("msglog").innerHTML = "";
+    $("btnStep").disabled = false;
+    $("stepno").textContent = "Ready";
+    $("narr").innerHTML = "Press <strong>Step</strong> to begin." + ($("chkFail").checked ? " Failure injection is ON — a tool call will break partway through." : "");
+    $("cIter").textContent = "0"; $("cCalls").textContent = "0"; $("cTools").textContent = "0"; $("cCost").textContent = "$0.000";
+    $("ctxfill").style.width = "0%"; $("ctxtok").textContent = "0 tokens";
+    setNode({ node: "goal", edge: null });
+    ["n-goal"].forEach(function (n) { $(n).classList.remove("active"); });
+  }
+
+  function stopPlay() { if (timer) { clearInterval(timer); timer = null; $("btnPlay").textContent = "▶ Auto-play"; } }
+
+  $("btnStep").addEventListener("click", function () { stopPlay(); step(); });
+  $("btnPlay").addEventListener("click", function () {
+    if (timer) { stopPlay(); return; }
+    if (idx >= steps.length - 1) reset();
+    $("btnPlay").textContent = "❚❚ Pause";
+    step();
+    timer = setInterval(function () { if (idx >= steps.length - 1) stopPlay(); else step(); }, 2400);
+  });
+  $("btnReset").addEventListener("click", reset);
+  $("chkFail").addEventListener("change", reset);
+})();
+</script>
+
+<!-- Analytics (activate when ready): create a free account at goatcounter.com,
+     then uncomment the line below and replace MYSITE with your GoatCounter code. Privacy-friendly, no cookie banner needed.
+<script data-goatcounter="https://MYSITE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+-->
+</body>
+</html>

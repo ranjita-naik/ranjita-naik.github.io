@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="Learn agents from scratch — the visual path — Ranjita Naik">
+<meta property="og:description" content="A free, visual, from-scratch learning path for AI agents: no framework required, every concept animated, honest about costs and failure modes.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/learn/index.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik — all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>Learn agents from scratch — the visual path — Ranjita Naik</title>
+<meta name="description" content="A free, visual, from-scratch learning path for AI agents: no framework required, every concept animated, honest about costs and failure modes.">
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+<style>
+.unit { display: flex; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-bottom: 12px; }
+.unit .num { flex: 0 0 44px; height: 44px; border-radius: 10px; background: #e4f2ee; color: var(--accent-dark); font-weight: 800; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; }
+.unit.planned .num { background: #f0ede6; color: var(--muted); }
+.unit h3 { margin: 0 0 4px; font-size: 1.08rem; }
+.unit p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.unit .viz { display: inline-block; margin-top: 7px; font-size: 0.8rem; font-weight: 600; color: var(--accent-dark); background: #e4f2ee; border-radius: 20px; padding: 2px 11px; }
+.unit.planned .viz { color: var(--muted); background: #f0ede6; }
+.badge-live { font-size: 0.72rem; font-weight: 700; color: #fff; background: var(--accent); border-radius: 20px; padding: 2px 9px; vertical-align: 2px; margin-left: 8px; }
+.badge-soon { font-size: 0.72rem; font-weight: 700; color: var(--muted); background: #f0ede6; border-radius: 20px; padding: 2px 9px; vertical-align: 2px; margin-left: 8px; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+    <nav><a href="mailto:ranjitawrites@gmail.com">Email</a></nav>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="All posts, grouped by month">
+  <div class="sb-title">All posts</div>
+  <details class="sb-group" open>
+    <summary>July 2026</summary>
+    <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 20</span><span>The agent loop, animated</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 21</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage, no code</span></a>
+  </details>
+</aside>
+<main class="content">
+  <section class="hero">
+    <div class="kicker">The visual path</div>
+    <h1>Learn AI agents from scratch.</h1>
+    <p class="lead">No framework required. Every concept starts at first principles and gets a visualization you can actually play with. Free, honest about costs and failure modes, and updated as the field moves.</p>
+  </section>
+
+  <div class="note" style="margin-bottom: 22px;">Why from scratch? Because it's what the best builders recommend — Anthropic's own guidance is to understand the underlying loop before reaching for frameworks. Most courses skip that step. This path <em>is</em> that step.</div>
+
+  <div class="unit">
+    <div class="num">0</div>
+    <div>
+      <h3>What is an agent, really? <span class="badge-live">LIVE</span></h3>
+      <p>The think–act–observe loop that every agent — every framework, every vendor — is built on. Never touched any of this before? Begin with the <a href="../posts/start-here-llms-and-agents.html">true-zero explainer</a> (assumes nothing, not even "LLM"), then the <a href="../posts/what-is-an-ai-agent.html">plain-English deep dive</a>, then run the machine yourself.</p>
+      <span class="viz">▶ Interactive: <a href="agent-loop.html" style="color:inherit;">The agent loop, animated</a> — step through a real task, inject a failure, watch it recover</span>
+    </div>
+  </div>
+
+  <div class="unit">
+    <div class="num">1</div>
+    <div>
+      <h3>Build one — the easy way <span class="badge-live">LIVE</span></h3>
+      <p>Install an agent (Claude Code), describe what you want, and watch it build a real webpage — no coding. The fastest way to feel what agents do.</p>
+      <span class="viz">▶ Tutorial: <a href="build-with-an-agent.html" style="color:inherit;">build a webpage with an AI agent, no code</a></span>
+    </div>
+  </div>
+
+  <div class="unit planned">
+    <div class="num">2</div>
+    <div>
+      <h3>Tools &amp; MCP <span class="badge-soon">COMING</span></h3>
+      <p>How tool definitions actually work, why schema quality is prompt engineering in disguise, and why the Model Context Protocol became the USB of agents.</p>
+      <span class="viz">Planned interactive: tool-schema playground</span>
+    </div>
+  </div>
+
+  <div class="unit planned">
+    <div class="num">3</div>
+    <div>
+      <h3>Memory &amp; context engineering <span class="badge-soon">COMING</span></h3>
+      <p>The context window is the agent's whole world. Token budgets, "lost in the middle," summarization, and just-in-time retrieval.</p>
+      <span class="viz">Planned interactive: context-window budget visualizer</span>
+    </div>
+  </div>
+
+  <div class="unit planned">
+    <div class="num">4</div>
+    <div>
+      <h3>Workflow patterns <span class="badge-soon">COMING</span></h3>
+      <p>The six composable patterns from Anthropic's guide — chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer, full agents — animated side by side, with a rule for when each earns its complexity.</p>
+      <span class="viz">Planned interactive: pattern picker — describe your task, see which pattern fits</span>
+    </div>
+  </div>
+
+  <div class="unit planned">
+    <div class="num">5</div>
+    <div>
+      <h3>Multi-agent systems <span class="badge-soon">COMING</span></h3>
+      <p>Manager and handoff architectures, when a second agent actually helps, and when "multi-agent" is a demo trick wearing a suit.</p>
+      <span class="viz">Planned interactive: message-passing visualization</span>
+    </div>
+  </div>
+
+  <div class="unit planned">
+    <div class="num">6</div>
+    <div>
+      <h3>Evaluation &amp; reliability <span class="badge-soon">COMING</span></h3>
+      <p>The most underserved topic in the field: how do you know your agent works? Trace review, eval sets, failure taxonomies.</p>
+      <span class="viz">Planned interactive: failure-mode explorer</span>
+    </div>
+  </div>
+
+  <div class="unit planned">
+    <div class="num">7</div>
+    <div>
+      <h3>Costs, guardrails &amp; production <span class="badge-soon">COMING</span></h3>
+      <p>Real API bills from real projects, approval gates for consequential actions, and what it takes to run an agent someone else depends on.</p>
+      <span class="viz">Planned interactive: agent cost calculator</span>
+    </div>
+  </div>
+
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    © 2026 Ranjita Naik · <a href="mailto:ranjitawrites@gmail.com">Email</a>
+  </div>
+</footer>
+
+<!-- Analytics (activate when ready): create a free account at goatcounter.com,
+     then uncomment the line below and replace MYSITE with your GoatCounter code. Privacy-friendly, no cookie banner needed.
+<script data-goatcounter="https://MYSITE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+-->
+</body>
+</html>
