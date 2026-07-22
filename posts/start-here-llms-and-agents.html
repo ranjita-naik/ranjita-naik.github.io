@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="Start here: AI, LLMs, and agents — explained like you're smart but new — Ranjita Naik">
+<meta property="og:description" content="A from-zero explainer: what an LLM actually is, what an agent is, and why people are talking about them. No background needed.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/posts/start-here-llms-and-agents.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik — all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>Start here: AI, LLMs, and agents — explained like you're smart but new — Ranjita Naik</title>
+<meta name="description" content="A from-zero explainer: what an LLM actually is, what an agent is, and why people are talking about them. No background needed.">
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+<style>
+.diagram { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin: 24px 0; }
+.diagram svg { width: 100%; height: auto; display: block; }
+.diagram .cap { font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 8px; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+    <nav><a href="mailto:ranjitawrites@gmail.com">Email</a></nav>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="All posts, grouped by month">
+  <div class="sb-title">All posts</div>
+  <details class="sb-group" open>
+    <summary>July 2026</summary>
+    <a class="sb-item on" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 20</span><span>The agent loop, animated</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 21</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage, no code</span></a>
+  </details>
+</aside>
+<main class="content">
+  <article>
+    <h1>Start here: AI, LLMs, and agents — explained like you're smart but new</h1>
+    <div class="meta">19 July 2026</div>
+
+    <p>This page assumes exactly nothing. Not what "LLM" stands for, not how ChatGPT works, nothing. If you're smart but new to all of this, you're the exact person it was written for. Ten minutes from now, the AI conversation happening around you will make sense.</p>
+
+    <h2>1. The machine that finishes sentences</h2>
+    <p>Start with something you already know: when your phone suggests the next word while you type, it's predicting what usually comes next. Now imagine that idea scaled up absurdly. Instead of learning from your texting habits, a system learns from a huge portion of everything humans have ever written — books, articles, code, conversations. That system is called a <strong>large language model</strong>, or <strong>LLM</strong>. ("Large" because of its scale, "language" because it works with text, "model" because it's a mathematical representation of patterns.)</p>
+    <p>Here's the surprising part, the part that even experts didn't fully expect: when you get good enough at predicting what text comes next, something that looks a lot like understanding emerges. To correctly finish the sentence "The doctor told the patient that the biopsy results were…", you need to grasp medicine, emotion, and how conversations work. Prediction at this scale forces competence. That's the whole trick — and it's why an LLM can draft your email, explain a contract, or write working computer code. ChatGPT, Claude, and Gemini are all LLMs with a chat interface wrapped around them.</p>
+
+    <h2>2. What the chatbot can't do</h2>
+    <p>Talk to one of these chatbots and it feels capable of anything. But notice what's actually happening: <strong>it only produces words</strong>. Ask it "what's the cheapest flight to Delhi next month?" and it can tell you <em>how</em> to find out — it cannot go look. It has no hands. It can't open a website, check your calendar, read the file on your desktop, or send an email. It's a brilliant advisor locked in a room with no phone and no door, passing you notes.</p>
+    <p>For the first couple of years of this AI wave, that's what everyone used: a note-passing genius. Useful! But every actual <em>action</em> still fell to you.</p>
+
+    <h2>3. Give it hands, and a loop</h2>
+    <p>So engineers asked the obvious question: what if we let the words <em>do</em> things? The mechanism is simpler than you'd guess. You tell the LLM: "if you write a specially formatted note like <em>search_flights(Delhi, March)</em>, our ordinary software will run that search and paste the results back to you." Those hookups are called <strong>tools</strong>. And then you add one more ingredient: instead of answering once and stopping, the system runs in a <strong>loop</strong> — look at the situation, decide the next small step, take it, look again — until the job is done.</p>
+    <p>An LLM plus tools plus a loop is called an <strong>agent</strong>. That's the word behind all the headlines, and now you know the entire recipe.</p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 760 240" role="img" aria-label="Diagram: an LLM only turns text into text. An agent wraps an LLM with tools and a repeating loop, so it can take actions in the world.">
+        <!-- panel 1: LLM -->
+        <rect x="10" y="30" width="330" height="180" rx="14" fill="#ffffff" stroke="#e7e3da" stroke-width="1.5"/>
+        <text x="175" y="60" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2430">A CHATBOT (just an LLM)</text>
+        <rect x="40" y="90" width="80" height="44" rx="8" fill="#f7effa" stroke="#8a4f9e" stroke-width="2"/>
+        <text x="80" y="116" text-anchor="middle" font-size="12" fill="#1f2430">your words</text>
+        <path d="M 124 112 L 158 112" stroke="#5c6370" stroke-width="2" marker-end="url(#arr)"/>
+        <rect x="162" y="84" width="70" height="56" rx="10" fill="#e9f6f2" stroke="#0e8a72" stroke-width="2"/>
+        <text x="197" y="116" text-anchor="middle" font-size="13" font-weight="700" fill="#0a5c4f">LLM</text>
+        <path d="M 236 112 L 270 112" stroke="#5c6370" stroke-width="2" marker-end="url(#arr)"/>
+        <rect x="274" y="90" width="52" height="44" rx="8" fill="#faf3e4" stroke="#a86b00" stroke-width="2"/>
+        <text x="300" y="116" text-anchor="middle" font-size="12" fill="#1f2430">words</text>
+        <text x="175" y="180" text-anchor="middle" font-size="12" fill="#5c6370">words in → words out. It can only advise.</text>
+        <!-- panel 2: agent -->
+        <rect x="380" y="30" width="370" height="180" rx="14" fill="#ffffff" stroke="#0e8a72" stroke-width="2"/>
+        <text x="565" y="60" text-anchor="middle" font-size="15" font-weight="700" fill="#0a5c4f">AN AGENT (LLM + tools + loop)</text>
+        <rect x="480" y="84" width="70" height="56" rx="10" fill="#e9f6f2" stroke="#0e8a72" stroke-width="2"/>
+        <text x="515" y="116" text-anchor="middle" font-size="13" font-weight="700" fill="#0a5c4f">LLM</text>
+        <rect x="620" y="84" width="104" height="56" rx="10" fill="#eef0fb" stroke="#4356c0" stroke-width="2"/>
+        <text x="672" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#4356c0">TOOLS</text>
+        <text x="672" y="126" text-anchor="middle" font-size="9" fill="#5c6370">search · files · email</text>
+        <path d="M 554 100 C 580 92, 600 92, 624 100" stroke="#4356c0" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+        <text x="590" y="86" text-anchor="middle" font-size="10" fill="#4356c0">"do this"</text>
+        <path d="M 624 128 C 600 136, 580 136, 554 128" stroke="#a86b00" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+        <text x="590" y="152" text-anchor="middle" font-size="10" fill="#a86b00">result</text>
+        <path d="M 470 112 C 440 140, 440 170, 500 174 C 560 178, 560 150, 545 138" stroke="#0e8a72" stroke-width="2" fill="none" marker-end="url(#arr)" stroke-dasharray="5 4"/>
+        <text x="470" y="196" text-anchor="middle" font-size="11" fill="#0a5c4f" font-weight="600">repeat until done</text>
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5c6370"/></marker></defs>
+      </svg>
+      <div class="cap">The entire difference between a chatbot and an agent, in one picture.</div>
+    </div>
+
+    <h2>4. A concrete example</h2>
+    <p>Tell an agent: "Find out how much we spent on software subscriptions last quarter and email me a summary." Watch what it does: it decides it needs data, uses a tool to list your files, spots the right spreadsheet, reads it, notices there's no total column, uses a calculator tool (LLMs are bad at arithmetic, and good agents know their own weaknesses), then sends the email — and, importantly, <em>decides for itself</em> that the job is finished. If a file is locked or a website is down, it reads the error and tries another route, the way a resourceful assistant would. You can watch precisely this scenario play out, step by step, in our <a href="../learn/agent-loop.html">interactive explainer</a> — built for exactly the moment you finish this page.</p>
+
+    <h2>5. Why everyone suddenly cares</h2>
+    <p>Because "software you instruct in plain English, which then goes and does multi-step work" is a different economic object than "software that answers questions." Businesses are deploying agents for customer support, research, hiring pipelines, and coding — analysts at <a href="https://www.firecrawl.dev/blog/agentic-ai-trends">Gartner (via Firecrawl)</a> project that a third of enterprise software will include agentic features by 2028. And because the field is this young, the gap between people who genuinely understand it and people who confidently talk about it is still wide — and you’ve now got the actual concept, not just the vocabulary.</p>
+
+    <h2>6. Fair warnings</h2>
+    <p>Agents fail in ways worth knowing about. They can be confidently wrong, and an agent that acts on a wrong belief does wrong <em>things</em>, not just wrong sentences. They cost real money — every "thought" is a paid computation. And giving software the ability to send emails or spend money means the boring engineering around permissions and checks matters more than the exciting part. Anyone who sells you agents without mentioning any of this is selling, not explaining.</p>
+
+    <div class="note" style="margin-top:28px;"><strong>Sources &amp; further reading</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building Effective Agents — Anthropic</a>: one of the most widely referenced practitioner guides, and your next level of depth.</li>
+      <li><a href="https://lilianweng.github.io/posts/2023-06-23-agent/">LLM Powered Autonomous Agents — Lilian Weng</a>: origin of the “agent = LLM + memory + planning + tools” framing this post builds on.</li>
+      <li>Enterprise-adoption projection: Gartner, via <a href="https://www.firecrawl.dev/blog/agentic-ai-trends">Firecrawl’s 2026 trends roundup</a> (secondary source — the primary report is paywalled, and we say so).</li>
+    </ul>
+  </div>
+  </article>
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    © 2026 Ranjita Naik · <a href="mailto:ranjitawrites@gmail.com">Email</a>
+  </div>
+</footer>
+
+<!-- Analytics (activate when ready): create a free account at goatcounter.com,
+     then uncomment the line below and replace MYSITE with your GoatCounter code. Privacy-friendly, no cookie banner needed.
+<script data-goatcounter="https://MYSITE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+-->
+</body>
+</html>

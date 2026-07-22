@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="What actually is an AI agent? — Ranjita Naik">
+<meta property="og:description" content="Agentic AI, taught from scratch and visually.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/posts/what-is-an-ai-agent.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik — all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>What actually is an AI agent? — Ranjita Naik</title>
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+    <nav><a href="mailto:ranjitawrites@gmail.com">Email</a></nav>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="All posts, grouped by month">
+  <div class="sb-title">All posts</div>
+  <details class="sb-group" open>
+    <summary>July 2026</summary>
+    <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 20</span><span>The agent loop, animated</span></a>
+    <a class="sb-item on" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 21</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage, no code</span></a>
+  </details>
+</aside>
+<main class="content">
+  <article>
+    <h1>What actually is an AI agent? A plain-English guide</h1>
+    <div class="meta">21 July 2026</div>
+
+    <p>You've heard the term in every product announcement and vendor pitch this year. Here's the simplest useful definition I've found:</p>
+
+    <blockquote>A chatbot answers your question. An agent takes on your goal.</blockquote>
+
+    <p>When you ask ChatGPT or Claude "how do I get a refund from this airline?", you get advice. That's a chatbot interaction: one question, one answer, and then it's your job to go do the thing. An <strong>agent</strong> is what you get when the AI can go do the thing itself — look up the booking, fill in the refund form, draft the complaint email, check back for a response — deciding step by step what to do next until the goal is reached or it needs your input.</p>
+
+    <h2>The three ingredients</h2>
+    <p>Strip away the jargon and almost every agent is a language model plus three capabilities. First, <strong>tools</strong>: the model can call things outside itself — search the web, read files, query a database, send an email. Second, <strong>memory and state</strong>: it keeps track of what it has already done and what it learned along the way, so step five can build on step two. Third, a <strong>loop</strong>: instead of answering once and stopping, it repeatedly observes the situation, decides on the next action, acts, and checks the result. That loop is the "agentic" part — it's what lets the system recover when step three fails and try a different route.</p>
+
+    <p>That's it. When a vendor says "agentic AI," a good mental test is to ask: what tools can it use, what does it remember, and what happens when a step fails? If the answers are vague, you're probably looking at a chatbot in a trench coat.</p>
+
+    <h2>Why is everyone suddenly talking about this?</h2>
+    <p>Two things changed. The models got reliable enough at multi-step reasoning to be trusted with sequences of actions, not just single answers. And the plumbing got standardized — protocols like MCP (Model Context Protocol) give agents a common way to connect to tools and data, the way USB gave devices a common way to connect to computers. The result is that agents moved from research demos to production surprisingly fast: <a href="https://www.firecrawl.dev/blog/agentic-ai-trends">Gartner (via Firecrawl)</a> projects that a third of enterprise software will include agentic AI by 2028, and that by 2029 the majority of routine customer service issues will be resolved without a human touching them.</p>
+
+    <h2>What agents are actually good at today</h2>
+    <p>The real picture is jagged. Agents shine where the work is made of verifiable steps — code, data processing, research and summarization, structured workflows like triaging support tickets or screening applications — because at each step there's a way to check whether the step worked. They struggle where success is fuzzy, stakes are high, and mistakes are hard to detect. That's why the first wave of real deployments is concentrated in software development, customer support, and back-office workflows, not in open-ended judgment calls.</p>
+
+    <h2>Questions worth asking before you build (or buy) one</h2>
+    <p>If you're a business owner wondering whether this matters for you yet, skip the technology and start with the workflow. Look for a task your team does repeatedly that follows a recognizable pattern but carries too much variation for old-school automation. Check that you can describe what "done correctly" looks like clearly enough for a system to verify its own work. And weigh the cost of the agent getting it wrong once — a minor annoyance is survivable, a fired customer is not. Tasks that are repetitive, pattern-shaped, checkable, and low-blast-radius when they fail are where agents earn their keep today. Everything else can wait, and waiting is a legitimate strategy.</p>
+
+    <div class="note" style="margin-top:28px;"><strong>Sources &amp; further reading</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building Effective Agents — Anthropic</a>: source of the workflows-vs-agents distinction.</li>
+      <li><a href="https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf">A Practical Guide to Building Agents — OpenAI (PDF)</a>: the “when to build one” questions draw on it.</li>
+      <li><a href="https://modelcontextprotocol.io">modelcontextprotocol.io</a>: the official MCP documentation.</li>
+      <li>Gartner projections via <a href="https://www.firecrawl.dev/blog/agentic-ai-trends">Firecrawl’s 2026 trends roundup</a> (secondary source); the “jagged, verifiable-first” framing is Andrej Karpathy’s.</li>
+    </ul>
+  </div>
+  </article>
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    © 2026 Ranjita Naik · <a href="mailto:ranjitawrites@gmail.com">Email</a>
+  </div>
+</footer>
+
+<!-- Analytics (activate when ready): create a free account at goatcounter.com,
+     then uncomment the line below and replace MYSITE with your GoatCounter code. Privacy-friendly, no cookie banner needed.
+<script data-goatcounter="https://MYSITE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+-->
+</body>
+</html>
