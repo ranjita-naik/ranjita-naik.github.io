@@ -204,6 +204,11 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 .unit.planned .viz { color: var(--muted); background: #f0ede6; }
 .badge-live { font-size: 0.72rem; font-weight: 700; color: #fff; background: var(--accent); border-radius: 20px; padding: 2px 9px; vertical-align: 2px; margin-left: 8px; }
 .badge-soon { font-size: 0.72rem; font-weight: 700; color: var(--muted); background: #f0ede6; border-radius: 20px; padding: 2px 9px; vertical-align: 2px; margin-left: 8px; }
+.unit > div { flex: 1 1 auto; min-width: 0; }
+.pathintro { font-family: var(--serif); font-size: 1.02rem; color: var(--muted); margin: 4px 0 6px; }
+.layer { margin: 30px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.layer .lname { font-family: var(--sans); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--accent-dark); }
+.layer .lq { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); margin-top: 3px; }
 </style>
 </head>
 <body>
@@ -235,8 +240,11 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 
   <div class="note" style="margin-bottom: 22px;">Why from scratch? Because it's what the best builders recommend — Anthropic's own guidance is to understand the underlying loop before reaching for frameworks. Most courses skip that step. This path <em>is</em> that step.</div>
 
+  <p class="pathintro">The path builds in four layers — what an agent <strong>knows</strong>, what it can <strong>do</strong>, the <strong>skills</strong> it reuses, and how the work gets <strong>coordinated</strong> — one rung at a time. Start at the top and read down.</p>
+
+  <div class="layer"><div class="lname">Start here</div><div class="lq">Get your bearings, then build one with your own hands.</div></div>
+
   <div class="unit">
-    <div class="num">0</div>
     <div>
       <h3>What is an agent, really? <span class="badge-live">LIVE</span></h3>
       <p>The think–act–observe loop that every agent — every framework, every vendor — is built on. Never touched any of this before? Begin with the <a href="../posts/start-here-llms-and-agents.html">true-zero explainer</a> (assumes nothing, not even "LLM"), then the <a href="../posts/what-is-an-ai-agent.html">plain-English deep dive</a>, then run the machine yourself.</p>
@@ -245,7 +253,6 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
   </div>
 
   <div class="unit">
-    <div class="num">1</div>
     <div>
       <h3>Build one — the easy way <span class="badge-live">LIVE</span></h3>
       <p>Install an agent (Claude Code), describe what you want, and watch it build a real webpage — no coding. The fastest way to feel what agents do.</p>
@@ -253,8 +260,9 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     </div>
   </div>
 
+  <div class="layer"><div class="lname">Layer 1 · Foundation</div><div class="lq">What the agent knows before it starts — its context and memory.</div></div>
+
   <div class="unit">
-    <div class="num">2</div>
     <div>
       <h3>Make it remember <span class="badge-live">LIVE</span></h3>
       <p>Fresh out of the box, an agent forgets everything the moment you close it — so you re-explain yourself every single session. The fix is a <code>CLAUDE.md</code> file: a short set of standing instructions the agent reads every time. From there, the bigger idea behind it — context engineering: token budgets, "lost in the middle," summarization, and just-in-time retrieval.</p>
@@ -262,44 +270,61 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     </div>
   </div>
 
+  <div class="layer"><div class="lname">Layer 2 · Capabilities</div><div class="lq">What the agent can do — reaching past its own memory into real tools.</div></div>
+
   <div class="unit planned">
-    <div class="num">3</div>
     <div>
-      <h3>Tools &amp; MCP <span class="badge-soon">COMING</span></h3>
-      <p>Now it remembers — but it still can't reach your GitHub, your files, or the live web. Tools are how an agent acts on the world; the Model Context Protocol is the standard that plugs it into real systems. How tool definitions actually work, and why schema quality is prompt engineering in disguise.</p>
+      <h3>Tools: give the agent hands <span class="badge-soon">COMING</span></h3>
+      <p>Your agent remembers you now, but it still can't open your files, your GitHub, or the live web. Tools are how it acts on the world — and why a clear tool description turns out to be prompt engineering in disguise.</p>
       <span class="viz">Planned interactive: tool-schema playground</span>
     </div>
   </div>
 
   <div class="unit planned">
-    <div class="num">4</div>
+    <div>
+      <h3>MCP: one plug for every tool <span class="badge-soon">COMING</span></h3>
+      <p>Wiring up each tool by hand gets old fast. MCP — the Model Context Protocol — isn't another capability; it's the standard that lets one connection expose many tools to any agent. What it is, and why it caught on.</p>
+      <span class="viz">Planned interactive: watch an agent plug into an MCP server</span>
+    </div>
+  </div>
+
+  <div class="layer"><div class="lname">Layer 3 · Skills</div><div class="lq">Reusable know-how — a procedure you teach once and call again.</div></div>
+
+  <div class="unit planned">
+    <div>
+      <h3>Skills: teach it once, reuse forever <span class="badge-soon">COMING</span></h3>
+      <p>A skill isn't a tool, a memory, or another agent — it's packaged expertise: the steps for a job you do often, written down so the agent runs them the same way every time. When to reach for one instead of a longer prompt.</p>
+      <span class="viz">Planned interactive: a skill, unpacked step by step</span>
+    </div>
+  </div>
+
+  <div class="layer"><div class="lname">Layer 4 · Workflows</div><div class="lq">How the pieces work together once one agent isn't enough — and what it takes to run in production.</div></div>
+
+  <div class="unit planned">
     <div>
       <h3>Workflow patterns <span class="badge-soon">COMING</span></h3>
-      <p>The six composable patterns from Anthropic's guide — chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer, full agents — animated side by side, with a rule for when each earns its complexity.</p>
+      <p>The composable patterns from Anthropic's guide — chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer — animated side by side, with a rule for when each earns its complexity.</p>
       <span class="viz">Planned interactive: pattern picker — describe your task, see which pattern fits</span>
     </div>
   </div>
 
   <div class="unit planned">
-    <div class="num">5</div>
     <div>
       <h3>Multi-agent systems <span class="badge-soon">COMING</span></h3>
-      <p>Manager and handoff architectures, when a second agent actually helps, and when "multi-agent" is a demo trick wearing a suit.</p>
+      <p>Manager and handoff architectures, when a second agent actually helps, and when "multi-agent" is a demo trick wearing a suit. (A workflow pattern — not a separate kind of thing.)</p>
       <span class="viz">Planned interactive: message-passing visualization</span>
     </div>
   </div>
 
   <div class="unit planned">
-    <div class="num">6</div>
     <div>
-      <h3>Evaluation &amp; reliability <span class="badge-soon">COMING</span></h3>
-      <p>The most underserved topic in the field: how do you know your agent works? Trace review, eval sets, failure taxonomies.</p>
+      <h3>Self-healing &amp; evaluation <span class="badge-soon">COMING</span></h3>
+      <p>How an agent checks and repairs its own work — the write → test → fix loop, also called reflection or evaluator-optimizer — and how you know it actually works: trace review, eval sets, failure taxonomies.</p>
       <span class="viz">Planned interactive: failure-mode explorer</span>
     </div>
   </div>
 
   <div class="unit planned">
-    <div class="num">7</div>
     <div>
       <h3>Costs, guardrails &amp; production <span class="badge-soon">COMING</span></h3>
       <p>Real API bills from real projects, approval gates for consequential actions, and what it takes to run an agent someone else depends on.</p>
@@ -321,9 +346,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
   </div>
 </footer>
 
-<!-- Analytics (activate when ready): create a free account at goatcounter.com,
-     then uncomment the line below and replace MYSITE with your GoatCounter code. Privacy-friendly, no cookie banner needed.
-<script data-goatcounter="https://MYSITE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
--->
+<!-- Analytics: GoatCounter — privacy-friendly, cookie-free -->
+<script data-goatcounter="https://ranjita-naik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
