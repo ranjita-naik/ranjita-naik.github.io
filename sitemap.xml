@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://ranjita-naik.github.io/index.html</loc>
-<lastmod>2026-07-22</lastmod>
+<lastmod>2026-07-23</lastmod>
 </url>
 <url>
 <loc>https://ranjita-naik.github.io/learn/index.html</loc>
-<lastmod>2026-07-22</lastmod>
+<lastmod>2026-07-23</lastmod>
 </url>
 <url>
 <loc>https://ranjita-naik.github.io/learn/agent-loop.html</loc>
@@ -15,6 +15,10 @@
 <url>
 <loc>https://ranjita-naik.github.io/learn/build-with-an-agent.html</loc>
 <lastmod>2026-07-22</lastmod>
+</url>
+<url>
+<loc>https://ranjita-naik.github.io/learn/make-it-remember.html</loc>
+<lastmod>2026-07-23</lastmod>
 </url>
 <url>
 <loc>https://ranjita-naik.github.io/posts/start-here-llms-and-agents.html</loc>

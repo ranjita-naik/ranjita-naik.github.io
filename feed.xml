@@ -7,6 +7,13 @@
 <language>en</language>
 <atom:link href="https://ranjita-naik.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 <item>
+<title>Make it remember — give your AI agent a memory</title>
+<link>https://ranjita-naik.github.io/learn/make-it-remember.html</link>
+<guid isPermaLink="true">https://ranjita-naik.github.io/learn/make-it-remember.html</guid>
+<description>Your agent starts every session with a blank memory, so you keep re-explaining yourself. A small file called CLAUDE.md fixes it — here's how, from first principles.</description>
+<pubDate>Thu, 23 Jul 2026 09:00:00 GMT</pubDate>
+</item>
+<item>
 <title>Build a webpage with an AI agent — no code</title>
 <link>https://ranjita-naik.github.io/learn/build-with-an-agent.html</link>
 <guid isPermaLink="true">https://ranjita-naik.github.io/learn/build-with-an-agent.html</guid>
