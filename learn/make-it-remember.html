@@ -44,7 +44,7 @@ header.site {
   padding: 18px 0;
   background: var(--bg);
 }
-header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 1040px; }
 .logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
 .logo span { color: var(--accent); }
 nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
@@ -149,6 +149,7 @@ footer.site {
   font-size: 0.9rem;
 }
 footer.site a { color: var(--muted); }
+footer.site .wrap { max-width: 1040px; }
 @media (max-width: 520px) {
   h1 { font-size: 1.7rem; }
   .hero { padding: 36px 0 20px; }
