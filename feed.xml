@@ -7,6 +7,13 @@
 <language>en</language>
 <atom:link href="https://ranjita-naik.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 <item>
+<title>Give your agent hands (Tools)</title>
+<link>https://ranjita-naik.github.io/learn/tools.html</link>
+<guid isPermaLink="true">https://ranjita-naik.github.io/learn/tools.html</guid>
+<description>An AI can think brilliantly and still not do a thing. Tools are the piece that lets it act — and the surprising part is the model never sees the code, only your plain-English description.</description>
+<pubDate>Fri, 24 Jul 2026 09:00:00 GMT</pubDate>
+</item>
+<item>
 <title>Make it remember — give your AI agent a memory</title>
 <link>https://ranjita-naik.github.io/learn/make-it-remember.html</link>
 <guid isPermaLink="true">https://ranjita-naik.github.io/learn/make-it-remember.html</guid>
@@ -21,17 +28,17 @@
 <pubDate>Wed, 22 Jul 2026 09:00:00 GMT</pubDate>
 </item>
 <item>
+<title>The Agent Loop (Think → Act → Observe) — an interactive explainer</title>
+<link>https://ranjita-naik.github.io/learn/agent-loop.html</link>
+<guid isPermaLink="true">https://ranjita-naik.github.io/learn/agent-loop.html</guid>
+<description>Step through a real agent run: thoughts, tool calls, a failure and its recovery, with live token and cost counters.</description>
+<pubDate>Tue, 21 Jul 2026 09:00:00 GMT</pubDate>
+</item>
+<item>
 <title>What actually is an AI agent? A plain-English guide</title>
 <link>https://ranjita-naik.github.io/posts/what-is-an-ai-agent.html</link>
 <guid isPermaLink="true">https://ranjita-naik.github.io/posts/what-is-an-ai-agent.html</guid>
 <description>The chatbot-vs-agent distinction, the three ingredients, and the questions worth asking before you build or buy one.</description>
-<pubDate>Tue, 21 Jul 2026 09:00:00 GMT</pubDate>
-</item>
-<item>
-<title>The agent loop, animated — an interactive explainer</title>
-<link>https://ranjita-naik.github.io/learn/agent-loop.html</link>
-<guid isPermaLink="true">https://ranjita-naik.github.io/learn/agent-loop.html</guid>
-<description>Step through a real agent run: thoughts, tool calls, a failure and its recovery, with live token and cost counters.</description>
 <pubDate>Mon, 20 Jul 2026 09:00:00 GMT</pubDate>
 </item>
 <item>
