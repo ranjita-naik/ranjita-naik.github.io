@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="Give your agent hands (Tools) — Ranjita Naik">
+<meta property="og:description" content="An AI can think brilliantly and still not do a thing. Tools are the piece that lets it act — and the surprising part is the model never sees the code, only your plain-English description.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/learn/tools.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik — all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>Give your agent hands (Tools) — Ranjita Naik</title>
+<meta name="description" content="An AI can think brilliantly and still not do a thing. Tools are the piece that lets it act — and the surprising part is the model never sees the code, only your plain-English description.">
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+<style>
+/* ---- reused chat components ---- */
+.promptbox { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: #fff; margin: 16px 0 10px; }
+.promptbox .lbl { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #8a4f9e; display: block; margin-bottom: 6px; }
+.promptbox .txt { font-family: var(--sans); font-size: 0.98rem; line-height: 1.55; color: var(--ink); }
+.agentwork { border-left: 3px solid var(--accent); background: #eef6f3; border-radius: 0 10px 10px 0; padding: 11px 16px; margin: 0 0 16px; font-family: var(--sans); font-size: 0.92rem; }
+.agentwork b { color: var(--accent-dark); }
+.agentwork div { margin: 2px 0; }
+
+/* ---- tool chips (you already used these) ---- */
+.toolchips { display: flex; flex-wrap: wrap; gap: 9px; margin: 16px 0; }
+.tchip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.85rem; font-weight: 700; color: #3444a8; background: #eef0fb; border: 1px solid #c3cbf0; border-radius: 8px; padding: 5px 12px; }
+
+/* ---- tool card (labeled English, never JSON) ---- */
+.toolcard { border: 1.5px solid #4356c0; border-radius: 11px; padding: 12px 15px; background: #fafbff; margin: 14px 0; }
+.toolcard .tn { font-family: var(--mono); font-weight: 700; color: #3444a8; font-size: 0.92rem; margin-bottom: 5px; }
+.toolcard .tr { font-family: var(--sans); font-size: 0.94rem; line-height: 1.5; margin: 2px 0; }
+.toolcard .tr b { color: var(--muted); font-weight: 600; }
+
+/* ---- the memorable line ---- */
+.bigidea { font-family: var(--serif); font-size: 1.4rem; line-height: 1.4; font-weight: 700; color: var(--ink); padding: 4px 0; margin: 24px 0; }
+/* ---- a standalone beat (a callback line, quieter than the big idea) ---- */
+.beat { font-family: var(--serif); font-size: 1.25rem; font-style: italic; color: var(--accent-dark); text-align: center; margin: 20px 0; }
+/* ---- the visibility-line diagram (signature visual) ---- */
+.vizline { width: 100%; height: auto; max-width: 520px; display: block; margin: 20px auto; }
+/* ---- "what the model actually receives" context panel (plain text, never JSON) ---- */
+.ctx { font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; background: #fbfaf7; border: 1px solid var(--line); border-radius: 12px; margin: 18px 0; overflow: hidden; }
+.ctx .ctx-h { font-family: var(--sans); font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); background: #f2efe7; padding: 7px 14px; border-bottom: 1px solid var(--line); }
+.ctx .ctx-b { padding: 13px 15px; }
+.ctx .sys { color: var(--muted); margin-bottom: 10px; }
+.ctx .tool { color: #3444a8; margin: 6px 0; }
+.ctx .tool b { font-weight: 700; }
+.ctx .sub { display: block; color: #7d818b; padding-left: 15px; font-size: 0.78rem; }
+.ctx .divider { border-top: 1px dashed #d9d3c6; margin: 12px 0; }
+.ctx .who2 { font-family: var(--sans); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #8a4f9e; display: block; margin-bottom: 3px; }
+.ctx .user { color: #6e3a80; }
+/* ---- the model's view as one growing "page": white cards = what the model sees, grey striped band = off the page ---- */
+.pagev { background: #efece5; border-radius: 14px; padding: 16px 16px 18px; margin: 22px 0; }
+.pagev-h { padding: 2px 4px 13px; }
+.pagev-h b { display: block; font-family: var(--serif); font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+.pagev-h span { display: block; font-family: var(--sans); font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
+.card { background: #fff; border: 1px solid #e7e3da; border-radius: 10px; padding: 3px 16px; }
+.row { display: grid; grid-template-columns: 30px 1fr; padding: 14px 0; border-top: 1px solid #eee9df; }
+.row:first-child { border-top: 0; }
+.rn { grid-area: 1 / 1; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; color: #b3ada0; }
+.rdot { grid-area: 2 / 1; width: 11px; height: 11px; border-radius: 50%; margin-top: 6px; }
+.rlab { grid-area: 1 / 2; font-family: var(--sans); font-size: 0.82rem; font-weight: 700; margin-bottom: 5px; }
+.rbody { grid-area: 2 / 2; font-family: var(--serif); font-size: 1rem; line-height: 1.5; color: var(--ink); }
+.rbody .ln { display: block; }
+.rbody .li { display: block; padding-left: 18px; margin-top: 4px; position: relative; }
+.rbody .li::before { content: "\2013"; position: absolute; left: 5px; color: #b3ada0; }
+.row.setup .rdot { background: #a7a294; } .row.setup .rlab { color: #7c7768; }
+.row.you .rdot { background: #8a4f9e; } .row.you .rlab { color: #7a4288; }
+.row.model .rdot { background: #0e8a72; } .row.model .rlab { color: #0a5c4f; }
+.row.result .rdot { background: #a86b00; } .row.result .rlab { color: #a86b00; }
+.tchipc { font-family: var(--mono); font-size: 0.82em; font-weight: 700; color: #3444a8; background: #eef0fb; border: 1px solid #d3d9f3; border-radius: 5px; padding: 1px 5px; white-space: nowrap; }
+.offpage { margin: 10px 0; border: 1px dashed #c7c1b2; border-radius: 10px; padding: 12px 16px; background: repeating-linear-gradient(45deg, #eae7df, #eae7df 7px, #e4e0d6 7px, #e4e0d6 14px); }
+.offpage .ol { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #8a8477; margin-bottom: 5px; }
+.offpage .od { font-family: var(--serif); font-size: 0.98rem; color: #4a463e; line-height: 1.5; }
+.offpage .od .tchipc { background: #e2ded4; border-color: #d0ccc0; color: #55606e; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 15px; margin: 13px 2px 0; font-family: var(--sans); font-size: 0.76rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.pagenote { font-family: var(--serif); font-size: 1.05rem; line-height: 1.55; color: #2f3a44; border-left: 4px solid var(--accent); padding: 4px 0 4px 18px; margin: 20px 0; }
+.pagenote b { color: var(--accent-dark); }
+.pagenote .gy { color: #8a8477; font-weight: 700; }
+
+/* ---- signature interactive ---- */
+.sim { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin: 22px 0; }
+.askrow { display: flex; gap: 10px; align-items: baseline; border-left: 3px solid #8a4f9e; background: #f7effa; border-radius: 0 10px 10px 0; padding: 10px 14px; margin-bottom: 14px; }
+.askrow .lbl { font-family: var(--sans); font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #8a4f9e; flex: 0 0 auto; }
+.askrow .q { font-family: var(--sans); font-size: 0.98rem; color: var(--ink); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+.seg button { font: inherit; font-weight: 600; font-size: 0.86rem; border: 0; padding: 8px 14px; cursor: pointer; background: #fff; color: var(--ink); }
+.seg button.on { background: var(--accent); color: #fff; }
+.seghint { font-size: 0.82rem; color: var(--muted); margin: 8px 0 14px; }
+.tools-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .tools-row { grid-template-columns: 1fr; } }
+.tcard { border: 1.5px solid #c3cbf0; border-radius: 11px; padding: 12px 14px 14px; background: #fafbff; transition: box-shadow .2s ease, border-color .2s ease; position: relative; }
+.tcard .tn { font-family: var(--mono); font-weight: 700; color: #3444a8; font-size: 0.86rem; margin-bottom: 6px; }
+.tcard .tr { font-family: var(--sans); font-size: 0.85rem; line-height: 1.45; margin: 2px 0; }
+.tcard .tr b { color: var(--muted); font-weight: 600; }
+.tcard.picked { border-color: #4356c0; border-width: 2px; box-shadow: 0 0 0 3px #eef0fb; }
+.tcard .pickmark { position: absolute; top: 9px; right: 11px; font-size: 0.62rem; font-weight: 700; color: #3444a8; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0; }
+.tcard.picked .pickmark { opacity: 1; }
+.whatsees { font-size: 0.83rem; color: var(--muted); font-style: italic; margin: 13px 0; }
+.msg { border-radius: 10px; padding: 9px 12px; font-size: 0.9rem; line-height: 1.5; border: 1px solid var(--line); background: #fff; margin-top: 8px; }
+.msg .who { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 3px; }
+.msg.model { border-left: 3px solid #0e8a72; } .msg.model .who { color: #0e8a72; }
+.msg.obs   { border-left: 3px solid #a86b00; background: #fffdf7; } .msg.obs .who { color: #a86b00; }
+.verdict { margin-top: 10px; border-radius: 10px; padding: 10px 13px; font-size: 0.9rem; font-weight: 600; }
+.verdict.ok  { background: #e9f6f2; color: #0a5c4f; }
+.verdict.warn{ background: #faf3e4; color: #7a4e00; }
+.verdict.bad { background: #fdf6f5; color: #8f1d16; }
+
+.lockrow { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 6px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans); font-size: 0.86rem; border-radius: 20px; padding: 7px 15px; border: 1px solid var(--line); }
+.chip svg { flex: 0 0 auto; }
+.chip.ok { background: #e9f6f2; color: #0a5c4f; border-color: #bfe3d8; font-weight: 600; }
+.chip.lock { background: #f4f1ea; color: var(--muted); }
+/* ---- MCP cliffhanger visual ---- */
+.wiring { width: 100%; height: auto; max-width: 560px; display: block; margin: 18px auto; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="Posts, grouped by curriculum part">
+  <div class="sb-title">Agents</div>
+  <details class="sb-group" open>
+    <summary>Part I — Foundations</summary>
+    <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 20</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 21</span><span>The Agent Loop</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage with an agent</span></a>
+    <a class="sb-item" href="../learn/make-it-remember.html"><span class="sb-d">Jul 23</span><span>Make it remember</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part II — Capabilities</summary>
+    <a class="sb-item on" href="../learn/tools.html"><span class="sb-d">Jul 24</span><span>Tools: give it hands</span></a>
+  </details>
+</aside>
+<main class="content">
+  <article>
+    <h1>Give your agent hands</h1>
+    <div class="meta">24 July 2026</div>
+
+    <p>Yesterday your agent learned to remember you. A real step — but look at what it still <em>can't</em> do. Ask it to check your code on GitHub (where a lot of people keep their projects online), glance at your calendar, or read a page that's live on the web this second, and it comes up empty. Same three walls we left it staring at last time. Its memory got better; its reach didn't.</p>
+
+    <p>This is what people are really pointing at when they say an AI "can't <em>do</em> anything." It can think brilliantly and still not lift a finger.</p>
+
+    <p class="beat">Thinking isn't doing.</p>
+
+    <p>So today is about giving it hands — and the small, surprising thing that makes them work.</p>
+
+    <div class="lockrow" role="img" aria-label="From last post: memory is done, but the agent still can't reach your GitHub, your calendar, or the live web.">
+      <span class="chip ok"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> Memory · done</span>
+      <span class="chip lock"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V7a6 6 0 1112 0v3h1a1 1 0 011 1v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9a1 1 0 011-1h1zm2 0h8V7a4 4 0 10-8 0v3z" fill="currentColor"/></svg> Your GitHub</span>
+      <span class="chip lock"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V7a6 6 0 1112 0v3h1a1 1 0 011 1v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9a1 1 0 011-1h1zm2 0h8V7a4 4 0 10-8 0v3z" fill="currentColor"/></svg> Your calendar</span>
+      <span class="chip lock"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V7a6 6 0 1112 0v3h1a1 1 0 011 1v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9a1 1 0 011-1h1zm2 0h8V7a4 4 0 10-8 0v3z" fill="currentColor"/></svg> The live web</span>
+    </div>
+
+    <h2>You've already seen this work</h2>
+    <p>Here's the reassuring part: you've watched an agent do things before. When you built that webpage by <a href="build-with-an-agent.html">describing it</a>, the agent wrote a file, changed it, and checked its own work — three real actions, done for you. That's what it looks like when an agent has hands. And those hands have a name: they're called <em>tools</em>. Each of those three actions was one. They even have their own names — Write, Edit, and one called Bash — but the names don't matter yet. What matters is you've already watched tools work. You just never saw them called that.</p>
+
+    <div class="toolchips" role="img" aria-label="Three tools you already used in the build tutorial: Write, Edit, Bash.">
+      <span class="tchip">Write</span><span class="tchip">Edit</span><span class="tchip">Bash</span>
+    </div>
+
+    <h2>A tool, in three parts</h2>
+    <p>Three plain parts: a <strong>name</strong>, a one-line <strong>description of what it does</strong>, and the <strong>inputs</strong> it needs. That's the core of it. Here's one:</p>
+
+    <div class="toolcard">
+      <div class="tn">send_email</div>
+      <div class="tr"><b>What it does:</b> sends an email for you.</div>
+      <div class="tr"><b>Needs:</b> who it's to, a subject, and the message.</div>
+    </div>
+
+    <p>A real tool definition usually carries a little more than this — the type each input should be, which ones are required, roughly what it hands back. I'm keeping the card simple on purpose; those three parts are what you need to understand it.</p>
+
+    <p>When the agent wants to act, it doesn't run the tool itself. Remember <a href="agent-loop.html">the loop</a>: it <em>chooses</em> a tool and fills in the inputs, and ordinary code does the actual sending. So keep the two straight — memory changed what your agent <em>knows</em>; a tool gives it something it can <em>do</em>. (You'll also hear this called "function calling" — different name, same idea, and it works this way well beyond Claude.)</p>
+
+    <h2>What the model actually sees</h2>
+    <p>Something sneaks into the conversation that most people never picture, and it's the whole key. Say you type <em>"email Alice I'll be ten minutes late."</em> The model — the thinking part inside the agent — doesn't just get your sentence.</p>
+
+    <p>A beat before your words reach it, the software gathers up the tools it's allowed to use — each the same kind of card you just saw — and sets them in front of the model along with your request. From there, using a tool is a back-and-forth between two players: the <strong>software</strong> (the everyday program running the show) and the <strong>model</strong> (the thinking part, which only ever decides). And the thing they build between them is a single <em>growing page</em> — the model's whole view of what's happening. Watch it fill up, step by step, for <em>"Email Alice I'll be ten minutes late"</em>:</p>
+
+    <div class="pagev" role="img" aria-label="The model's view of the conversation, shown as one page that grows. Row 1, given to the model: you're a helpful assistant, and two tools are available — send_email, which needs recipient, subject and message, and get_weather, which needs a place. Row 2, you: Email Alice that I'll be 10 minutes late. Row 3, the model decides: I'll use send_email, to Alice, subject Running late, message I'll be 10 minutes late. Then, off the page where the model sees none of it, the software runs the real send_email code, talks to the email service, and waits for an answer. Row 4, result added back to the page: email sent successfully. Row 5, the model replies: done, I've emailed Alice you'll be about 10 minutes late.">
+      <div class="pagev-h"><b>The model's view of the conversation</b><span>One page. It grows as the work gets done — but only some things ever land on it.</span></div>
+      <div class="card">
+        <div class="row setup"><div class="rn">1</div><div class="rdot"></div>
+          <div class="rlab">Given to the model</div>
+          <div class="rbody"><span class="ln">You're a helpful assistant.</span><span class="ln">Two tools are available:</span><span class="li"><span class="tchipc">send_email</span> (needs: recipient, subject, message)</span><span class="li"><span class="tchipc">get_weather</span> (needs: a place)</span></div>
+        </div>
+        <div class="row you"><div class="rn">2</div><div class="rdot"></div>
+          <div class="rlab">You</div>
+          <div class="rbody">&ldquo;Email Alice that I'll be 10 minutes late.&rdquo;</div>
+        </div>
+        <div class="row model"><div class="rn">3</div><div class="rdot"></div>
+          <div class="rlab">Model &middot; decides</div>
+          <div class="rbody">I'll use <span class="tchipc">send_email</span> — to Alice, subject &ldquo;Running late,&rdquo; message &ldquo;I'll be 10 minutes late.&rdquo;</div>
+        </div>
+      </div>
+      <div class="offpage">
+        <div class="ol">off the page — the model sees none of this</div>
+        <div class="od">The software runs the real <span class="tchipc">send_email</span> code, talks to the email service, and waits for an answer.</div>
+      </div>
+      <div class="card">
+        <div class="row result"><div class="rn">4</div><div class="rdot"></div>
+          <div class="rlab">Result &middot; added back to the page</div>
+          <div class="rbody">&#10003; Email sent successfully.</div>
+        </div>
+        <div class="row model"><div class="rn">5</div><div class="rdot"></div>
+          <div class="rlab">Model &middot; replies</div>
+          <div class="rbody">Done! I've emailed Alice that you'll be about 10 minutes late.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="pagenote">Everything on the <b>white page</b> is the model's whole world. The software ran the code <span class="gy">off the page</span>. The model never saw any of it.</p>
+
+    <div class="legend" role="img" aria-label="Legend: grey dot is what was given to the model, plum is you, teal is the model, gold is a tool result, and a hollow dot is off the page.">
+      <span><i style="background:#a7a294"></i>Given</span>
+      <span><i style="background:#8a4f9e"></i>You</span>
+      <span><i style="background:#0e8a72"></i>Model</span>
+      <span><i style="background:#a86b00"></i>Result</span>
+      <span><i style="background:#fff;border:1px solid #c7c1b2"></i>Off the page</span>
+    </div>
+
+    <p>Those cards on the page are just text, remember — pasted in fresh each time. (Hold onto that; it pays off in a minute.) And since that text is the whole of what the model has to go on, the exact words you put on it start to carry more weight than you'd guess.</p>
+
+    <h2>Which means the description does more work than you'd think</h2>
+    <p>If the description is <em>all</em> the model has, then how you write it quietly decides whether the agent reaches for the right tool. Anthropic, who make Claude, call a tool's description <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use">"by far the most important factor"</a> in whether tools work well. Sounds like a footnote. Watch what it actually does.</p>
+
+    <div class="sim" aria-label="Interactive: the same question and the same two tools, with only one tool's description changing from vague to detailed.">
+      <div class="askrow"><span class="lbl">You ask</span><span class="q">"What should I wear tomorrow?"</span></div>
+
+      <div class="seg" role="group" aria-label="Description quality for the get_forecast tool">
+        <button id="lv0" class="on" aria-pressed="true">Vague description</button>
+        <button id="lv1" aria-pressed="false">Clearer</button>
+        <button id="lv2" aria-pressed="false">Detailed</button>
+      </div>
+      <p class="seghint">You're rewriting one line — the description of <code>get_forecast</code>. Everything else stays put.</p>
+
+      <div class="tools-row">
+        <div class="tcard" id="card-current"><span class="pickmark">&#10003; chosen</span>
+          <div class="tn">get_current_weather</div>
+          <div class="tr"><b>What it does:</b> tells you the weather right now.</div>
+          <div class="tr"><b>Needs:</b> a place.</div>
+        </div>
+        <div class="tcard" id="card-forecast"><span class="pickmark">&#10003; chosen</span>
+          <div class="tn">get_forecast</div>
+          <div class="tr"><b>What it does:</b> <span id="fc-desc"></span></div>
+          <div class="tr"><b>Needs:</b> <span id="fc-needs"></span></div>
+        </div>
+      </div>
+
+      <p class="whatsees">Remember: the model reads only these two cards — the words, not the code behind them.</p>
+
+      <div class="msg model"><span class="who">the model picks…</span><span id="modelsay"></span></div>
+      <div class="msg obs"><span class="who">what comes back</span><span id="obs"></span></div>
+      <div class="verdict" id="verdict"></div>
+    </div>
+
+    <p>One line of description — nothing else — was the difference between the wrong tool and the right one. That's the earlier surprise made concrete: the words are all the model has.</p>
+
+    <h2>A few real cautions</h2>
+    <p>In most setups, every tool's description gets handed to the model on every turn, so the more tools you pile on, the more it has to read through before it does anything — and that has a cost. (Smarter setups show the model only the tools it's likely to need, but the tug toward bloat is real.) A good description helps the agent <em>choose</em> well; it does not make the tool <em>safe</em> — a tool does exactly what its code does, no more and no less. And that's the real weight of giving an agent hands: those hands touch your actual files and your actual accounts. It's why Claude Code stops to ask before it runs Write, Edit, or Bash. Look before you let it run.</p>
+
+    <h2>Where all this lives</h2>
+    <p>If you've been following closely, one thing's still nagging: a tool is a name, a description, and some inputs — but those have to <em>live</em> somewhere. Two honest answers. If you're using something like Claude Code, the everyday ones come built in — reading a file, editing it, running a command are already there, nothing for you to set up. (You can even point it at a small script of your own and, in your <a href="make-it-remember.html">CLAUDE.md</a>, tell it when to reach for that.) And if you're building your own agent, you write those definitions yourself, in its code. What there <em>isn't</em> is one agreed-on place or shape for them — every setup does it a little differently, and that difference is about to become the whole problem.</p>
+
+    <h2>The next wall</h2>
+    <p>Here's the thought to pick back up: because those cards are just text, handed over fresh each time, you can teach your agent something new without retraining anything — you add a card. Nothing about the model changes; you change what it's handed. That's the quiet superpower. It's also the trap. Reaching your GitHub takes one hand-built tool. Your calendar, another card. Then Slack — your team's chat. Then your notes. Then your database, the place your app's records live. Each is its own little card, wired up by hand. Switch to a different app next week and you start over.</p>
+
+    <p>That's a lot of one-off wiring. You can feel the next question coming: isn't there a standard — one universal plug — so any tool just <em>connects</em>, instead of being rebuilt every time?</p>
+
+    <svg class="wiring" viewBox="0 0 560 250" role="img" aria-label="One agent hand-wired to four separate apps — a GitHub tool, a calendar tool, a database tool, a Slack tool — each by its own custom connection, hinting at a tangle a single standard would tidy up.">
+      <rect x="22" y="88" width="120" height="50" rx="10" fill="#e9f6f2" stroke="#0e8a72" stroke-width="2"/>
+      <text x="82" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#0a5c4f">Agent</text>
+      <path d="M142 102 C 260 42, 330 34, 402 44" fill="none" stroke="#4356c0" stroke-width="2"/>
+      <path d="M142 110 C 260 98, 330 88, 402 96" fill="none" stroke="#4356c0" stroke-width="2"/>
+      <path d="M142 118 C 250 150, 330 150, 402 148" fill="none" stroke="#4356c0" stroke-width="2"/>
+      <path d="M142 126 C 250 205, 340 205, 402 200" fill="none" stroke="#4356c0" stroke-width="2"/>
+      <g font-size="12" fill="#3444a8">
+        <rect x="402" y="28" width="134" height="34" rx="8" fill="#eef0fb" stroke="#c3cbf0"/><text x="469" y="49" text-anchor="middle">GitHub tool</text>
+        <rect x="402" y="80" width="134" height="34" rx="8" fill="#eef0fb" stroke="#c3cbf0"/><text x="469" y="101" text-anchor="middle">Calendar tool</text>
+        <rect x="402" y="132" width="134" height="34" rx="8" fill="#eef0fb" stroke="#c3cbf0"/><text x="469" y="153" text-anchor="middle">Database tool</text>
+        <rect x="402" y="184" width="134" height="34" rx="8" fill="#eef0fb" stroke="#c3cbf0"/><text x="469" y="205" text-anchor="middle">Slack tool</text>
+      </g>
+      <text x="280" y="242" text-anchor="middle" font-size="11" fill="#8a8577" font-style="italic">one custom wire per app — redone every time you switch</text>
+    </svg>
+
+    <p>There is. It's called <strong>MCP</strong> — think of it as a USB-C port for tools: one standard way to plug them in, rather than a magic supply of them. That's the next post.</p>
+
+    <p>Try it before then: in the project you already have, ask your agent to do something that needs a tool it already has — read a file, or run a quick command — and watch which one it reaches for. (Notice it pausing to ask before it acts.) Then meet me at MCP.</p>
+
+    <div class="note"><strong>Sources &amp; further reading</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use">Tool use with Claude — Anthropic</a>: what a tool is (name, description, inputs), and why the description is "by far the most important factor" (the primary source).</li>
+      <li><a href="https://code.claude.com/docs/en/tools-reference">Claude Code's built-in tools</a>: the Write / Edit / Bash / web tools you've already been using.</li>
+      <li><a href="https://martinfowler.com/articles/function-call-LLM.html">Function calling using LLMs — Martin Fowler</a>: a clear, vendor-neutral tour of the same idea.</li>
+    </ul>
+    </div>
+  </article>
+
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    © 2026 Ranjita Naik
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var LEVELS = [
+    {
+      desc: "Gets weather.",
+      needs: "a place.",
+      pick: "current",
+      modelsay: "Both cards just say “weather,” so I can’t tell them apart — I’ll take get_current_weather.",
+      obs: "Right now in your city: 18°, cloudy.",
+      cls: "bad", mark: "✗",
+      verdict: "That’s today’s weather. You asked about tomorrow — wrong tool, because the description gave nothing to choose on."
+    },
+    {
+      desc: "Gets the weather forecast.",
+      needs: "a place.",
+      pick: "forecast",
+      modelsay: "“Forecast” sounds right for a question about tomorrow, so get_forecast. It doesn’t say how far ahead, so I’ll just guess.",
+      obs: "A forecast — but for how many days? Unclear.",
+      cls: "warn", mark: "≈",
+      verdict: "Closer — it picked the right tool this time, but had to guess what you meant."
+    },
+    {
+      desc: "Returns the weather forecast for upcoming days. Use when the user asks about future weather.",
+      needs: "a place, and how many days ahead.",
+      pick: "forecast",
+      modelsay: "The user asked about tomorrow → that’s future weather → get_forecast, one day ahead.",
+      obs: "Tomorrow: 24°, sunny. (Wear something light.)",
+      cls: "ok", mark: "✓",
+      verdict: "Exactly right — and it knew to ask for one day ahead. Nothing changed but the description."
+    }
+  ];
+  function render(i) {
+    var L = LEVELS[i];
+    $("fc-desc").textContent = L.desc;
+    $("fc-needs").textContent = L.needs;
+    ["lv0", "lv1", "lv2"].forEach(function (b, k) {
+      $(b).classList.toggle("on", k === i);
+      $(b).setAttribute("aria-pressed", k === i ? "true" : "false");
+    });
+    $("card-current").classList.toggle("picked", L.pick === "current");
+    $("card-forecast").classList.toggle("picked", L.pick === "forecast");
+    $("modelsay").textContent = L.modelsay;
+    $("obs").textContent = L.obs;
+    var v = $("verdict");
+    v.className = "verdict " + L.cls;
+    v.textContent = L.mark + "  " + L.verdict;
+  }
+  $("lv0").addEventListener("click", function () { render(0); });
+  $("lv1").addEventListener("click", function () { render(1); });
+  $("lv2").addEventListener("click", function () { render(2); });
+  render(0);
+})();
+</script>
+
+<!-- Analytics: GoatCounter — privacy-friendly, cookie-free -->
+<script data-goatcounter="https://ranjita-naik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

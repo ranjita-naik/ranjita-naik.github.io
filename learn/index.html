@@ -215,20 +215,22 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 <header class="site">
   <div class="wrap">
     <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
-    <nav><a href="mailto:ranjitawrites@gmail.com">Get in touch</a></nav>
   </div>
 </header>
 
 <div class="layout">
-<aside class="sidebar" aria-label="All posts, grouped by month">
-  <div class="sb-title">All posts</div>
+<aside class="sidebar" aria-label="Posts, grouped by curriculum part">
+  <div class="sb-title">Agents</div>
   <details class="sb-group" open>
-    <summary>July 2026</summary>
+    <summary>Part I — Foundations</summary>
     <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
-    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 20</span><span>The agent loop, animated</span></a>
-    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 21</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 20</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 21</span><span>The Agent Loop</span></a>
     <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage with an agent</span></a>
     <a class="sb-item" href="../learn/make-it-remember.html"><span class="sb-d">Jul 23</span><span>Make it remember</span></a>
+  <details class="sb-group" open>
+    <summary>Part II — Capabilities</summary>
+    <a class="sb-item" href="../learn/tools.html"><span class="sb-d">Jul 24</span><span>Tools: give it hands</span></a>
   </details>
 </aside>
 <main class="content">
@@ -242,13 +244,13 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 
   <p class="pathintro">The path builds in four layers — what an agent <strong>knows</strong>, what it can <strong>do</strong>, the <strong>skills</strong> it reuses, and how the work gets <strong>coordinated</strong> — one rung at a time. Start at the top and read down.</p>
 
-  <div class="layer"><div class="lname">Start here</div><div class="lq">Get your bearings, then build one with your own hands.</div></div>
+  <div class="layer"><div class="lname">Part I — Foundations</div><div class="lq">What an agent is and knows — get your bearings, build one, then give it memory.</div></div>
 
   <div class="unit">
     <div>
       <h3>What is an agent, really? <span class="badge-live">LIVE</span></h3>
       <p>The think–act–observe loop that every agent — every framework, every vendor — is built on. Never touched any of this before? Begin with the <a href="../posts/start-here-llms-and-agents.html">true-zero explainer</a> (assumes nothing, not even "LLM"), then the <a href="../posts/what-is-an-ai-agent.html">plain-English deep dive</a>, then run the machine yourself.</p>
-      <span class="viz">▶ Interactive: <a href="agent-loop.html" style="color:inherit;">The agent loop, animated</a> — step through a real task, inject a failure, watch it recover</span>
+      <span class="viz">▶ Interactive: <a href="agent-loop.html" style="color:inherit;">The Agent Loop (Think → Act → Observe)</a> — step through a real task, inject a failure, watch it recover</span>
     </div>
   </div>
 
@@ -260,8 +262,6 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     </div>
   </div>
 
-  <div class="layer"><div class="lname">Layer 1 · Foundation</div><div class="lq">What the agent knows before it starts — its context and memory.</div></div>
-
   <div class="unit">
     <div>
       <h3>Make it remember <span class="badge-live">LIVE</span></h3>
@@ -270,13 +270,13 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     </div>
   </div>
 
-  <div class="layer"><div class="lname">Layer 2 · Capabilities</div><div class="lq">What the agent can do — reaching past its own memory into real tools.</div></div>
+  <div class="layer"><div class="lname">Part II — Capabilities</div><div class="lq">What the agent can do — reaching past its own memory into the real world.</div></div>
 
-  <div class="unit planned">
+  <div class="unit">
     <div>
-      <h3>Tools: give the agent hands <span class="badge-soon">COMING</span></h3>
-      <p>Your agent remembers you now, but it still can't open your files, your GitHub, or the live web. Tools are how it acts on the world — and why a clear tool description turns out to be prompt engineering in disguise.</p>
-      <span class="viz">Planned interactive: tool-schema playground</span>
+      <h3>Tools: give the agent hands <span class="badge-live">LIVE</span></h3>
+      <p>Your agent remembers you now, but it still can't open your files, your GitHub, or the live web. Tools are how it acts on the world — and the surprising part is the model never sees the code, only your plain-English description.</p>
+      <span class="viz">▶ Interactive: <a href="tools.html" style="color:inherit;">watch a vague vs. detailed tool description change what the agent does</a></span>
     </div>
   </div>
 
@@ -288,7 +288,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     </div>
   </div>
 
-  <div class="layer"><div class="lname">Layer 3 · Skills</div><div class="lq">Reusable know-how — a procedure you teach once and call again.</div></div>
+  <div class="layer"><div class="lname">Part III — Expertise</div><div class="lq">Reusable know-how the agent can call up — skills, and specialists it can hand work to.</div></div>
 
   <div class="unit planned">
     <div>
@@ -298,7 +298,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     </div>
   </div>
 
-  <div class="layer"><div class="lname">Layer 4 · Workflows</div><div class="lq">How the pieces work together once one agent isn't enough — and what it takes to run in production.</div></div>
+  <div class="layer"><div class="lname">Part IV — Orchestration</div><div class="lq">Coordinating the work once one agent isn't enough — workflows, planning, multi-agent.</div></div>
 
   <div class="unit planned">
     <div>
@@ -315,6 +315,8 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
       <span class="viz">Planned interactive: message-passing visualization</span>
     </div>
   </div>
+
+  <div class="layer"><div class="lname">Part V — Reliability</div><div class="lq">Making agents trustworthy and running them for real — hooks, guardrails, evaluation.</div></div>
 
   <div class="unit planned">
     <div>
@@ -342,7 +344,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 
 <footer class="site">
   <div class="wrap">
-    © 2026 Ranjita Naik · <a href="mailto:ranjitawrites@gmail.com">Email</a>
+    © 2026 Ranjita Naik
   </div>
 </footer>
 
