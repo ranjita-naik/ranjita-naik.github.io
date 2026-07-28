@@ -216,6 +216,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
   <details class="sb-group" open>
     <summary>Part II — Capabilities</summary>
     <a class="sb-item" href="../learn/tools.html"><span class="sb-d">Jul 24</span><span>Tools: give it hands</span></a>
+    <a class="sb-item" href="../learn/mcp.html"><span class="sb-d">Jul 28</span><span>MCP: let tools travel</span></a>
   </details>
 </aside>
 <main class="content">
@@ -235,7 +236,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     <p>That's it. When a vendor says "agentic AI," a good mental test is to ask: what tools can it use, what does it remember, and what happens when a step fails? If the answers are vague, you're probably looking at a chatbot in a trench coat.</p>
 
     <h2>Why is everyone suddenly talking about this?</h2>
-    <p>Two things changed. The models got reliable enough at multi-step reasoning to be trusted with sequences of actions, not just single answers. And the plumbing got standardized — protocols like MCP (Model Context Protocol) give agents a common way to connect to tools and data, the way USB gave devices a common way to connect to computers. The result is that agents moved from research demos to production surprisingly fast: <a href="https://www.firecrawl.dev/blog/agentic-ai-trends">Gartner (via Firecrawl)</a> projects that a third of enterprise software will include agentic AI by 2028, and that by 2029 the majority of routine customer service issues will be resolved without a human touching them.</p>
+    <p>Two things changed. The models got reliable enough at multi-step reasoning to be trusted with sequences of actions, not just single answers. And the plumbing got standardized — protocols like MCP (Model Context Protocol) give agents a common way to connect to tools and data, so a connection written once works across different assistants instead of being rebuilt for each one. The result is that agents moved from research demos to production surprisingly fast: <a href="https://www.firecrawl.dev/blog/agentic-ai-trends">Gartner (via Firecrawl)</a> projects that a third of enterprise software will include agentic AI by 2028, and that by 2029 the majority of routine customer service issues will be resolved without a human touching them.</p>
 
     <h2>What agents are actually good at today</h2>
     <p>The real picture is jagged. Agents shine where the work is made of verifiable steps — code, data processing, research and summarization, structured workflows like triaging support tickets or screening applications — because at each step there's a way to check whether the step worked. They struggle where success is fuzzy, stakes are high, and mistakes are hard to detect. That's why the first wave of real deployments is concentrated in software development, customer support, and back-office workflows, not in open-ended judgment calls.</p>
