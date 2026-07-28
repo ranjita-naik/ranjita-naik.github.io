@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="Write it down once (Skills) — Ranjita Naik">
+<meta property="og:description" content="Your agent can reach your calendar and still book 4:30 on a Friday. Teaching it how your team works turns out to be a folder with one markdown file in it.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/learn/skills.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik — all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>Write it down once (Skills) — Ranjita Naik</title>
+<meta name="description" content="Your agent can reach your calendar and still book 4:30 on a Friday. Teaching it how your team works turns out to be a folder with one markdown file in it.">
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 1040px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+footer.site .wrap { max-width: 1040px; }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+<style>
+/* ---- the memorable line ---- */
+.bigidea { font-family: var(--serif); font-size: 1.4rem; line-height: 1.4; font-weight: 700; color: var(--ink); padding: 4px 0; margin: 24px 0; }
+/* ---- a standalone beat (a callback line, quieter than the big idea) ---- */
+.beat { font-family: var(--serif); font-size: 1.25rem; font-style: italic; color: var(--accent-dark); text-align: center; margin: 20px 0; }
+
+/* ---- the shelf: signature figure ---- */
+.shelfv { width: 100%; height: auto; max-width: 600px; display: block; margin: 22px auto 6px; }
+.figcap { font-family: var(--sans); font-size: 0.83rem; color: var(--muted); text-align: center; margin: 0 auto 22px; max-width: 560px; line-height: 1.55; }
+
+/* ---- what a SKILL.md looks like ---- */
+.skillfile { border: 1px solid var(--line); border-radius: 12px; background: #fff; margin: 20px 0; overflow: hidden; }
+.skillfile .fname { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: #6b665c; background: #faf9f5; border-bottom: 1px solid var(--line); padding: 8px 16px; }
+.skillfile .fbody { font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--ink); background: #fff; margin: 0; padding: 15px 18px 17px; white-space: pre-wrap; overflow-wrap: break-word; }
+
+/* ---- the model's context, carried over from the Tools and MCP posts ---- */
+.pagev { background: #efece5; border-radius: 14px; padding: 16px 16px 18px; margin: 22px 0 0; }
+.pagev-h { padding: 2px 4px 13px; }
+.pagev-h b { display: block; font-family: var(--serif); font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+.pagev-h span { display: block; font-family: var(--sans); font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
+.card { background: #fff; border: 1px solid #e7e3da; border-radius: 10px; padding: 3px 16px; }
+.row { display: grid; grid-template-columns: 30px 1fr; padding: 13px 0; border-top: 1px solid #eee9df; }
+.row:first-child { border-top: 0; }
+.rdot { grid-area: 1 / 1; width: 11px; height: 11px; border-radius: 50%; margin-top: 6px; }
+.rlab { grid-area: 1 / 2; font-family: var(--sans); font-size: 0.82rem; font-weight: 700; margin-bottom: 5px; }
+.rbody { grid-area: 2 / 2; font-family: var(--serif); font-size: 0.98rem; line-height: 1.5; color: var(--ink); }
+.rbody .ln { display: block; }
+.rbody .li { display: block; padding-left: 18px; margin-top: 3px; position: relative; }
+.rbody .li::before { content: "\2013"; position: absolute; left: 5px; color: #6b665c; }
+.rbody .fresh { background: #e9f6f2; border-radius: 5px; box-shadow: 0 0 0 3px #e9f6f2; }
+.rbody .dim { color: #6b665c; }
+.row.setup .rdot { background: #a7a294; } .row.setup .rlab { color: #6b665c; }
+.row.setup.full .rdot { background: #0e8a72; } .row.setup.full .rlab { color: #0a5c4f; }
+.row.you .rdot { background: #8a4f9e; } .row.you .rlab { color: #7a4288; }
+.row.skill .rdot { background: #0e8a72; } .row.skill .rlab { color: #0a5c4f; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 15px; margin: 13px 2px 0; font-family: var(--sans); font-size: 0.76rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+/* ---- signature interactive: the shelf ---- */
+.sim { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin: 22px 0; }
+.modebar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.modebar button { font-family: var(--sans); font-size: 0.77rem; font-weight: 600; border: 1px solid var(--line); background: #fff; color: var(--muted); border-radius: 8px; padding: 7px 11px; cursor: pointer; text-align: left; }
+.modebar button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.simlab { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin: 16px 0 6px; }
+.simlab:first-child { margin-top: 0; }
+.simhint { font-family: var(--sans); font-size: 0.83rem; color: var(--muted); margin: 0 0 9px; line-height: 1.5; }
+.askbox { background: #f7f2f9; border: 1px solid #e4d9ea; border-radius: 12px; padding: 13px 15px 15px; margin: 16px 0 0; }
+.askbox .asklab { margin: 0 0 4px; color: #7a4288; }
+.askhint { font-family: var(--sans); font-size: 0.83rem; color: #6b5872; margin: 0 0 10px; line-height: 1.5; }
+.asks { display: flex; flex-wrap: wrap; gap: 6px; }
+.asks button { font-family: var(--sans); font-size: 0.8rem; font-weight: 600; border: 1px solid #ddd6e4; background: #fff; color: #7a4288; border-radius: 8px; padding: 7px 11px; cursor: pointer; }
+.asks button.on { background: #8a4f9e; border-color: #8a4f9e; color: #fff; }
+.askbox .reset { font-family: var(--sans); font-size: 0.76rem; font-weight: 600; border: 1px solid #ddd6e4; background: #fff; color: #7a4288; border-radius: 8px; padding: 6px 10px; cursor: pointer; margin-top: 11px; }
+.shelf { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+@media (max-width: 560px) { .shelf { grid-template-columns: repeat(2, 1fr); } .modebar button { flex: 1 1 100%; } }
+.fold { border: 1.5px solid #cfcabb; border-top-width: 7px; border-radius: 4px 9px 9px 9px; background: #faf9f5; padding: 8px 9px 9px; transition: border-color .2s ease, background .2s ease; }
+.fold b { display: block; font-family: var(--sans); font-size: 0.76rem; font-weight: 700; color: #6b665c; line-height: 1.3; }
+.fold span { display: block; font-family: var(--sans); font-size: 0.68rem; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+.fold.open { border-color: #0e8a72; background: #f2faf7; }
+.fold.open b { color: var(--accent-dark); }
+.fold .state { display: block; font-family: var(--sans); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 6px; color: #6b665c; }
+.fold.open .state { color: var(--accent-dark); }
+.meterwrap { margin: 18px 0 0; }
+.meterbar { height: 15px; border-radius: 8px; background: #efece5; overflow: hidden; display: flex; }
+.meterbar i { display: block; height: 100%; transition: width .3s ease; }
+.meterbar i.mi-s { background: #a7a294; }
+.meterbar i.mi-b { background: #0e8a72; }
+.metertext { font-family: var(--sans); font-size: 0.83rem; color: var(--muted); margin: 8px 2px 0; line-height: 1.6; }
+.metertext b { color: var(--ink); }
+.simnote { font-family: var(--sans); font-size: 0.83rem; color: var(--muted); font-style: italic; margin: 13px 2px 0; }
+
+/* ---- run-in case labels (heading and its paragraph share a line) ---- */
+.ri { margin: 0 0 1.15em; }
+.ri h3 { display: inline; font-size: 1.08rem; font-style: italic; margin: 0; }
+.ri h3::after { content: ": "; font-weight: 400; font-style: normal; }
+.ri p { display: inline; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="Posts, grouped by curriculum part">
+  <div class="sb-title">Agents</div>
+  <details class="sb-group" open>
+    <summary>Part I — Foundations</summary>
+    <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 20</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 21</span><span>The Agent Loop</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage with an agent</span></a>
+    <a class="sb-item" href="../learn/make-it-remember.html"><span class="sb-d">Jul 23</span><span>Make it remember</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part II — Capabilities</summary>
+    <a class="sb-item" href="../learn/tools.html"><span class="sb-d">Jul 24</span><span>Tools: give it hands</span></a>
+    <a class="sb-item" href="../learn/mcp.html"><span class="sb-d">Jul 28</span><span>MCP: let tools travel</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part III — Expertise</summary>
+    <a class="sb-item on" href="../learn/skills.html"><span class="sb-d">Jul 29</span><span>Skills: write it down once</span></a>
+  </details>
+</aside>
+<main class="content">
+  <article>
+    <h1>Write it down once</h1>
+    <div class="meta">29 July 2026</div>
+
+    <p>Your agent can reach your calendar now. So you ask it to find an hour for the team sync this week.</p>
+
+    <p>It books 4:30 on Friday.</p>
+
+    <p>Nothing failed. The hour really was free; nobody had claimed it. It’s just that nobody on your team takes a meeting after four on a Friday, and Tuesday morning is kept clear for focus work — which is not written down anywhere, it’s simply understood, the way most things at a company are understood.</p>
+
+    <p>So you tell it. Not Friday afternoons, not Tuesday mornings, and forty-five minutes rather than an hour, because the hour always overruns. It apologises, rebooks, gets it right.</p>
+
+    <p>Then you open a fresh conversation next week and it books 4:30 on a Friday.</p>
+
+    <h2>Why you keep saying it twice</h2>
+
+    <p>Every conversation starts empty. Whatever you explained last time went out with the conversation it was in, so the agent comes back knowing how to reach the calendar and nothing at all about how you use it.</p>
+
+    <p>There’s a standard fix, and it’s a good one: a file — <code>CLAUDE.md</code> is the usual name — that sits alongside your work and gets read at the start of every session. Put the meeting rules in there and they’re waiting before you’ve typed a word. No more repeating yourself.</p>
+
+    <p>That’s the right first move, and for a good while it’s enough. The file never stops being read — it just keeps getting longer.</p>
+
+    <p>The meeting rules earn their place, so the invoice rules go in too. Then how we name files. Then which spreadsheet the numbers come from, and the two exceptions to that, and the thing about the Berlin office. Every addition is sensible on its own, and somewhere along the way the file stops being a short note about your project and becomes a manual.</p>
+
+    <p>Every word of that manual is read at the start of every session. Including the ones where you just wanted a typo fixed.</p>
+
+    <p>And it isn’t a one-off charge. Everything the model can see at once — that file, plus everything said in the conversation so far — is called its <em>context</em>, and it holds only so many words. All of it is read again on every turn of the conversation. So the invoice rules aren’t paid for once. They’re paid for again on every exchange, in every session, for as long as they stay in the file.</p>
+
+    <h2>So what is a skill?</h2>
+
+    <p>A skill is <em>one job’s worth</em> of instructions that the agent only picks up when that job comes up. What it’s made of is far less impressive: a folder, with a markdown file in it. Nothing else is required.</p>
+
+    <p>The file is called <code>SKILL.md</code>. It opens with two labelled lines, fenced off above and below by three dashes: a short name for the skill, and a sentence saying what it’s for and when to use it. Underneath goes the procedure, in plain English — the same words you’d use explaining it to a new colleague.</p>
+
+    <div class="skillfile">
+      <div class="fname">booking-meetings / SKILL.md</div>
+      <pre class="fbody">---
+name: booking-meetings
+description: How this team books meetings — use it whenever you’re putting something in someone’s calendar.
+---
+
+Never book after 16:00 on a Friday.
+Tuesday 09:00–12:00 is kept clear for focus work.
+Default to 45 minutes rather than an hour.
+More than five people means a week’s notice.
+If the only free slot breaks one of these, ask instead of booking.</pre>
+    </div>
+
+    <p>Those dashes are the only piece of syntax in the file, and they matter: they’re how the assistant finds the name and the description without opening the rest. Leave them out and it reads the file with no description at all, so nothing ever matches it and the skill quietly never fires.</p>
+
+    <p>Everything under them is plain writing, in any text editor, and if you can write a decent set of instructions for a person, you can write one. There’s a bit of setup to get your assistant reading it — one toggle, or one folder — and that comes later.</p>
+
+    <h2>The part that’s different: when it arrives</h2>
+
+    <p>The interesting thing about a skill isn’t what’s in the file. It’s when the agent reads it.</p>
+
+    <p>Say you’ve written five of these — meetings, invoices, file names, house style, handover notes. The agent holds five <em>sentences</em>, not five procedures: the one at the top of each file, the one that says what this is for. That’s all that sits there while you work.</p>
+
+    <p>Ask it to book the team sync, and the agent reads those five sentences and picks the one that fits. Only then does it open that file and read the rest. The other four stay on the shelf.</p>
+
+    <svg class="shelfv" viewBox="0 0 600 384" role="img" aria-label="Five skill folders sit on a shelf. Four are labelled on the shelf; one, Meetings, is labelled loaded. Below, in the model's context, five grey bars stand for the one sentence taken from each folder, always present, totalling 88 words. Underneath them five teal bars stand for the whole Meetings file, loaded only because it matched, totalling 44 words. Both sets are drawn to the same scale, so the five sentences come to about twice the one procedure.">
+      <text x="300" y="14" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#5c6370" letter-spacing="0.06em">FIVE SKILLS, FIVE FOLDERS</text>
+
+      <g font-family="system-ui,sans-serif">
+        <rect x="11" y="26" width="40" height="10" rx="3" fill="#d6ede6" stroke="#0e8a72" stroke-width="1.2"/>
+        <rect x="11" y="34" width="106" height="62" rx="6" fill="#f2faf7" stroke="#0e8a72" stroke-width="1.6"/>
+        <text x="64" y="54" text-anchor="middle" font-size="14" font-weight="700" fill="#0a5c4f">Meetings</text>
+        <rect x="26" y="62" width="76" height="4" rx="2" fill="#bfe3d8"/>
+        <rect x="26" y="70" width="60" height="4" rx="2" fill="#bfe3d8"/>
+        <rect x="26" y="78" width="70" height="4" rx="2" fill="#bfe3d8"/>
+        <text x="64" y="92" text-anchor="middle" font-size="11" font-weight="700" fill="#0a5c4f" letter-spacing="0.05em">LOADED</text>
+
+        <rect x="129" y="26" width="40" height="10" rx="3" fill="#e2ded4" stroke="#c7c1b2" stroke-width="1.2"/>
+        <rect x="129" y="34" width="106" height="62" rx="6" fill="#faf9f5" stroke="#c7c1b2" stroke-width="1.4"/>
+        <text x="182" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="#6b665c">Invoices</text>
+        <text x="182" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="#8a8577" letter-spacing="0.05em">ON THE SHELF</text>
+
+        <rect x="247" y="26" width="40" height="10" rx="3" fill="#e2ded4" stroke="#c7c1b2" stroke-width="1.2"/>
+        <rect x="247" y="34" width="106" height="62" rx="6" fill="#faf9f5" stroke="#c7c1b2" stroke-width="1.4"/>
+        <text x="300" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="#6b665c">File names</text>
+        <text x="300" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="#8a8577" letter-spacing="0.05em">ON THE SHELF</text>
+
+        <rect x="365" y="26" width="40" height="10" rx="3" fill="#e2ded4" stroke="#c7c1b2" stroke-width="1.2"/>
+        <rect x="365" y="34" width="106" height="62" rx="6" fill="#faf9f5" stroke="#c7c1b2" stroke-width="1.4"/>
+        <text x="418" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="#6b665c">House style</text>
+        <text x="418" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="#8a8577" letter-spacing="0.05em">ON THE SHELF</text>
+
+        <rect x="483" y="26" width="40" height="10" rx="3" fill="#e2ded4" stroke="#c7c1b2" stroke-width="1.2"/>
+        <rect x="483" y="34" width="106" height="62" rx="6" fill="#faf9f5" stroke="#c7c1b2" stroke-width="1.4"/>
+        <text x="536" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="#6b665c">Handover</text>
+        <text x="536" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="#8a8577" letter-spacing="0.05em">ON THE SHELF</text>
+
+        <path d="M64 100 L64 128" stroke="#0e8a72" stroke-width="1.4" stroke-dasharray="3 3"/>
+        <path d="M60 122 L64 130 L68 122 Z" fill="#0e8a72"/>
+
+        <rect x="11" y="138" width="578" height="228" rx="12" fill="#efece5"/>
+        <text x="24" y="157" font-size="13" font-weight="700" fill="#5c6370" letter-spacing="0.06em">THE MODEL’S CONTEXT</text>
+        <rect x="24" y="166" width="552" height="188" rx="8" fill="#ffffff" stroke="#e7e3da" stroke-width="1"/>
+
+        <text x="36" y="184" font-size="12" font-weight="700" fill="#6b665c" letter-spacing="0.05em">ALWAYS THERE — ONE SENTENCE FROM EACH · 88 WORDS</text>
+        <rect x="36" y="192" width="204" height="8" rx="4" fill="#d9d5cb"/>
+        <rect x="36" y="203" width="204" height="8" rx="4" fill="#d9d5cb"/>
+        <rect x="36" y="214" width="204" height="8" rx="4" fill="#d9d5cb"/>
+        <rect x="36" y="225" width="216" height="8" rx="4" fill="#d9d5cb"/>
+        <rect x="36" y="236" width="228" height="8" rx="4" fill="#d9d5cb"/>
+
+        <path d="M36 258 L564 258" stroke="#e7e3da" stroke-width="1" stroke-dasharray="4 4"/>
+
+        <text x="36" y="276" font-size="12" font-weight="700" fill="#0a5c4f" letter-spacing="0.05em">LOADED BECAUSE MEETINGS MATCHED · 44 WORDS</text>
+        <rect x="36" y="284" width="84" height="8" rx="4" fill="#d6ede6"/>
+        <rect x="36" y="295" width="96" height="8" rx="4" fill="#d6ede6"/>
+        <rect x="36" y="306" width="96" height="8" rx="4" fill="#d6ede6"/>
+        <rect x="36" y="317" width="96" height="8" rx="4" fill="#d6ede6"/>
+        <rect x="36" y="328" width="156" height="8" rx="4" fill="#d6ede6"/>
+
+        <text x="36" y="348" font-size="10" fill="#8a8577">Both drawn to the same scale.</text>
+      </g>
+    </svg>
+    <p class="figcap">The four that didn’t match stayed on the shelf. Their sentences are in the context. Their contents aren’t.</p>
+
+    <p class="bigidea">A hundred pages on the shelf costs you one sentence.</p>
+
+    <p>Context usually works one way. Once something enters it, it stays, and you keep paying for it: tool descriptions, standing instructions, all of it read again on every turn.</p>
+
+    <p>A skill breaks that. The procedure isn’t cheaper — it just isn’t loaded until it’s relevant. Most of the time it never needs to be.</p>
+
+    <p>None of this makes the agent more capable, though. Writing down how your team books meetings doesn’t let it touch a calendar; it still needs the calendar connection for that, exactly as before.</p>
+
+
+    <h2>Watch what actually loads</h2>
+
+    <p>Below are those five skills. The bar underneath measures the instruction text sitting in the model’s context: grey for the five descriptions, teal for any procedure that has opened. It reads full when all five procedures are loaded, which is what a standing-instructions file gives you on every request, whatever you asked for.</p>
+
+    <div class="sim" role="group" aria-label="Interactive: choose whether five procedures all sit together in one standing-instructions file or are kept as separate skills, then send a request and watch what loads into the model's context.">
+      <p class="simlab">Where the five procedures live</p>
+      <p class="simhint" id="modehint">Everything is loaded, every time. Switch to skills and watch the context below shrink.</p>
+      <div class="modebar" id="modebar" role="group" aria-label="Where the five procedures live">
+        <button type="button" data-mode="md" class="on" aria-pressed="true">All five in CLAUDE.md</button>
+        <button type="button" data-mode="skills" aria-pressed="false">Five skills, five folders</button>
+      </div>
+
+      <p class="simlab">The shelf</p>
+      <div class="shelf" id="shelf"></div>
+
+      <div class="askbox">
+        <p class="simlab asklab">Ask it something</p>
+        <p class="askhint" id="askhint">Pick a request, and watch how little changes.</p>
+        <div class="asks" id="asks" role="group" aria-label="Requests you could make"></div>
+        <button type="button" class="reset" id="reset">Start a fresh conversation</button>
+      </div>
+
+      <div class="legend" role="img" aria-label="Legend: grey means a one-line description, teal means a full procedure, plum means your request.">
+        <span><i style="background:#a7a294"></i>A one-line description</span>
+        <span><i style="background:#0e8a72"></i>A full procedure</span>
+        <span><i style="background:#8a4f9e"></i>Your request</span>
+      </div>
+
+      <div class="pagev">
+        <div class="pagev-h"><b>The model’s context</b><span>Every line here is re-read on every turn of the conversation.</span></div>
+        <div class="card" id="ctx"></div>
+      </div>
+
+      <div class="meterwrap">
+        <div class="meterbar" id="meterbar" role="img" aria-label="Instruction text in the context, measured in words">
+          <i class="mi-s" id="mb-s" style="width:0"></i><i class="mi-b" id="mb-b" style="width:0"></i>
+        </div>
+        <p class="metertext" id="mtext" aria-live="polite"></p>
+      </div>
+
+      <p class="simnote">Same five procedures, same words, either way. What changes is how much of them the model is holding.</p>
+    </div>
+
+    <p>The typo request is the one to try in both modes. With skills it matches none of the five sentences, so it opens nothing — from a fresh conversation, the context doesn’t move at all. With everything in the standing-instructions file, all five procedures are there regardless, because that file doesn’t know what you were going to ask.</p>
+
+    <p>The procedures here are five lines each, which flatters the standing-instructions file — the descriptions look expensive next to them. Real procedures run to pages. The longer they get, the wider that gap opens.</p>
+
+    <p class="beat">Write it down once, and it turns up when it’s needed.</p>
+
+    <h2>Skills travel</h2>
+
+    <p>A <code>CLAUDE.md</code> belongs to one assistant, by name. A skill doesn’t. <a href="https://agentskills.io">The format is published as an open standard</a>, so the same folder works in any assistant that supports it without being rewritten — on your machine or a colleague’s. That’s the other reason not to keep a procedure in a file named after a product.</p>
+
+    <h2>Three things worth knowing before you rely on this</h2>
+
+    <div class="ri"><h3>Loading isn’t unloading</h3>
+    <p>Once a skill opens, it stays open. In Claude Code, <a href="https://code.claude.com/docs/en/skills">the documentation is specific about it</a>: the file’s contents enter the conversation as a message and stay there for the rest of the session, and the file isn’t re-read on later turns. Loading it is a one-way trip. From that point on, it’s part of the conversation like everything else.</p>
+    <p>Invoke six skills in one conversation and you’re carrying six procedures, not one. If a skill seems to stop having any effect later, the text is often still there and the model has just moved on — though in a very long conversation it may also have been pushed out. Starting a fresh conversation resets either way.</p></div>
+
+    <div class="ri"><h3>It only helps if it gets picked</h3>
+    <p>That one-sentence description at the top is what gets a skill chosen. If it’s vague, the agent may never open the skill, no matter how good the rest of it is.</p>
+    <p>There’s another limit, too. In Claude Code, <a href="https://code.claude.com/docs/en/skills">the list of descriptions is given a budget</a> — 1% of the context window by default, raisable in settings — and each description has a ceiling of its own on top of that. Once you have enough skills, descriptions begin to be shortened or dropped, starting with the ones you use least. A perfectly good skill can stop being found, and nothing tells you.</p>
+    <p>Still in Claude Code, typing <code>/context</code> shows how much of the context window that list is currently using. It counts in tokens rather than words — tokens being the smaller pieces a model actually reads. This post says “words” because they’re easier to picture.</p></div>
+
+    <div class="ri"><h3>Installing a skill is installing software</h3>
+    <p>A skill can contain scripts as well as instructions, and those scripts run with whatever permissions the agent has. <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">Anthropic’s advice</a> is simple: install skills from sources you trust, and read what’s in the folder before using them.</p>
+    <p>That matters because the format is open. In February 2026, <a href="https://www.koi.ai/blog/clawhavoc-341-malicious-clawedbot-skills-found-by-the-bot-they-were-targeting">a security firm audited ClawHub</a>, a marketplace where users of OpenClaw go to find ready-made skills — OpenClaw being a separate open-source agent, not an Anthropic product, that happens to use the same format. Of the 2,857 skills examined, 341 were malicious, and 335 of those carried the same stealer. What it took went well past saved passwords, as far as crypto wallet keys and the credentials people use to log into their own servers. The firm sells agent security software and launched a scanner in the same post, so weigh its claims accordingly; it published its method, and the findings were <a href="https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html">picked up and reported elsewhere</a>.</p></div>
+
+    <h2>What to actually do</h2>
+
+    <p>Write one. Not five.</p>
+
+    <p>Think of the thing you explained twice this week — the same correction, the same preference, the same “no, we always do it the other way”. That’s your first skill. Put it in a file, use it for a fortnight, and only then write another. Five skills written in one afternoon are five guesses about what you’ll need; one skill written after the second time you got annoyed is a real one.</p>
+
+    <p>If you’ve never opened a terminal, this lives in Claude under <em>Customize → Skills</em>. You’ll need code execution switched on under <em>Settings → Capabilities</em> first — that toggle is named for what it permits, not for what your skill has to contain, so one made only of instructions still needs it. On Team and Enterprise plans it’s switched on under organisation settings instead, and <a href="https://support.claude.com/en/articles/12512180-use-skills-in-claude">the help pages walk through both routes</a>. If you’re working in a project folder already, it’s a <code>.claude/skills</code> folder with one subfolder per skill, each holding its <code>SKILL.md</code>.</p>
+
+    <p>Then check what it costs you. In the terminal that’s <code>/context</code>, run before you add the skill and again afterwards — the number should barely move, and if it moves a lot, your description is doing too much talking. Outside the terminal you don’t get that figure, so the check is cruder: if the description at the top has grown past a sentence, cut it back.</p>
+
+    <h2>The next wall</h2>
+
+    <p>So the procedure is written down, and it’s being followed. Meetings get booked properly now.</p>
+
+    <p>Then you ask for something bigger. Research three options, recommend one, write the email that explains the choice.</p>
+
+    <p>It does all of it, in order, and the email is fine.</p>
+
+    <p>The trouble started before the email.</p>
+
+    <p>That all happened in one conversation. By the time it’s writing the email, it’s still carrying all the comparisons, the options it threw out, the notes from research it finished twenty minutes ago. That research is done, but it never left the room.</p>
+
+    <p>Skills kept every procedure from sitting in the conversation at once. They do nothing about work that’s already in there.</p>
+
+    <p>That’s what sub-agents solve, and they’re next.</p>
+
+    <div class="note"><strong>Sources &amp; further reading</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills">Equipping agents for the real world with Agent Skills — Anthropic</a>: the original engineering post from October 2025. The clearest statement of why the folder is shaped the way it is.</li>
+      <li><a href="https://agentskills.io">agentskills.io</a>: the open standard itself — the format Anthropic developed and then released for anyone to adopt — with a running list of the assistants that support it. Worth a look purely for how long that list has got.</li>
+      <li><a href="https://code.claude.com/docs/en/skills">Skills in Claude Code — official documentation</a>: where the lifecycle and cost details in this post come from, including what stays in the conversation after a skill loads and how the listing is trimmed when it gets too big. Note these are Claude Code’s own behaviours and the page carries version numbers — check the date before trusting any of it, including this post.</li>
+      <li><a href="https://support.claude.com/en/articles/12512180-use-skills-in-claude">Use Skills in Claude — Anthropic help centre</a>: the no-terminal route — where the settings live, and what an administrator has to switch on before anyone else sees the menu.</li>
+      <li><a href="https://claude.com/blog/skills-explained">Skills explained — Anthropic</a>: worth it for one sentence that does a lot of work — “MCP connects Claude to data; Skills teach Claude what to do with that data.”</li>
+      <li><a href="https://www.koi.ai/blog/clawhavoc-341-malicious-clawedbot-skills-found-by-the-bot-they-were-targeting">ClawHavoc: 341 malicious skills — Koi Security</a>: the February 2026 audit behind the security note above. Worth reading for the method it sets out; Koi sells agent security tooling, and launched a scanner in the same post.</li>
+      <li><a href="https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html">Researchers find 341 malicious ClawHub skills — The Hacker News</a>: coverage of the same audit — reporting on Koi’s findings rather than a separate check of them.</li>
+    </ul>
+    </div>
+  </article>
+
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    © 2026 Ranjita Naik
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+
+  var SKILLS = [
+    { key: "meet", name: "Meetings", desc: "How this team books meetings — use it whenever you’re putting something in someone’s calendar.",
+      body: ["Never book after 16:00 on a Friday.",
+             "Tuesday 09:00–12:00 is kept clear for focus work.",
+             "Default to 45 minutes rather than an hour.",
+             "More than five people means a week’s notice.",
+             "If the only free slot breaks one of these, ask instead of booking."] },
+    { key: "inv", name: "Invoices", desc: "How we raise and send invoices — use it when anything involves billing a client.",
+      body: ["Invoice on the last working day of the month.",
+             "Reference the project code, never the project name.",
+             "Payment terms are 30 days unless the contract says otherwise.",
+             "Send to the finance address, copy the person who hired us.",
+             "Chase once at day 35, then hand it to Priya."] },
+    { key: "file", name: "File names", desc: "How we name and file documents — use it when saving or renaming anything.",
+      body: ["Date first, in year-month-day order.",
+             "Then the client code, then a short description.",
+             "Lower case, hyphens instead of spaces.",
+             "Drafts keep a -draft suffix until they’re sent.",
+             "Nothing lives on a desktop. Everything lives in the shared folder."] },
+    { key: "style", name: "House style", desc: "How our writing should sound — use it when drafting anything a client will read.",
+      body: ["Short sentences. Cut every second adjective.",
+             "British spelling throughout.",
+             "No exclamation marks in client work.",
+             "Say what we recommend, then why, then the caveat.",
+             "Never promise a date we haven’t checked with delivery."] },
+    { key: "hand", name: "Handover", desc: "What goes in a handover note — use it at the end of a piece of work.",
+      body: ["What was asked for, in the client’s own words.",
+             "What we actually did, and where it lives.",
+             "Anything we decided that they didn’t see us decide.",
+             "The two things most likely to break.",
+             "Who to call, with a phone number that works."] }
+  ];
+
+  var ASKS = [
+    { key: "a1", label: "Book the team sync", match: "meet" },
+    { key: "a2", label: "Send last month’s invoice", match: "inv" },
+    { key: "a3", label: "Fix a typo on the homepage", match: null }
+  ];
+
+  var mode = "md";
+  var ask = null;
+  var loaded = [];
+
+  function wc(str) { return String(str).trim().split(/\s+/).length; }
+
+  // the bar is full when every procedure is loaded — which is exactly what
+  // the standing-instructions file does, on every request.
+  var MAX = 0;
+  for (var i = 0; i < SKILLS.length; i++) {
+    MAX += wc(SKILLS[i].name);
+    for (var j = 0; j < SKILLS[i].body.length; j++) { MAX += wc(SKILLS[i].body[j]); }
+  }
+
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+  function isLoaded(k) {
+    for (var i = 0; i < loaded.length; i++) { if (loaded[i] === k) { return true; } }
+    return false;
+  }
+
+  function addMatch() {
+    var m = matched();
+    if (m && !isLoaded(m)) { loaded.push(m); }
+  }
+
+  function matched() {
+    if (!ask) { return null; }
+    for (var i = 0; i < ASKS.length; i++) { if (ASKS[i].key === ask) { return ASKS[i].match; } }
+    return null;
+  }
+
+  function renderShelf() {
+    var m = matched();
+    var html = "";
+    for (var i = 0; i < SKILLS.length; i++) {
+      var s = SKILLS[i];
+      var open = (mode === "md") || isLoaded(s.key);
+      var state = open ? "Loaded" : "On the shelf";
+      html += '<div class="fold' + (open ? " open" : "") + '">'
+            + "<b>" + esc(s.name) + "</b>"
+            + '<span class="state">' + esc(state) + "</span>"
+            + "</div>";
+    }
+    $("shelf").innerHTML = html;
+  }
+
+  function renderAsks() {
+    var box = $("asks");
+    var btns = box.getElementsByTagName("button");
+    if (btns.length !== ASKS.length) {
+      var html = "";
+      for (var i = 0; i < ASKS.length; i++) {
+        html += '<button type="button" data-ask="' + ASKS[i].key + '" aria-pressed="false">'
+              + esc(ASKS[i].label) + "</button>";
+      }
+      box.innerHTML = html;
+      btns = box.getElementsByTagName("button");
+    }
+    for (var k = 0; k < btns.length; k++) {
+      var on = btns[k].getAttribute("data-ask") === ask;
+      btns[k].className = on ? "on" : "";
+      btns[k].setAttribute("aria-pressed", on ? "true" : "false");
+    }
+  }
+
+  function askLabel() {
+    for (var i = 0; i < ASKS.length; i++) { if (ASKS[i].key === ask) { return ASKS[i].label; } }
+    return "";
+  }
+
+  function renderCtx() {
+    var m = matched();
+    var html = "";
+    var descWords = 0, bodyWords = 0;
+    var i, s;
+
+    if (mode === "skills") {
+      var d = "";
+      for (i = 0; i < SKILLS.length; i++) {
+        s = SKILLS[i];
+        var line = s.name + " — " + s.desc;
+        d += '<span class="li">' + esc(line) + "</span>";
+        descWords += wc(line);
+      }
+      html += '<div class="row setup"><span class="rdot"></span>'
+            + '<span class="rlab">Given — one sentence per skill</span>'
+            + '<span class="rbody">' + d + "</span></div>";
+    } else {
+      var a = "";
+      for (i = 0; i < SKILLS.length; i++) {
+        s = SKILLS[i];
+        a += '<span class="ln"><b>' + esc(s.name) + "</b></span>";
+        bodyWords += wc(s.name);
+        for (var j = 0; j < s.body.length; j++) {
+          a += '<span class="li">' + esc(s.body[j]) + "</span>";
+          bodyWords += wc(s.body[j]);
+        }
+      }
+      html += '<div class="row setup full"><span class="rdot"></span>'
+            + '<span class="rlab">Given — all five procedures, in full</span>'
+            + '<span class="rbody">' + a + "</span></div>";
+    }
+
+    if (ask) {
+      html += '<div class="row you"><span class="rdot"></span>'
+            + '<span class="rlab">You</span>'
+            + '<span class="rbody">' + esc(askLabel()) + "</span></div>";
+    }
+
+    if (mode === "skills") {
+      for (var q = 0; q < loaded.length; q++) {
+        for (i = 0; i < SKILLS.length; i++) {
+          if (SKILLS[i].key !== loaded[q]) { continue; }
+          s = SKILLS[i];
+          var fresh = (loaded[q] === m);
+          var b = "";
+          for (var k = 0; k < s.body.length; k++) {
+            b += '<span class="li' + (fresh ? " fresh" : "") + '">' + esc(s.body[k]) + "</span>";
+            bodyWords += wc(s.body[k]);
+          }
+          html += '<div class="row skill"><span class="rdot"></span>'
+                + '<span class="rlab">' + esc(s.name) + " — "
+                + (fresh ? "opened just now" : "still open from earlier") + "</span>"
+                + '<span class="rbody">' + b + "</span></div>";
+        }
+      }
+    }
+
+    $("ctx").innerHTML = html;
+    return { d: descWords, b: bodyWords };
+  }
+
+  function renderMeter(counts) {
+    var total = counts.d + counts.b;
+    var ws = counts.d / MAX * 100;
+    var wb = counts.b / MAX * 100;
+    if (ws > 100) { ws = 100; }
+    if (ws + wb > 100) { wb = 100 - ws; }
+    $("mb-s").style.width = ws + "%";
+    $("mb-b").style.width = wb + "%";
+
+    var msg;
+    if (mode === "md") {
+      msg = "<b>" + total + " words</b> of procedure in the context — all five, "
+          + (ask ? "including the ones this request had nothing to do with." : "before you’ve asked anything at all.")
+          + " That’s the same on every request, in every session.";
+    } else if (loaded.length) {
+      msg = "<b>" + total + " words</b> — five descriptions, plus "
+          + (loaded.length === 1
+              ? "the one procedure that matched."
+              : loaded.length + " procedures that have matched so far.")
+          + " Anything that has opened stays open for the rest of the conversation.";
+    } else {
+      msg = "<b>" + total + " words</b> — one sentence per skill, and nothing else. "
+          + (ask ? "Nothing matched this request, so nothing opened." : "This is the resting cost of having five skills.");
+    }
+    $("mtext").innerHTML = msg;
+    $("meterbar").setAttribute("aria-label",
+      "Instruction text in the context: " + total + " words out of " + MAX
+      + ", the total when all five procedures are loaded. Your request is shown above but not counted here.");
+  }
+
+  function renderHint() {
+    var md = mode === "md";
+    $("modehint").textContent = md
+      ? "Everything is loaded, every time. Switch to skills and watch the context below shrink."
+      : (loaded.length
+          ? "The descriptions are always there. A procedure joins them once it has matched, and stays. Switch back to compare."
+          : "Only the descriptions are loaded to start with. Switch back to compare.");
+    $("askhint").textContent = md
+      ? "Pick a request, and watch how little changes."
+      : (loaded.length
+          ? "Anything that has opened stays open. Start a fresh conversation to clear it."
+          : "This is the part that moves. Pick a request and watch the shelf.");
+  }
+
+  function draw() {
+    renderHint();
+    renderShelf();
+    renderAsks();
+    renderMeter(renderCtx());
+  }
+
+  $("modebar").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-mode]");
+    if (!b) { return; }
+    mode = b.getAttribute("data-mode");
+    loaded = [];
+    addMatch();
+    var all = $("modebar").getElementsByTagName("button");
+    for (var i = 0; i < all.length; i++) {
+      var pressed = all[i].getAttribute("data-mode") === mode;
+      all[i].className = pressed ? "on" : "";
+      all[i].setAttribute("aria-pressed", pressed ? "true" : "false");
+    }
+    draw();
+  });
+
+  $("asks").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-ask]");
+    if (!b) { return; }
+    ask = b.getAttribute("data-ask");
+    addMatch();
+    draw();
+  });
+
+  $("reset").addEventListener("click", function () {
+    ask = null;
+    loaded = [];
+    draw();
+  });
+
+  draw();
+}());
+</script>
+<!-- <script data-goatcounter="https://ranjitanaik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script> -->
+</body>
+</html>
