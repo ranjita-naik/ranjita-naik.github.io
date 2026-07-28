@@ -205,12 +205,22 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 .card .cd { font-family: var(--sans); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
 .card .ct { font-family: var(--serif); font-weight: 700; font-size: 1.08rem; color: var(--ink); line-height: 1.35; display: block; margin-top: 3px; }
 .card:hover .ct { color: var(--accent-dark); }
+
+/* identity links, tucked under the logo — homepage only */
+header.site .wrap { flex-direction: column; align-items: flex-start; gap: 7px; }
+.idlinks { font-family: var(--sans); font-size: 0.79rem; color: var(--muted); }
+.idlinks a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 1px; }
+.idlinks a:hover { color: var(--accent-dark); border-bottom-color: var(--accent); }
+.idlinks .sep { margin: 0 9px; color: #6b665c; }
 </style>
 </head>
 <body>
 <header class="site">
   <div class="wrap" style="max-width: 880px;">
     <a class="logo" href="index.html">Ranjita<span>.</span>Naik</a>
+    <div class="idlinks">
+      <a href="https://github.com/ranjita-naik" rel="me noopener">GitHub</a><span class="sep">·</span><a href="https://scholar.google.com/citations?user=_EpRUk4AAAAJ&amp;hl=en" rel="me noopener">Google Scholar</a>
+    </div>
   </div>
 </header>
 
@@ -316,6 +326,27 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 <circle cx="222" cy="128" r="4" fill="#4356c0"/><rect x="234" y="125" width="46" height="6" rx="3" fill="#8fa0e8"/>
 </svg>
       <span class="cb"><span class="cd">Jul 24 · 2026</span><span class="ct">Tools: give your agent hands</span></span>
+    </a>
+    <a class="card" href="learn/mcp.html">
+<svg viewBox="0 0 320 180" role="img" aria-label="Thumbnail: three AI assistants on the left and three services on the right, all connecting through one shared plug in the middle instead of one wire each.">
+<rect width="320" height="180" fill="#f7f4ee"/>
+<rect x="20" y="34" width="56" height="22" rx="6" fill="#e9f6f2" stroke="#0e8a72" stroke-width="2.5"/>
+<rect x="20" y="79" width="56" height="22" rx="6" fill="#e9f6f2" stroke="#0e8a72" stroke-width="2.5"/>
+<rect x="20" y="124" width="56" height="22" rx="6" fill="#e9f6f2" stroke="#0e8a72" stroke-width="2.5"/>
+<g fill="none" stroke="#8a8577" stroke-width="2.5">
+<path d="M 76 45 C 108 45, 116 62, 140 68"/>
+<path d="M 76 90 C 108 90, 116 90, 140 90"/>
+<path d="M 76 135 C 108 135, 116 118, 140 112"/>
+<path d="M 166 68 C 190 62, 198 45, 232 45"/>
+<path d="M 166 90 C 190 90, 198 90, 232 90"/>
+<path d="M 166 112 C 190 118, 198 135, 232 135"/>
+</g>
+<rect x="140" y="38" width="26" height="104" rx="10" fill="#0d7a68"/>
+<rect x="232" y="34" width="68" height="22" rx="6" fill="#eef0fb" stroke="#4356c0" stroke-width="2"/>
+<rect x="232" y="79" width="68" height="22" rx="6" fill="#eef0fb" stroke="#4356c0" stroke-width="2"/>
+<rect x="232" y="124" width="68" height="22" rx="6" fill="#eef0fb" stroke="#4356c0" stroke-width="2"/>
+</svg>
+      <span class="cb"><span class="cd">Jul 28 · 2026</span><span class="ct">MCP: let your tools travel</span></span>
     </a>
   </div>
   </details>
