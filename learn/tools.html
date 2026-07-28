@@ -239,20 +239,20 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 .card { background: #fff; border: 1px solid #e7e3da; border-radius: 10px; padding: 3px 16px; }
 .row { display: grid; grid-template-columns: 30px 1fr; padding: 14px 0; border-top: 1px solid #eee9df; }
 .row:first-child { border-top: 0; }
-.rn { grid-area: 1 / 1; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; color: #b3ada0; }
+.rn { grid-area: 1 / 1; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; color: #6b665c; }
 .rdot { grid-area: 2 / 1; width: 11px; height: 11px; border-radius: 50%; margin-top: 6px; }
 .rlab { grid-area: 1 / 2; font-family: var(--sans); font-size: 0.82rem; font-weight: 700; margin-bottom: 5px; }
 .rbody { grid-area: 2 / 2; font-family: var(--serif); font-size: 1rem; line-height: 1.5; color: var(--ink); }
 .rbody .ln { display: block; }
 .rbody .li { display: block; padding-left: 18px; margin-top: 4px; position: relative; }
-.rbody .li::before { content: "\2013"; position: absolute; left: 5px; color: #b3ada0; }
-.row.setup .rdot { background: #a7a294; } .row.setup .rlab { color: #7c7768; }
+.rbody .li::before { content: "\2013"; position: absolute; left: 5px; color: #6b665c; }
+.row.setup .rdot { background: #a7a294; } .row.setup .rlab { color: #6b665c; }
 .row.you .rdot { background: #8a4f9e; } .row.you .rlab { color: #7a4288; }
 .row.model .rdot { background: #0e8a72; } .row.model .rlab { color: #0a5c4f; }
-.row.result .rdot { background: #a86b00; } .row.result .rlab { color: #a86b00; }
+.row.result .rdot { background: #a86b00; } .row.result .rlab { color: #8f5b00; }
 .tchipc { font-family: var(--mono); font-size: 0.82em; font-weight: 700; color: #3444a8; background: #eef0fb; border: 1px solid #d3d9f3; border-radius: 5px; padding: 1px 5px; white-space: nowrap; }
 .offpage { margin: 10px 0; border: 1px dashed #c7c1b2; border-radius: 10px; padding: 12px 16px; background: repeating-linear-gradient(45deg, #eae7df, #eae7df 7px, #e4e0d6 7px, #e4e0d6 14px); }
-.offpage .ol { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #8a8477; margin-bottom: 5px; }
+.offpage .ol { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #615d54; margin-bottom: 5px; }
 .offpage .od { font-family: var(--serif); font-size: 0.98rem; color: #4a463e; line-height: 1.5; }
 .offpage .od .tchipc { background: #e2ded4; border-color: #d0ccc0; color: #55606e; }
 .legend { display: flex; flex-wrap: wrap; gap: 8px 15px; margin: 13px 2px 0; font-family: var(--sans); font-size: 0.76rem; color: var(--muted); }
@@ -260,7 +260,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .pagenote { font-family: var(--serif); font-size: 1.05rem; line-height: 1.55; color: #2f3a44; border-left: 4px solid var(--accent); padding: 4px 0 4px 18px; margin: 20px 0; }
 .pagenote b { color: var(--accent-dark); }
-.pagenote .gy { color: #8a8477; font-weight: 700; }
+.pagenote .gy { color: #6b665c; font-weight: 700; }
 
 /* ---- signature interactive ---- */
 .sim { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin: 22px 0; }
@@ -284,7 +284,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 .msg { border-radius: 10px; padding: 9px 12px; font-size: 0.9rem; line-height: 1.5; border: 1px solid var(--line); background: #fff; margin-top: 8px; }
 .msg .who { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 3px; }
 .msg.model { border-left: 3px solid #0e8a72; } .msg.model .who { color: #0e8a72; }
-.msg.obs   { border-left: 3px solid #a86b00; background: #fffdf7; } .msg.obs .who { color: #a86b00; }
+.msg.obs   { border-left: 3px solid #a86b00; background: #fffdf7; } .msg.obs .who { color: #8f5b00; }
 .verdict { margin-top: 10px; border-radius: 10px; padding: 10px 13px; font-size: 0.9rem; font-weight: 600; }
 .verdict.ok  { background: #e9f6f2; color: #0a5c4f; }
 .verdict.warn{ background: #faf3e4; color: #7a4e00; }
@@ -320,6 +320,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
   <details class="sb-group" open>
     <summary>Part II — Capabilities</summary>
     <a class="sb-item on" href="../learn/tools.html"><span class="sb-d">Jul 24</span><span>Tools: give it hands</span></a>
+    <a class="sb-item" href="../learn/mcp.html"><span class="sb-d">Jul 28</span><span>MCP: let tools travel</span></a>
   </details>
 </aside>
 <main class="content">
@@ -365,14 +366,14 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     <h2>What the model actually sees</h2>
     <p>Something sneaks into the conversation that most people never picture, and it's the whole key. Say you type <em>"email Alice I'll be ten minutes late."</em> The model — the thinking part inside the agent — doesn't just get your sentence.</p>
 
-    <p>A beat before your words reach it, the software gathers up the tools it's allowed to use — each the same kind of card you just saw — and sets them in front of the model along with your request. From there, using a tool is a back-and-forth between two players: the <strong>software</strong> (the everyday program running the show) and the <strong>model</strong> (the thinking part, which only ever decides). And the thing they build between them is a single <em>growing page</em> — the model's whole view of what's happening. Watch it fill up, step by step, for <em>"Email Alice I'll be ten minutes late"</em>:</p>
+    <p>A beat before your words reach it, the software gathers up the tools it's allowed to use — each the same kind of card you just saw — and sets them in front of the model along with your request. From there, using a tool is a back-and-forth between two players: the <strong>software</strong> (the everyday program running the show) and the <strong>model</strong> (the thinking part, which only ever decides). What they build between them is the model's <strong>context</strong> — the <em>context window</em> from <a href="make-it-remember.html">the memory post</a>, that single scratchpad holding everything it has to work with, written out in full this time. It's easiest to picture as a single page that grows. Watch it fill up, step by step, for <em>"Email Alice I'll be ten minutes late"</em>:</p>
 
-    <div class="pagev" role="img" aria-label="The model's view of the conversation, shown as one page that grows. Row 1, given to the model: you're a helpful assistant, and two tools are available — send_email, which needs recipient, subject and message, and get_weather, which needs a place. Row 2, you: Email Alice that I'll be 10 minutes late. Row 3, the model decides: I'll use send_email, to Alice, subject Running late, message I'll be 10 minutes late. Then, off the page where the model sees none of it, the software runs the real send_email code, talks to the email service, and waits for an answer. Row 4, result added back to the page: email sent successfully. Row 5, the model replies: done, I've emailed Alice you'll be about 10 minutes late.">
-      <div class="pagev-h"><b>The model's view of the conversation</b><span>One page. It grows as the work gets done — but only some things ever land on it.</span></div>
+    <div class="pagev" role="img" aria-label="The model's view of the conversation, shown as one page that grows. Row 1, given to the model: you're helpful and concise, and two tools are available — send_email, which needs recipient, subject and message, and get_weather, which needs a place. Row 2, you: Email Alice that I'll be 10 minutes late. Row 3, the model decides: I'll use send_email, to Alice, subject Running late, message I'll be 10 minutes late. Then, off the page where the model sees none of it, the software runs the real send_email code, talks to the email service, and waits for an answer. Row 4, result added back to the page: email sent successfully. Row 5, the model replies: done, I've emailed Alice you'll be about 10 minutes late.">
+      <div class="pagev-h"><b>The model's context</b><span>It grows as the work gets done — but only some things ever land on it.</span></div>
       <div class="card">
         <div class="row setup"><div class="rn">1</div><div class="rdot"></div>
           <div class="rlab">Given to the model</div>
-          <div class="rbody"><span class="ln">You're a helpful assistant.</span><span class="ln">Two tools are available:</span><span class="li"><span class="tchipc">send_email</span> (needs: recipient, subject, message)</span><span class="li"><span class="tchipc">get_weather</span> (needs: a place)</span></div>
+          <div class="rbody"><span class="ln">You're helpful and concise.</span><span class="ln">Two tools are available:</span><span class="li"><span class="tchipc">send_email</span> (needs: recipient, subject, message)</span><span class="li"><span class="tchipc">get_weather</span> (needs: a place)</span></div>
         </div>
         <div class="row you"><div class="rn">2</div><div class="rdot"></div>
           <div class="rlab">You</div>
@@ -399,7 +400,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
       </div>
     </div>
 
-    <p class="pagenote">Everything on the <b>white page</b> is the model's whole world. The software ran the code <span class="gy">off the page</span>. The model never saw any of it.</p>
+    <p class="pagenote">Everything inside the <b>white box</b> is the model's entire context. The software ran the code <span class="gy">off the page</span>. The model never saw any of it.</p>
 
     <div class="legend" role="img" aria-label="Legend: grey dot is what was given to the model, plum is you, teal is the model, gold is a tool result, and a hollow dot is off the page.">
       <span><i style="background:#a7a294"></i>Given</span>
@@ -414,7 +415,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     <h2>Which means the description does more work than you'd think</h2>
     <p>If the description is <em>all</em> the model has, then how you write it quietly decides whether the agent reaches for the right tool. Anthropic, who make Claude, call a tool's description <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use">"by far the most important factor"</a> in whether tools work well. Sounds like a footnote. Watch what it actually does.</p>
 
-    <div class="sim" aria-label="Interactive: the same question and the same two tools, with only one tool's description changing from vague to detailed.">
+    <div class="sim" role="group" aria-label="Interactive: the same question and the same two tools, with only one tool's description changing from vague to detailed.">
       <div class="askrow"><span class="lbl">You ask</span><span class="q">"What should I wear tomorrow?"</span></div>
 
       <div class="seg" role="group" aria-label="Description quality for the get_forecast tool">
@@ -450,30 +451,30 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     <p>In most setups, every tool's description gets handed to the model on every turn, so the more tools you pile on, the more it has to read through before it does anything — and that has a cost. (Smarter setups show the model only the tools it's likely to need, but the tug toward bloat is real.) A good description helps the agent <em>choose</em> well; it does not make the tool <em>safe</em> — a tool does exactly what its code does, no more and no less. And that's the real weight of giving an agent hands: those hands touch your actual files and your actual accounts. It's why Claude Code stops to ask before it runs Write, Edit, or Bash. Look before you let it run.</p>
 
     <h2>Where all this lives</h2>
-    <p>If you've been following closely, one thing's still nagging: a tool is a name, a description, and some inputs — but those have to <em>live</em> somewhere. Two honest answers. If you're using something like Claude Code, the everyday ones come built in — reading a file, editing it, running a command are already there, nothing for you to set up. (You can even point it at a small script of your own and, in your <a href="make-it-remember.html">CLAUDE.md</a>, tell it when to reach for that.) And if you're building your own agent, you write those definitions yourself, in its code. What there <em>isn't</em> is one agreed-on place or shape for them — every setup does it a little differently, and that difference is about to become the whole problem.</p>
+    <p>If you've been following closely, one thing's still nagging: a tool is a name, a description, and some inputs — but those have to <em>live</em> somewhere. Two honest answers. If you're using something like Claude Code, the everyday ones come built in — reading a file, editing it, running a command are already there, nothing for you to set up. (You can even point it at a small script of your own and, in your <a href="make-it-remember.html">CLAUDE.md</a>, tell it when to reach for that.) And if you're building your own agent, you write those definitions yourself, in its code. What there <em>isn't</em> is one agreed-on place they live or one agreed-on way to describe them — every setup does it a little differently, and that difference is about to become the whole problem.</p>
 
     <h2>The next wall</h2>
-    <p>Here's the thought to pick back up: because those cards are just text, handed over fresh each time, you can teach your agent something new without retraining anything — you add a card. Nothing about the model changes; you change what it's handed. That's the quiet superpower. It's also the trap. Reaching your GitHub takes one hand-built tool. Your calendar, another card. Then Slack — your team's chat. Then your notes. Then your database, the place your app's records live. Each is its own little card, wired up by hand. Switch to a different app next week and you start over.</p>
+    <p>Here's the thought to pick back up: because those cards are just text, handed over fresh each time, you can teach your agent something new without retraining anything — you add a card. Nothing about the model changes; you change what it's handed. That's the quiet superpower. It's also the trap. Reaching your GitHub takes one hand-built tool. Your calendar, another card. Then Slack — your team's chat. Then your notes. Then your database, the place your project's records live. Each is its own little card, wired up by hand. Switch to a different assistant next week and you start over.</p>
 
     <p>That's a lot of one-off wiring. You can feel the next question coming: isn't there a standard — one universal plug — so any tool just <em>connects</em>, instead of being rebuilt every time?</p>
 
-    <svg class="wiring" viewBox="0 0 560 250" role="img" aria-label="One agent hand-wired to four separate apps — a GitHub tool, a calendar tool, a database tool, a Slack tool — each by its own custom connection, hinting at a tangle a single standard would tidy up.">
+    <svg class="wiring" viewBox="0 0 560 250" role="img" aria-label="One agent hand-wired to four separate services — a GitHub tool, a calendar tool, a database tool, a Slack tool — each by its own custom connection, hinting at a tangle a single standard would tidy up.">
       <rect x="22" y="88" width="120" height="50" rx="10" fill="#e9f6f2" stroke="#0e8a72" stroke-width="2"/>
       <text x="82" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#0a5c4f">Agent</text>
-      <path d="M142 102 C 260 42, 330 34, 402 44" fill="none" stroke="#4356c0" stroke-width="2"/>
-      <path d="M142 110 C 260 98, 330 88, 402 96" fill="none" stroke="#4356c0" stroke-width="2"/>
-      <path d="M142 118 C 250 150, 330 150, 402 148" fill="none" stroke="#4356c0" stroke-width="2"/>
-      <path d="M142 126 C 250 205, 340 205, 402 200" fill="none" stroke="#4356c0" stroke-width="2"/>
-      <g font-size="12" fill="#3444a8">
-        <rect x="402" y="28" width="134" height="34" rx="8" fill="#eef0fb" stroke="#c3cbf0"/><text x="469" y="49" text-anchor="middle">GitHub tool</text>
-        <rect x="402" y="80" width="134" height="34" rx="8" fill="#eef0fb" stroke="#c3cbf0"/><text x="469" y="101" text-anchor="middle">Calendar tool</text>
-        <rect x="402" y="132" width="134" height="34" rx="8" fill="#eef0fb" stroke="#c3cbf0"/><text x="469" y="153" text-anchor="middle">Database tool</text>
-        <rect x="402" y="184" width="134" height="34" rx="8" fill="#eef0fb" stroke="#c3cbf0"/><text x="469" y="205" text-anchor="middle">Slack tool</text>
+      <path d="M142 102 C 260 42, 330 34, 402 44" fill="none" stroke="#8a8577" stroke-width="2"/>
+      <path d="M142 110 C 260 98, 330 88, 402 96" fill="none" stroke="#8a8577" stroke-width="2"/>
+      <path d="M142 118 C 250 150, 330 150, 402 148" fill="none" stroke="#8a8577" stroke-width="2"/>
+      <path d="M142 126 C 250 205, 340 205, 402 200" fill="none" stroke="#8a8577" stroke-width="2"/>
+      <g font-size="12" fill="#3444a8" font-weight="700">
+        <rect x="402" y="28" width="134" height="34" rx="8" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="469" y="49" text-anchor="middle">GitHub tool</text>
+        <rect x="402" y="80" width="134" height="34" rx="8" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="469" y="101" text-anchor="middle">Calendar tool</text>
+        <rect x="402" y="132" width="134" height="34" rx="8" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="469" y="153" text-anchor="middle">Database tool</text>
+        <rect x="402" y="184" width="134" height="34" rx="8" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="469" y="205" text-anchor="middle">Slack tool</text>
       </g>
-      <text x="280" y="242" text-anchor="middle" font-size="11" fill="#8a8577" font-style="italic">one custom wire per app — redone every time you switch</text>
+      <text x="280" y="242" text-anchor="middle" font-size="11" fill="#8a8577" font-style="italic">one custom wire per tool — redone every time you switch</text>
     </svg>
 
-    <p>There is. It's called <strong>MCP</strong> — think of it as a USB-C port for tools: one standard way to plug them in, rather than a magic supply of them. That's the next post.</p>
+    <p>There is. It's called <strong>MCP</strong>: one agreed-on way to plug tools in, so the same connection works no matter which assistant you're using. Not a magic supply of tools — just one agreed-on way to plug them in. That's the next post.</p>
 
     <p>Try it before then: in the project you already have, ask your agent to do something that needs a tool it already has — read a file, or run a quick command — and watch which one it reaches for. (Notice it pausing to ask before it acts.) Then meet me at MCP.</p>
 

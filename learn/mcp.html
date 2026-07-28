@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="Let your tools travel (MCP) — Ranjita Naik">
+<meta property="og:description" content="You got your agent to use one tool. Doing it again for every assistant and every service is the wall MCP removes. The surprising part is what it leaves alone.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/learn/mcp.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik — all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>Let your tools travel (MCP) — Ranjita Naik</title>
+<meta name="description" content="You got your agent to use one tool. Doing it again for every assistant and every service is the wall MCP removes. The surprising part is what it leaves alone.">
+
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 1040px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+footer.site .wrap { max-width: 1040px; }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+<style>
+/* ---- the memorable line ---- */
+.bigidea { font-family: var(--serif); font-size: 1.4rem; line-height: 1.4; font-weight: 700; color: var(--ink); padding: 4px 0; margin: 24px 0; }
+/* ---- a standalone beat (a callback line, quieter than the big idea) ---- */
+.beat { font-family: var(--serif); font-size: 1.25rem; font-style: italic; color: var(--accent-dark); text-align: center; margin: 20px 0; }
+
+/* ---- the model's page, carried over from the Tools post ---- */
+.pagev { background: #efece5; border-radius: 14px; padding: 16px 16px 18px; margin: 22px 0; }
+.pagev-h { padding: 2px 4px 13px; }
+.pagev-h b { display: block; font-family: var(--serif); font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+.pagev-h span { display: block; font-family: var(--sans); font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
+.card { background: #fff; border: 1px solid #e7e3da; border-radius: 10px; padding: 3px 16px; }
+.row { display: grid; grid-template-columns: 30px 1fr; padding: 14px 0; border-top: 1px solid #eee9df; }
+.row:first-child { border-top: 0; }
+.rn { grid-area: 1 / 1; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; color: #6b665c; }
+.rdot { grid-area: 2 / 1; width: 11px; height: 11px; border-radius: 50%; margin-top: 6px; }
+.rlab { grid-area: 1 / 2; font-family: var(--sans); font-size: 0.82rem; font-weight: 700; margin-bottom: 5px; }
+.rbody { grid-area: 2 / 2; font-family: var(--serif); font-size: 1rem; line-height: 1.5; color: var(--ink); }
+.rbody .ln { display: block; }
+.rbody .li { display: block; padding-left: 18px; margin-top: 4px; position: relative; }
+.rbody .li::before { content: "\2013"; position: absolute; left: 5px; color: #6b665c; }
+.rbody .none { color: #6b665c; font-family: var(--sans); font-size: .8rem; font-style: italic; margin-top: 7px; padding-top: 6px; border-top: 1px dashed #e7e3da; }
+.rbody .fresh { background: #e9f6f2; border-radius: 5px; box-shadow: 0 0 0 3px #e9f6f2; }
+.row.setup .rdot { background: #a7a294; } .row.setup .rlab { color: #6b665c; }
+.row.you .rdot { background: #8a4f9e; } .row.you .rlab { color: #7a4288; }
+.row.model .rdot { background: #0e8a72; } .row.model .rlab { color: #0a5c4f; }
+.row.result .rdot { background: #a86b00; } .row.result .rlab { color: #8f5b00; }
+.tchipc { font-family: var(--mono); font-size: 0.82em; font-weight: 700; color: #3444a8; background: #eef0fb; border: 1px solid #d3d9f3; border-radius: 5px; padding: 1px 5px; white-space: nowrap; }
+.offpage { margin: 10px 0; border: 1px dashed #c7c1b2; border-radius: 10px; padding: 12px 16px; background: repeating-linear-gradient(45deg, #eae7df, #eae7df 7px, #e4e0d6 7px, #e4e0d6 14px); }
+.offpage .ol { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #615d54; margin-bottom: 5px; }
+.offpage .od { font-family: var(--serif); font-size: 0.98rem; color: #4a463e; line-height: 1.5; }
+.offpage .od .tchipc { background: #e2ded4; border-color: #d0ccc0; color: #55606e; }
+.offpage.quiet { background: none; border-style: dotted; border-color: #ddd8cc; }
+.offpage.quiet .ol { color: #6b665c; }
+.offpage.quiet .od { font-size: 0.9rem; font-style: italic; color: #6b665c; }
+.pagenote { font-family: var(--serif); font-size: 1.05rem; line-height: 1.55; color: #2f3a44; border-left: 4px solid var(--accent); padding: 4px 0 4px 18px; margin: 20px 0; }
+.pagenote b { color: var(--accent-dark); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 15px; margin: 13px 2px 0; font-family: var(--sans); font-size: 0.76rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+
+/* ---- the two wiring pictures ---- */
+.wiring { width: 100%; height: auto; max-width: 560px; display: block; margin: 20px auto; }
+
+/* ---- who writes what ---- */
+.beforeafter { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+@media (max-width: 620px) { .beforeafter { grid-template-columns: 1fr; } }
+.ba { border: 1px solid var(--line); border-radius: 12px; padding: 13px 16px 15px; background: #fff; }
+.ba h3 { font-family: var(--sans); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin: 0 0 3px; }
+.ba .who { font-family: var(--serif); font-size: 1.02rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.ba ul { margin: 0; padding-left: 18px; font-family: var(--sans); font-size: 0.88rem; line-height: 1.65; color: var(--ink); }
+.ba.old { background: #faf9f5; }
+.ba.old .who { color: #6b665c; }
+.ba.new { border-color: #bfe3d8; background: #f4faf8; }
+.ba.new .who { color: var(--accent-dark); }
+
+/* ---- signature interactive: watch it plug in ---- */
+.sim { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin: 22px 0; }
+.stepbar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+.stepbar button { font-family: var(--sans); font-size: 0.77rem; font-weight: 600; border: 1px solid var(--line); background: #fff; color: var(--muted); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+.stepbar button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.stepbar button .sn { font-family: var(--mono); opacity: 0.65; margin-right: 5px; }
+.steptitle { font-family: var(--serif); font-size: 1.14rem; font-weight: 700; color: var(--ink); margin: 4px 0 5px; }
+.stepsay { font-family: var(--sans); font-size: 0.92rem; line-height: 1.6; color: var(--muted); margin: 0 0 15px; min-height: 3.2em; }
+.plugrow { display: grid; grid-template-columns: 1fr 34px 1fr; align-items: center; gap: 6px; margin-bottom: 6px; }
+@media (max-width: 560px) { .plugrow { grid-template-columns: 1fr; } .plugwire { display: none; } }
+.pcard { border: 1.5px dashed #cfcabb; border-radius: 11px; padding: 11px 14px; background: #faf9f5; transition: border-color .2s ease, background .2s ease; }
+.pcard b { display: block; font-family: var(--sans); font-size: 0.88rem; font-weight: 700; color: #6b665c; }
+.pcard span { display: block; font-family: var(--sans); font-size: 0.77rem; color: var(--muted); margin-top: 2px; }
+.pcard.appc.live { border-style: solid; border-color: #0e8a72; background: #f2faf7; }
+.pcard.appc.live b { color: var(--accent-dark); }
+.pcard.srvc.live { border-style: solid; border-color: #4356c0; background: #fafbff; }
+.pcard.srvc.live b { color: #3444a8; }
+.plugwire { height: 3px; border-radius: 2px; background: #ddd8cc; }
+.plugwire.live { background: #4356c0; }
+.stepnav { display: flex; gap: 10px; margin-top: 15px; }
+.stepnav button { font-family: var(--sans); font-size: 0.88rem; font-weight: 600; border-radius: 9px; padding: 9px 16px; cursor: pointer; border: 1px solid var(--line); background: #fff; color: var(--ink); }
+.stepnav button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.stepnav button[disabled] { opacity: 0.4; cursor: default; }
+.simnote { font-family: var(--sans); font-size: 0.83rem; color: var(--muted); font-style: italic; margin: 13px 2px 0; }
+/* ---- run-in case labels (heading and its paragraph share a line) ---- */
+.ri { margin: 0 0 1.15em; }
+.ri h3 { display: inline; font-size: 1.08rem; font-style: italic; margin: 0; }
+.ri h3::after { content: ": "; font-weight: 400; font-style: normal; }
+.ri p { display: inline; }
+
+</style>
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="Posts, grouped by curriculum part">
+  <div class="sb-title">Agents</div>
+  <details class="sb-group" open>
+    <summary>Part I — Foundations</summary>
+    <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 20</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 21</span><span>The Agent Loop</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage with an agent</span></a>
+    <a class="sb-item" href="../learn/make-it-remember.html"><span class="sb-d">Jul 23</span><span>Make it remember</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part II — Capabilities</summary>
+    <a class="sb-item" href="../learn/tools.html"><span class="sb-d">Jul 24</span><span>Tools: give it hands</span></a>
+    <a class="sb-item on" href="../learn/mcp.html"><span class="sb-d">Jul 28</span><span>MCP: let tools travel</span></a>
+  </details>
+</aside>
+<main class="content">
+  <article>
+    <h1>Let your tools travel</h1>
+    <div class="meta">28 July 2026</div>
+
+    <p>Last post your agent got hands. It can send an email now, look up the weather — real actions, not just talk. So you try the obvious next thing.</p>
+
+    <p><em>"What's on my calendar tomorrow?"</em></p>
+
+    <p>It can't answer. It has no way to reach your calendar — nobody has given it a calendar tool.</p>
+
+    <p>Fine — you know how the fix goes now. Someone writes that tool: a name, a one-line description, the inputs it needs, and the code behind it that actually talks to your calendar. An afternoon's work, if you already know that calendar's quirks. And then it works, and it's good.</p>
+
+    <p>Two months later a better AI assistant comes along — another program you type your requests into — and you switch to it. The calendar tool doesn't come with you. It was written into the old assistant, in that assistant's own terms, and the new one has never heard of it. So someone writes the same calendar tool a second time.</p>
+
+    <p>Nothing is broken here. Every piece works exactly as built. It's just that the work doesn't <em>travel</em>.</p>
+
+    <h2>Why the work doesn't travel</h2>
+
+    <p>Your calendar isn't a special case. On one side are the AI assistants — your agent is one of them: Claude Code (which we <a href="build-with-an-agent.html">built a webpage with</a>), Codex, Cursor, and whatever turns up next spring. On the other side are the services you'd like them to reach: Google Calendar, Gmail, Slack, GitHub, and a few hundred more you could name.</p>
+
+    <p>Every assistant needs its own tool for every service. Not one calendar tool in the world — one calendar tool <em>per assistant</em>. Say three assistants and three services — that's nine pieces of work. A fourth assistant adds three more. And every one of those jobs falls to someone who has to learn a service they don't own, then keep up with it each time it changes.</p>
+
+    <p>Nobody chose this. It's just what happens when there's no agreed-on way to make the connection.</p>
+
+    <svg class="wiring" viewBox="0 0 560 252" role="img" aria-label="Three AI assistants on the left — Claude Code, Codex and Cursor — each wired separately to three services on the right: Google Calendar, Slack and GitHub. Nine separate connections in all, forming a tangle.">
+      <g font-family="system-ui, sans-serif">
+        <rect x="16" y="34" width="120" height="38" rx="9" fill="#e9f6f2" stroke="#0e8a72" stroke-width="1.6"/><text x="76" y="58" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0a5c4f">Claude Code</text>
+        <rect x="16" y="99" width="120" height="38" rx="9" fill="#e9f6f2" stroke="#0e8a72" stroke-width="1.6"/><text x="76" y="123" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0a5c4f">Codex</text>
+        <rect x="16" y="164" width="120" height="38" rx="9" fill="#e9f6f2" stroke="#0e8a72" stroke-width="1.6"/><text x="76" y="188" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0a5c4f">Cursor</text>
+        <g stroke="#8a8577" stroke-width="1.6" fill="none">
+          <path d="M136 53 C 250 45, 320 47, 424 53"/>
+          <path d="M136 53 C 250 70, 320 100, 424 118"/>
+          <path d="M136 53 C 250 95, 320 155, 424 183"/>
+          <path d="M136 118 C 250 92, 320 62, 424 53"/>
+          <path d="M136 118 C 250 116, 320 120, 424 118"/>
+          <path d="M136 118 C 250 145, 320 172, 424 183"/>
+          <path d="M136 183 C 250 160, 320 90, 424 53"/>
+          <path d="M136 183 C 250 178, 320 140, 424 118"/>
+          <path d="M136 183 C 250 190, 320 188, 424 183"/>
+        </g>
+        <rect x="424" y="34" width="120" height="38" rx="9" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="484" y="58" text-anchor="middle" font-size="12.5" font-weight="700" fill="#3444a8">Google Calendar</text>
+        <rect x="424" y="99" width="120" height="38" rx="9" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="484" y="123" text-anchor="middle" font-size="12.5" font-weight="700" fill="#3444a8">Slack</text>
+        <rect x="424" y="164" width="120" height="38" rx="9" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="484" y="188" text-anchor="middle" font-size="12.5" font-weight="700" fill="#3444a8">GitHub</text>
+        <text x="280" y="238" text-anchor="middle" font-size="13" fill="#5c6370" font-style="italic">nine separate pieces of work — and one more assistant means three more</text>
+      </g>
+    </svg>
+
+    <h2>So what is MCP?</h2>
+
+    <p>Start with the model — the thinking part inside the assistant, the bit that reads and decides and never touches anything itself. What it does is short. It gets some instructions. It gets a list of tools, each one a name and a line of plain English saying what it's for. It reads those lines, decides one of them fits, and says so. That's the whole job.</p>
+
+    <p>Which leaves a question that's easy to skip past: where does that list come from? Somebody wrote those names and those descriptions, and somebody handed them over.</p>
+
+    <p>Before MCP, that somebody was the assistant itself — the program running the show. Whoever built Claude Code or Cursor wrote the calendar tool into it, description and all, and that was that.</p>
+
+    <p>With MCP the assistant doesn't know the calendar tools in advance. It asks another program — <em>what can you do?</em> — and that program answers with its own list. The assistant hands that list to the model exactly as it always did.</p>
+
+    <p>That other program has a name: an <strong>MCP server</strong>. There's a section on it below; for now it's just the separate program the descriptions come from.</p>
+
+    <p>And that exchange — the asking and the answering — is all MCP is. The letters stand for <a href="https://modelcontextprotocol.io/">Model Context Protocol</a>, and a <em>protocol</em> is an agreement between two programs about what one is allowed to ask and how the other replies. It's written down once, in public, and both sides follow it — which is why neither has to be built around the other.</p>
+
+    <h2>What MCP doesn't change</h2>
+
+    <p>All of that happens between the assistant and the server. The model isn't in the room for any of it. It gets what it always got — a name and a line of description for each tool, arriving exactly as they did before MCP existed — and it still chooses by reading them. Nothing about how it reads a description, or how it picks one, depends on where that description came from.</p>
+
+    <p>So the model hasn’t changed. Exactly one thing has.</p>
+
+    <p class="bigidea">The model still gets the same tool descriptions. MCP only changes where those descriptions come from.</p>
+
+    <p>If you've picked up otherwise from the noise around this: MCP doesn't make a model smarter, and it doesn't change how it decides anything.</p>
+
+    <p>Here's a model's context with four tools in it. Two of them came built into the assistant; two arrived from a calendar server a moment ago.</p>
+
+    <div class="pagev" role="img" aria-label="A single row of the model's context, labeled given to the model. It reads: you're helpful and concise, four tools are available — send_email, which needs a recipient, subject and message, and sends an email; get_weather, which needs a place, and looks up the weather there; list_events, which needs a day, and shows what's on your calendar; and create_event, which needs a day, a time and a title, and puts something new on your calendar.">
+      <div class="pagev-h"><b>The model's context</b><span>Everything the model can read at once. This is one row of it — the setup, before you've typed anything.</span></div>
+      <div class="card">
+        <div class="row setup"><div class="rn">1</div><div class="rdot"></div>
+          <div class="rlab">Given to the model</div>
+          <div class="rbody"><span class="ln">You're helpful and concise.</span><span class="ln">Four tools are available:</span><span class="li"><span class="tchipc">send_email</span> (needs: recipient, subject, message) — sends an email.</span><span class="li"><span class="tchipc">get_weather</span> (needs: a place) — looks up the weather there.</span><span class="li"><span class="tchipc">list_events</span> (needs: a day) — shows what's on your calendar.</span><span class="li"><span class="tchipc">create_event</span> (needs: a day, a time, a title) — puts something new on your calendar.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="pagenote"><b>Nothing in that row says which two are which.</b> And nothing about how the model reads them depends on the answer.</p>
+
+    <h2>Who writes what</h2>
+
+    <p>Sounds like a small change. But look at who ends up doing the work.</p>
+
+    <div class="beforeafter" role="img" aria-label="Before MCP, the assistant's makers write the Google Calendar connection, the Slack connection and the GitHub connection, and every other assistant writes its own set from scratch. After MCP, each service's makers write their own server — the Google Calendar server, the Slack server, the GitHub server — each assistant learns the one protocol once, and nobody writes a calendar connection twice.">
+      <div class="ba old">
+        <h3>Before</h3>
+        <div class="who">The assistant's makers write</div>
+        <ul>
+          <li>the Google Calendar connection</li>
+          <li>the Slack connection</li>
+          <li>the GitHub connection</li>
+        </ul>
+        <p style="font-family:var(--sans);font-size:0.82rem;color:var(--muted);margin:9px 0 0;">…and every other assistant writes its own set, from scratch.</p>
+      </div>
+      <div class="ba new">
+        <h3>After</h3>
+        <div class="who">Each service's makers write</div>
+        <ul>
+          <li>the Google Calendar server</li>
+          <li>the Slack server</li>
+          <li>the GitHub server</li>
+        </ul>
+        <p style="font-family:var(--sans);font-size:0.82rem;color:var(--muted);margin:9px 0 0;">…each assistant learns the one protocol, once — and nobody writes a calendar connection twice.</p>
+      </div>
+    </div>
+
+    <p>That also means the people describing each service are now the ones who know it best. And it's why MCP servers appeared so fast. If you're the company that makes a calendar, you used to wait your turn to be built into each assistant, one at a time. Now you publish a single program and every assistant can already use it.</p>
+
+    <p>For you, at the keyboard, the assistant you happen to be using stops mattering so much. Move to a shiny new assistant next spring and the calendar connection is still sitting there to plug into. It was never part of the old assistant in the first place.</p>
+
+    <svg class="wiring" viewBox="0 0 560 252" role="img" aria-label="The same three AI assistants and three services, now connected through one agreed-on protocol in the middle: three connections on the left, three on the right, six in total instead of nine.">
+      <g font-family="system-ui, sans-serif">
+        <rect x="16" y="34" width="120" height="38" rx="9" fill="#e9f6f2" stroke="#0e8a72" stroke-width="1.6"/><text x="76" y="58" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0a5c4f">Claude Code</text>
+        <rect x="16" y="99" width="120" height="38" rx="9" fill="#e9f6f2" stroke="#0e8a72" stroke-width="1.6"/><text x="76" y="123" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0a5c4f">Codex</text>
+        <rect x="16" y="164" width="120" height="38" rx="9" fill="#e9f6f2" stroke="#0e8a72" stroke-width="1.6"/><text x="76" y="188" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0a5c4f">Cursor</text>
+        <g stroke="#8a8577" stroke-width="2" fill="none">
+          <path d="M136 53 C 200 53, 220 90, 262 106"/>
+          <path d="M136 118 C 200 118, 220 118, 262 118"/>
+          <path d="M136 183 C 200 183, 220 146, 262 130"/>
+          <path d="M298 106 C 340 90, 360 53, 424 53"/>
+          <path d="M298 118 C 340 118, 360 118, 424 118"/>
+          <path d="M298 130 C 340 146, 360 183, 424 183"/>
+        </g>
+        <rect x="262" y="46" width="36" height="144" rx="12" fill="#0d7a68"/>
+        <text x="280" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">M</text>
+        <text x="280" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">C</text>
+        <text x="280" y="144" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">P</text>
+        <rect x="424" y="34" width="120" height="38" rx="9" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="484" y="58" text-anchor="middle" font-size="12.5" font-weight="700" fill="#3444a8">Google Calendar</text>
+        <rect x="424" y="99" width="120" height="38" rx="9" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="484" y="123" text-anchor="middle" font-size="12.5" font-weight="700" fill="#3444a8">Slack</text>
+        <rect x="424" y="164" width="120" height="38" rx="9" fill="#eef0fb" stroke="#4356c0" stroke-width="1.6"/><text x="484" y="188" text-anchor="middle" font-size="12.5" font-weight="700" fill="#3444a8">GitHub</text>
+        <text x="280" y="222" text-anchor="middle" font-size="13" fill="#5c6370" font-style="italic">one agreement in the middle, not one more program — six pieces of work, not nine</text>
+      </g>
+    </svg>
+
+    <h2>Watch a server plug in</h2>
+
+    <p>That separate program on the other end — the one the assistant asks <em>what can you do?</em> — is the <strong>MCP server</strong>. Here it does two things: say what tools it offers, and carry one out when asked. That’s not everything a server can do, but it’s everything that matters for this. The word <em>server</em> makes people picture a machine in a data centre somewhere, which is the wrong picture — it's often a small program sitting on your own laptop.</p>
+
+    <p>Connecting one is usually a settings screen rather than a piece of programming. You pick a server from a list the assistant offers, or paste in one line of text saying where to find it — a web link for a server running over the internet, or the command that starts one up on your own machine. Services that publish a server normally link its address from their own help pages, and there are public directories that collect these addresses. Some run on your own machine; some are run by the company whose service they reach. Either way you don't write anything, though you'll usually sign in to the service once, the way you would to let one website use your account from another.</p>
+
+    <div class="sim" role="group" aria-label="Interactive: step through connecting a calendar server to an AI assistant, watching what reaches the model's context and what stays outside it.">
+      <div class="stepbar" id="stepbar" role="group" aria-label="Steps"></div>
+      <div aria-live="polite">
+        <p class="steptitle" id="steptitle"></p>
+        <p class="stepsay" id="stepsay"></p>
+      </div>
+
+      <div class="plugrow">
+        <div class="pcard appc" id="pc-app"><b id="app-name"></b><span id="app-sub">the assistant you're using</span></div>
+        <div class="plugwire" id="pc-wire"></div>
+        <div class="pcard srvc" id="pc-srv"><b>The calendar's server</b><span>published by your calendar company</span></div>
+      </div>
+
+      <div class="offpage" id="offbox">
+        <div class="ol">outside the model’s context — the model sees none of this</div>
+        <div class="od" id="offtext"></div>
+      </div>
+
+      <div class="pagev">
+        <div class="pagev-h"><b>The model's context</b><span>Watch what lands in it — and what never does.</span></div>
+        <div class="card" id="pagecard" aria-live="polite"></div>
+      </div>
+
+      <div class="stepnav">
+        <button id="prev">Back</button>
+        <button id="next" class="primary">Next step</button>
+      </div>
+    </div>
+
+    <div class="legend" role="img" aria-label="Legend: grey dot is what was given to the model, plum is you, teal is the model, gold is a tool result, and a hollow dot is outside the model’s context.">
+      <span><i style="background:#a7a294"></i>Given</span>
+      <span><i style="background:#8a4f9e"></i>You</span>
+      <span><i style="background:#0e8a72"></i>Model</span>
+      <span><i style="background:#a86b00"></i>Result</span>
+      <span><i style="background:#fff;border:1px solid #c7c1b2"></i>Outside the context</span>
+    </div>
+
+    <p class="beat">Connect once, use anywhere.</p>
+
+    <p>Worth being exact about what connecting once actually buys you, though. MCP settles how the two sides <em>talk</em>. It says nothing about how well they understand each other. Both ends can keep the agreement perfectly and your agent can still reach for the wrong tool, because a description was vague. The connection is standard; the words travelling over it are still somebody's writing.</p>
+
+    <h2>Every connection costs you something</h2>
+
+    <p>So far this all looks free. It isn't.</p>
+
+    <p>Every tool a server offers has to be described before the model can pick it. Assistants differ on when: some put every description into the context up front, others hold most of them back and fetch one only when it looks relevant. Tools have always worked this way — what MCP changes is how easy it becomes to add a lot of them at once.</p>
+
+    <p>And the context has a ceiling — a fixed amount of room, and everything has to fit inside it: the tool descriptions, your question, the conversation so far, the results coming back. Space spent on descriptions is space not spent on your actual work.</p>
+
+    <p>Those two neat one-line descriptions — <span class="tchipc">list_events</span> and <span class="tchipc">create_event</span> — are a polite fiction. A real server often offers a dozen tools, sometimes two dozen, and each description carries the fussy details a one-liner leaves out: every input it accepts, what form each one has to take, what happens when one's missing. Written out properly, a single tool can run to a few hundred words. Connect a handful of servers and you're carrying a small book around before you've said hello.</p>
+
+    <p>So connecting a lot of servers has a price. Not money — space. And you pay it again on every back-and-forth, not once at the start. <a href="https://scottspence.com/posts/optimising-mcp-server-context-usage-in-claude-code">Scott Spence</a>, a developer who writes about his own setup in the open, measured it with <code>/context</code>, a command Claude Code has built in for exactly this — it prints what’s currently sitting in the model’s context. With twelve servers connected he found roughly 82,000 tokens of tool descriptions (a token is the unit models count in, very roughly three-quarters of a word), taking up about 41% of everything the model could hold, before he’d asked a single thing. Switching off all but one brought it to about 14,000. Getting under 6,000 took more than switching off — he rewrote his own server, folding twenty tools into eight.</p>
+
+    <p>Hold that number loosely — it’s one person’s setup on one day, and yours will differ. An assistant that holds descriptions back until they’re needed will show you far less. You'll also see far more dramatic figures quoted around this, and several of the loudest trace back to companies selling a fix for the problem they're describing. Your own number is the only one that matters, and it takes about ten seconds to look.</p>
+
+    <h2>A server writes into your model's context</h2>
+
+    <p>Here it gets uncomfortable. The description <em>is</em> the instruction — it's all the model has to go on. Which means whoever wrote the server is writing text that goes straight into your model's context, and you'll probably never read it.</p>
+
+    <p>The flexibility is what makes the whole arrangement work — a service gets to describe itself in its own words, better than any outsider could. It does mean, though, that adding a server puts somebody else's writing where your model will read it as instruction.</p>
+
+    <div class="ri"><h3>Hidden in the description</h3><p><a href="https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks">Invariant Labs</a> showed the sharp end of that in April 2025: instructions hidden inside a tool’s description, invisible on the screen you’re looking at, steering the agent toward something the user never asked for. Text you never see, read by the model as an order. They sell security tooling for AI agents, so apply the test from a moment ago — then read the demonstration, which is public, and decide for yourself.</p></div>
+
+    <div class="ri"><h3>The one that wasn't a demonstration</h3><p>A flaw in the MCP server run by Asana, a work-tracking company, meant that for about five weeks in 2025 one customer's information could surface in another customer's results. No hidden instruction — an ordinary bug in ordinary software. Asana took the server offline, fixed it, and told affected customers directly; asked by <a href="https://www.bleepingcomputer.com/news/security/asana-warns-mcp-ai-feature-exposed-customer-data-to-other-orgs/">a reporter covering it</a>, the company put the number at roughly a thousand organizations.</p></div>
+
+    <div class="ri"><h3>How loose the field still is</h3><p><a href="https://bloomberry.com/blog/we-analyzed-1400-mcp-servers-heres-what-we-learned/">A February 2026 scan of 1,412 servers run by companies</a> — rather than the kind a developer spins up for their own use — found that among the ones where you could tell either way, 38.7% had no sign-in at all. No lock on the door, so anyone who knew the address could walk in.</p></div>
+
+    <p>None of which makes MCP dangerous. Servers are ordinary software and most of them are fine. But <em>connect once</em> also means <em>trust once</em> — so it's worth a glance at who published the thing. A server written by the company whose service it reaches is a different proposition from one by someone you can't identify.</p>
+
+    <p>You can also look at what a server actually put in your context. Not every assistant will show you; Claude Code’s <code>/context</code> does. Worth doing once. Treat a server the way you'd treat a browser add-on — easy to install, and able to act with whatever access you gave it.</p>
+
+    <h2>It's young, and it's moving</h2>
+
+    <p>MCP isn't quite two years old. <a href="https://www.anthropic.com/news/model-context-protocol">Anthropic released it</a> in November 2024 and <a href="https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation">handed it over</a> in December 2025 — it now sits with a foundation whose backers include Amazon, Google, Microsoft and OpenAI. The foundation isn’t what made it a real standard, though. Anthropic’s competitors did that, and earlier: OpenAI adopted MCP in March 2025 and Google that April, eight months before the handover.</p>
+
+    <p>What that means for you is practical: a great deal of what's written about MCP is already out of date, including pieces published a few months ago, and the agreement itself is still being revised. <a href="https://modelcontextprotocol.io/specification/versioning">The specification carries a date</a>, and that date moves. The revisions do change real things. What none of them has changed is what the model does with the answer to <em>what can you do?</em> So if a tutorial has you working through steps that don't match what you see, it isn't wrong so much as old. Check the date on anything you read about this. This piece included.</p>
+
+    <h2>What to actually do</h2>
+
+    <p>Connect one thing. Pick a service you genuinely touch every week, connect its server, and live with it for two weeks before you add another. You'll learn more from one connection you actually use than from twelve you collected. Where you do it depends on which assistant you're in — the Claude desktop app keeps it under <em>Settings → Extensions</em>, and Claude Code has an <code>/mcp</code> panel listing everything currently connected — but it's a screen and a sign-in either way, not code.</p>
+
+    <p>And measure the cost while you're there. In whatever assistant you're using, look at how much is already sitting in the context before you've typed a word — in Claude Code, the built-in <code>/context</code> will show you. Then connect one server and look again. Whatever that gap turns out to be, you're paying it on every back-and-forth.</p>
+
+    <h2>The next wall</h2>
+
+    <p>Your agent can reach your calendar now. Ask it to book a meeting with your team and watch what it does. It'll find a slot that's technically empty and completely wrong — 4:30 on a Friday, or the hour someone keeps clear every week on purpose but never wrote down anywhere.</p>
+
+    <p>Nothing failed. It reached the calendar, found the free times, booked the meeting. It just didn't know how your team uses the calendar.</p>
+
+    <p><em>Reaching isn't knowing.</em></p>
+
+    <p>Neither tools nor MCP knows that 4:30 on a Friday is a bad idea. That’s Skills, and it opens the next part of this series.</p>
+
+    <div class="note"><strong>Sources &amp; further reading</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><a href="https://modelcontextprotocol.io/">Model Context Protocol — official documentation</a>: the specification itself, the version history, and the current list of what each assistant actually supports.</li>
+      <li><a href="https://www.anthropic.com/news/model-context-protocol">Introducing the Model Context Protocol — Anthropic</a>: the original announcement, November 2024. Short, and still the clearest statement of the problem.</li>
+      <li><a href="https://modelcontextprotocol.io/specification/versioning">How MCP versions its specification</a>: which revision is current, and what the date on a revision actually means. The page to check before trusting anything you read about MCP, including this.</li>
+      <li><a href="https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation">The Linux Foundation on the Agentic AI Foundation</a>: who runs MCP now, and who's backing it.</li>
+      <li><a href="https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks">Tool poisoning attacks — Invariant Labs</a>: the April 2025 demonstration of instructions hidden inside a tool description. Worth reading in full if you're connecting servers you didn't write.</li>
+      <li><a href="https://scottspence.com/posts/optimising-mcp-server-context-usage-in-claude-code">Optimising MCP server context usage in Claude Code — Scott Spence</a>: where the 82,000-token figure comes from, with the method laid out so you can repeat it.</li>
+      <li><a href="https://bloomberry.com/blog/we-analyzed-1400-mcp-servers-heres-what-we-learned/">We analyzed 1,400 MCP servers — Bloomberry</a>: the endpoint scan behind the 38.7% figure. Note that it covers company-hosted servers, not every server in existence.</li>
+      <li><a href="https://www.bleepingcomputer.com/news/security/asana-warns-mcp-ai-feature-exposed-customer-data-to-other-orgs/">Asana warns MCP feature exposed customer data — BleepingComputer</a>: the reporting on the 2025 incident, including the roughly-a-thousand-organizations figure.</li>
+    </ul>
+    </div>
+  </article>
+
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    © 2026 Ranjita Naik
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+
+  var CAL_TOOLS = function (fresh) {
+    var c = fresh ? "li fresh" : "li";
+    return '<span class="ln">You’re helpful and concise.</span>'
+         + '<span class="ln">Two tools are available:</span>'
+         + '<span class="' + c + '"><span class="tchipc">list_events</span> (needs: a day) — shows what’s on your calendar.</span>'
+         + '<span class="' + c + '"><span class="tchipc">create_event</span> (needs: a day, a time, a title) — puts something new on your calendar.</span>';
+  };
+  var NO_TOOLS = '<span class="ln">You’re helpful and concise.</span><span class="ln none">— that’s the whole row. This one starts with no tools at all.</span>';
+
+  var R = {
+    setupNone:  { cls: "setup",  lab: "Given to the model",        body: NO_TOOLS },
+    setupCal:   { cls: "setup",  lab: "Given to the model",        body: CAL_TOOLS(false) },
+    setupFresh: { cls: "setup",  lab: "Given to the model",        body: CAL_TOOLS(true) },
+    you:        { cls: "you",    lab: "You",                       body: "“What’s on my calendar tomorrow?”" },
+    decides:    { cls: "model",  lab: "Model · decides",       body: "I’ll use <span class=\"tchipc\">list_events</span> — for tomorrow." },
+    result:     { cls: "result", lab: "Result · added to the context", body: "✓ Two things tomorrow: stand-up at 10:00, and lunch with Priya at 13:00." },
+    replies:    { cls: "model",  lab: "Model · replies",       body: "You’ve got two things tomorrow — stand-up at 10, and lunch with Priya at 1." }
+  };
+
+  var STEPS = [
+    {
+      tab: "Nothing",
+      title: "Nothing plugged in.",
+      say: "Your assistant is running. The model’s context starts with one line of setup. This assistant came with no tools of its own, so there’s nothing it can do beyond talk.",
+      app: "Claude Code", live: false,
+      off: null,
+      rows: [R.setupNone]
+    },
+    {
+      tab: "Assistant asks",
+      title: "The assistant asks one question.",
+      say: "You connect the calendar’s server. The two of them exchange a short hello, and then the assistant asks the question that matters. This is between two ordinary programs — none of it goes near the model.",
+      app: "Claude Code", live: true,
+      off: "The assistant asks the calendar’s server: <b>what can you do?</b>",
+      rows: [R.setupNone]
+    },
+    {
+      tab: "Answer",
+      title: "The server answers, in plain English.",
+      say: "Back comes a short list — a name and a description for each thing the server can do, written by the people who built the calendar. Still outside the model’s context.",
+      app: "Claude Code", live: true,
+      off: "The server answers with two things — <span class=\"tchipc\">list_events</span> and <span class=\"tchipc\">create_event</span> — and a description of each.",
+      rows: [R.setupNone]
+    },
+    {
+      tab: "In the context",
+      title: "The descriptions land in the context.",
+      say: "Now the model is involved for the first time. Two lines appear in what it’s given, looking like any tool you’ve seen. Nothing about how it reads them depends on the fact that these two arrived from a server a moment ago.",
+      app: "Claude Code", live: true,
+      off: null,
+      rows: [R.setupFresh]
+    },
+    {
+      tab: "You ask",
+      title: "You ask something.",
+      say: "From here it’s the ordinary back-and-forth. Your question goes into the context, the model reads the descriptions and picks one, and the assistant does the actual work.",
+      app: "Claude Code", live: true,
+      off: "The assistant passes the request on to the calendar’s server, which talks to your actual calendar and waits for an answer.",
+      rows: [R.setupCal, R.you, R.decides]
+    },
+    {
+      tab: "Result",
+      title: "The answer comes back.",
+      say: "The result lands in the context as text, the model reads it and answers you. Nothing here is new — it’s the same back-and-forth as any other tool. The only thing that changed was where row 1 came from.",
+      app: "Claude Code", live: true,
+      off: null,
+      rows: [R.setupCal, R.you, R.decides, R.result, R.replies]
+    },
+    {
+      tab: "Switch assistants",
+      title: "Now switch assistants.",
+      say: "Another day, and you’re working in Cursor instead — a different assistant, starting fresh with nothing in its context. Cursor connects to the same calendar server and asks that server the same question, and there are your two tools again. Nobody wrote a line of code to make that happen.",
+      app: "Cursor", sub: "a different assistant, same server", live: true,
+      off: "The same asking and answering as steps 2 and 3, with a different assistant doing the asking: Cursor asks <b>what can you do?</b> and the server answers.",
+      rows: [R.setupFresh]
+    }
+  ];
+
+  var i = 0;
+
+  var bar = $("stepbar");
+  STEPS.forEach(function (s, k) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.innerHTML = '<span class="sn">' + (k + 1) + '</span>' + s.tab;
+    b.addEventListener("click", function () { go(k); });
+    bar.appendChild(b);
+  });
+
+  function rowHTML(r, n) {
+    return '<div class="row ' + r.cls + '">'
+         +   '<div class="rn">' + n + '</div><div class="rdot"></div>'
+         +   '<div class="rlab">' + r.lab + '</div>'
+         +   '<div class="rbody">' + r.body + '</div>'
+         + '</div>';
+  }
+
+  function go(k) {
+    i = k;
+    var S = STEPS[i];
+
+    Array.prototype.forEach.call(bar.children, function (b, n) {
+      b.classList.toggle("on", n === i);
+      b.setAttribute("aria-pressed", n === i ? "true" : "false");
+    });
+
+    $("steptitle").textContent = S.title;
+    $("stepsay").textContent = S.say;
+    $("app-name").textContent = S.app;
+    $("app-sub").textContent = S.sub || "the assistant you're using";
+    $("pc-app").classList.toggle("live", true);
+    $("pc-srv").classList.toggle("live", S.live);
+    $("pc-wire").classList.toggle("live", S.live);
+
+    var box = $("offbox");
+    box.classList.toggle("quiet", !S.off);
+    $("offtext").innerHTML = S.off || "Nothing is happening outside the context at this step.";
+
+    $("pagecard").innerHTML = S.rows.map(function (r, n) { return rowHTML(r, n + 1); }).join("");
+
+    $("prev").disabled = (i === 0);
+    $("next").disabled = (i === STEPS.length - 1);
+    $("next").textContent = (i === STEPS.length - 1) ? "That’s the whole thing" : "Next step";
+  }
+
+  $("prev").addEventListener("click", function () { if (i > 0) go(i - 1); });
+  $("next").addEventListener("click", function () { if (i < STEPS.length - 1) go(i + 1); });
+  go(0);
+})();
+</script>
+
+<!-- Analytics: GoatCounter — privacy-friendly, cookie-free -->
+<script data-goatcounter="https://ranjita-naik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
