@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="A second conversation (Sub-agents) &mdash; Ranjita Naik">
+<meta property="og:description" content="It compared three analytics tools and wrote a good email. Then you asked how long to boil an egg, and twenty minutes of pricing pages were still sitting in the conversation.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/learn/sub-agents.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik &mdash; all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>A second conversation (Sub-agents) &mdash; Ranjita Naik</title>
+<meta name="description" content="It compared three analytics tools and wrote a good email. Then you asked how long to boil an egg, and twenty minutes of pricing pages were still sitting in the conversation.">
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 1040px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+footer.site .wrap { max-width: 1040px; }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+<style>
+/* ---- the memorable line ---- */
+.bigidea { font-family: var(--serif); font-size: 1.28rem; line-height: 1.45; font-weight: 700; color: var(--ink); border-left: 3px solid var(--accent); padding: 2px 0 2px 18px; margin: 28px 0; }
+/* ---- a standalone beat (a callback line, quieter than the big idea) ---- */
+.beat { font-family: var(--serif); font-size: 1.25rem; font-style: italic; color: var(--accent-dark); text-align: center; margin: 20px 0; }
+
+/* ---- the crossing: signature figure ---- */
+.crossv { width: 100%; height: auto; max-width: 600px; display: block; margin: 22px auto 6px; }
+.figcap { font-family: var(--sans); font-size: 0.83rem; color: var(--muted); text-align: center; margin: 0 auto 22px; max-width: 560px; line-height: 1.55; }
+
+/* ---- signature interactive: two conversations ---- */
+.sim { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin: 22px 0; }
+.modebar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.modebar button { font-family: var(--sans); font-size: 0.77rem; font-weight: 600; border: 1px solid var(--line); background: #fff; color: var(--muted); border-radius: 8px; padding: 7px 11px; cursor: pointer; text-align: left; }
+.modebar button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.simlab { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin: 16px 0 6px; }
+.simlab:first-child { margin-top: 0; }
+
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+@media (max-width: 620px) { .cols { grid-template-columns: 1fr; } .modebar button { flex: 1 1 100%; } }
+.col { background: #efece5; border-radius: 14px; padding: 13px 13px 15px; }
+.col.away { background: #f5f2ec; border: 1px dashed #cfcabb; }
+.colh { padding: 1px 3px 10px; }
+.colh b { display: block; font-family: var(--serif); font-size: 1.02rem; font-weight: 700; color: var(--ink); }
+.colh span { display: block; font-family: var(--sans); font-size: 0.76rem; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+.col.idle { opacity: 0.6; }
+.card { background: #fff; border: 1px solid #e7e3da; border-radius: 10px; padding: 3px 13px; }
+.card.empty { background: #faf9f5; }
+.row { display: grid; grid-template-columns: 22px 1fr; padding: 10px 0; border-top: 1px solid #eee9df; }
+.row:first-child { border-top: 0; }
+.rdot { grid-area: 1 / 1; width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; }
+.rlab { grid-area: 1 / 2; font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.rbody { grid-area: 2 / 2; font-family: var(--serif); font-size: 0.95rem; line-height: 1.45; color: var(--ink); }
+.rbody .w { display: block; font-family: var(--sans); font-size: 0.74rem; color: #6b665c; margin-top: 2px; }
+.rbody .li { display: block; padding-left: 16px; margin-top: 4px; position: relative; }
+.rbody .li:first-child { margin-top: 0; }
+.rbody .li::before { content: "–"; position: absolute; left: 3px; color: #6b665c; }
+.rbody .li em { font-style: normal; font-family: var(--sans); font-size: 0.74rem; color: #6b665c; }
+.row.you .rdot { background: #8a4f9e; } .row.you .rlab { color: #7a4288; }
+.row.mat .rdot { background: #a86b00; } .row.mat .rlab { color: #8f5b00; }
+.row.cross .rdot { background: #0e8a72; } .row.cross .rlab { color: #0a5c4f; }
+.row.gone { opacity: 0.55; }
+.emptynote { font-family: var(--sans); font-size: 0.86rem; color: var(--muted); line-height: 1.55; padding: 14px 3px; margin: 0; }
+.closed { font-family: var(--sans); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8f5b00; background: #f7ecd8; border-radius: 7px; padding: 7px 10px; margin: 10px 0 0; text-align: center; }
+
+.meterwrap { margin: 18px 0 0; }
+.meterbar { height: 15px; border-radius: 8px; background: #efece5; overflow: hidden; display: flex; }
+.meterbar i { display: block; height: 100%; transition: width .3s ease; }
+.meterbar i.mi-p { background: #8a4f9e; }
+.meterbar i.mi-a { background: #a86b00; }
+.meterbar i.mi-t2 { background: #7cc3b4; }
+.meterbar i.mi-t { background: #0e8a72; }
+.metertext { font-family: var(--sans); font-size: 0.83rem; color: var(--muted); margin: 8px 2px 0; line-height: 1.6; }
+.metertext b { color: var(--ink); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 15px; margin: 13px 2px 0; font-family: var(--sans); font-size: 0.76rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.simnote { font-family: var(--sans); font-size: 0.83rem; color: var(--muted); font-style: italic; margin: 13px 2px 0; }
+
+/* ---- run-in case labels (heading and its paragraph share a line) ---- */
+.ri { margin: 0 0 1.15em; }
+.ri h3 { display: inline; font-size: 1.08rem; font-style: italic; margin: 0; }
+.ri h3::after { content: ": "; font-weight: 400; font-style: normal; }
+.ri p { display: inline; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="Posts, grouped by curriculum part">
+  <div class="sb-title">Agents</div>
+  <details class="sb-group" open>
+    <summary>Part I — Foundations</summary>
+    <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 20</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 21</span><span>The Agent Loop</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage with an agent</span></a>
+    <a class="sb-item" href="../learn/make-it-remember.html"><span class="sb-d">Jul 23</span><span>Make it remember</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part II — Capabilities</summary>
+    <a class="sb-item" href="../learn/tools.html"><span class="sb-d">Jul 24</span><span>Tools: give it hands</span></a>
+    <a class="sb-item" href="../learn/mcp.html"><span class="sb-d">Jul 28</span><span>MCP: let tools travel</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part III — Expertise</summary>
+    <a class="sb-item" href="../learn/skills.html"><span class="sb-d">Jul 29</span><span>Skills: write it down once</span></a>
+    <a class="sb-item on" href="../learn/sub-agents.html"><span class="sb-d">Jul 30</span><span>Sub-agents: a second conversation</span></a>
+  </details>
+</aside>
+<main class="content">
+  <article>
+    <h1>A second conversation</h1>
+    <div class="meta">30 July 2026</div>
+
+    <p>The email was fine.</p>
+
+    <p>That&rsquo;s the part worth sitting with. You asked it to compare three website analytics tools, recommend one, and draft the email explaining why. It read pricing pages, feature lists, customer reviews, and documentation. It compared the trade-offs, ruled two of them out, and wrote an email that was good enough to send.</p>
+
+    <p>Then you ask for something completely different &mdash; how long to boil an egg.</p>
+
+    <p>All the work that went into choosing the analytics tool is still there. The pricing pages, the feature comparisons, the customer reviews, the twenty minutes of reading: all of it is still in the conversation, being read again on every turn while it tells you how long to boil an egg.</p>
+
+    <p class="bigidea">A conversation only adds.</p>
+
+    <p>There&rsquo;s no putting anything down. The research isn&rsquo;t being kept because anyone decided to keep it. It&rsquo;s just how conversations work: once something goes in, it stays there.</p>
+
+    <p>So the question worth asking is whether that reading had to happen in your conversation at all.</p>
+
+    <h2>So what is a second conversation?</h2>
+
+    <p>It&rsquo;s exactly what it sounds like. The agent opens another conversation alongside yours. Your conversation history doesn&rsquo;t come with it.</p>
+
+    <p>No pricing pages, nothing it already read, nothing you mentioned twenty minutes ago. It does start with some things of its own: its standing instructions, and your project notes. Then one short instruction arrives, telling it what to do. Anthropic&rsquo;s documentation puts the isolation plainly: each one <a href="https://code.claude.com/docs/en/sub-agents">&ldquo;starts with a fresh, isolated context window&rdquo;</a>.</p>
+
+    <p>Then it does the work in its own conversation. It reads, searches, tries things, throws things away, and all of that stays where it is.</p>
+
+    <p>When it&rsquo;s finished, one message comes back. <a href="https://code.claude.com/docs/en/context-window">Anthropic&rsquo;s own worked example</a> has the second conversation reading about 4,500 words of files. About 300 words came back.</p>
+
+    <p>The documentation calls this a sub-agent. That&rsquo;s the term you&rsquo;ll usually see. It&rsquo;s a slightly grand name for a second conversation with one instruction going in and one answer coming out.</p>
+
+    <h2>Why that helps</h2>
+
+    <p>A job leaves behind far more than the answer &mdash; the pages it read, the searches it ran, the option it looked at for a minute and dropped.</p>
+
+    <p>It&rsquo;s easier to see than to describe.</p>
+
+    <svg class="crossv" viewBox="0 0 600 322" role="img" aria-label="Two panels side by side, divided by a dotted line. On the left, your conversation, holding three short bars: what you asked, the instruction that went out, and the answer that came back. On the right, the second conversation, holding five longer bars representing four and a half thousand words of reading, marked closed when the job finished. An arrow crosses from left to right carrying the instruction, and another crosses back carrying the answer. Nothing else crosses.">
+      <text x="300" y="16" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#5c6370" letter-spacing="0.06em">ONE INSTRUCTION OUT. ONE ANSWER BACK.</text>
+
+      <g font-family="system-ui,sans-serif">
+        <path d="M300 30 L300 306" stroke="#c7c1b2" stroke-width="1.4" stroke-dasharray="5 5"/>
+
+        <rect x="11" y="30" width="250" height="276" rx="12" fill="#efece5"/>
+        <text x="24" y="50" font-size="12" font-weight="700" fill="#5c6370" letter-spacing="0.06em">YOUR CONVERSATION</text>
+        <rect x="24" y="58" width="224" height="234" rx="8" fill="#ffffff" stroke="#e7e3da" stroke-width="1"/>
+
+        <text x="38" y="82" font-size="11" font-weight="700" fill="#7a4288" letter-spacing="0.04em">WHAT YOU ASKED</text>
+        <rect x="38" y="88" width="196" height="13" rx="5" fill="#8a4f9e"/>
+        <text x="38" y="117" font-size="11" fill="#5c6370">15 words</text>
+
+        <text x="38" y="150" font-size="11" font-weight="700" fill="#0a5c4f" letter-spacing="0.04em">THE INSTRUCTION THAT WENT OUT</text>
+        <rect x="38" y="156" width="196" height="13" rx="5" fill="#7cc3b4"/>
+        <text x="38" y="185" font-size="11" fill="#5c6370">40 words</text>
+
+        <text x="38" y="218" font-size="11" font-weight="700" fill="#0a5c4f" letter-spacing="0.04em">THE ANSWER THAT CAME BACK</text>
+        <rect x="38" y="224" width="196" height="13" rx="5" fill="#0e8a72"/>
+        <text x="38" y="253" font-size="11" fill="#5c6370">300 words</text>
+
+        <rect x="339" y="30" width="250" height="276" rx="12" fill="#f7f4ee" stroke="#cfcabb" stroke-width="1.2" stroke-dasharray="6 4"/>
+        <text x="352" y="50" font-size="12" font-weight="700" fill="#5c6370" letter-spacing="0.06em">THE SECOND CONVERSATION</text>
+        <rect x="352" y="58" width="224" height="234" rx="8" fill="#ffffff" stroke="#e7e3da" stroke-width="1"/>
+
+        <text x="366" y="82" font-size="11" font-weight="700" fill="#8f5b00" letter-spacing="0.04em">EVERYTHING IT READ</text>
+        <rect x="366" y="90" width="196" height="13" rx="5" fill="#e8c98a"/>
+        <text x="372" y="100" font-size="11" font-weight="700" fill="#6b4a00">Pricing pages</text>
+        <rect x="366" y="110" width="196" height="13" rx="5" fill="#e8c98a"/>
+        <text x="372" y="120" font-size="11" font-weight="700" fill="#6b4a00">Feature lists</text>
+        <rect x="366" y="130" width="196" height="13" rx="5" fill="#e8c98a"/>
+        <text x="372" y="140" font-size="11" font-weight="700" fill="#6b4a00">Customer reviews</text>
+        <rect x="366" y="150" width="196" height="13" rx="5" fill="#e8c98a"/>
+        <text x="372" y="160" font-size="11" font-weight="700" fill="#6b4a00">Documentation</text>
+        <rect x="366" y="170" width="196" height="13" rx="5" fill="#e8c98a"/>
+        <text x="372" y="180" font-size="11" font-weight="700" fill="#6b4a00">Notes &mdash; ruled two out</text>
+        <text x="366" y="203" font-size="11" fill="#5c6370">about 4,500 words</text>
+
+        <path d="M366 218 L562 218" stroke="#e7e3da" stroke-width="1" stroke-dasharray="4 4"/>
+        <rect x="366" y="230" width="196" height="26" rx="7" fill="#f7ecd8"/>
+        <text x="464" y="247" text-anchor="middle" font-size="11" font-weight="700" fill="#8f5b00" letter-spacing="0.05em">CLOSED WHEN IT FINISHED</text>
+        <text x="366" y="278" font-size="12" font-weight="700" fill="#1f2430">None of this crosses over.</text>
+
+        <path d="M248 128 L352 128" stroke="#0e8a72" stroke-width="1.6"/>
+        <path d="M346 123 L356 128 L346 133 Z" fill="#0e8a72"/>
+        <text x="300" y="121" text-anchor="middle" font-size="11" font-weight="700" fill="#0a5c4f">instruction</text>
+
+        <path d="M352 196 L248 196" stroke="#0e8a72" stroke-width="1.6"/>
+        <path d="M254 191 L244 196 L254 201 Z" fill="#0e8a72"/>
+        <text x="300" y="189" text-anchor="middle" font-size="11" font-weight="700" fill="#0a5c4f">answer</text>
+      </g>
+    </svg>
+    <p class="figcap">The reading is the biggest thing either side is holding, and it never leaves the panel it happened in. The figure shows only that task-specific reading &mdash; not the standing instructions and project notes both conversations already carry.</p>
+
+    <p>Do the job in your conversation and the reading stays there. Do it in a second conversation, and it stays there instead.</p>
+
+    <p>The reading still happened. What changed is that you stopped paying for it again on every turn afterwards.</p>
+
+    <p>Here is the same task done two ways. In both, the agent compares the same three analytics tools and recommends one. The only difference is where it does the reading.</p>
+
+    <div class="sim" role="group" aria-label="Interactive: choose whether the research happens in your own conversation or in a second one, and watch what your conversation is left holding.">
+      <p class="simlab">Where the reading happens</p>
+      <div class="modebar" id="modebar" role="group" aria-label="Where the reading happens">
+        <button type="button" data-mode="here" class="on" aria-pressed="true">Do it here</button>
+        <button type="button" data-mode="away" aria-pressed="false">Send it away</button>
+      </div>
+
+      <p class="simlab">Two conversations</p>
+      <div class="cols">
+        <div class="col yours">
+          <div class="colh"><b>Your conversation</b><span>Everything here is re-read on every turn.</span></div>
+          <div class="card" id="yours" aria-live="polite"></div>
+        </div>
+        <div class="col away" id="awaycol">
+          <div class="colh"><b>The second conversation</b><span id="awaysub"></span></div>
+          <div class="card" id="away" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="meterwrap">
+        <div class="meterbar" id="meterbar" role="img" aria-label="A bar showing how much your conversation is carrying">
+          <i class="mi-p" id="mb-p" style="width:0"></i><i class="mi-a" id="mb-a" style="width:0"></i><i class="mi-t2" id="mb-t2" style="width:0"></i><i class="mi-t" id="mb-t" style="width:0"></i>
+        </div>
+        <p class="metertext" id="mtext"></p>
+      </div>
+
+      <div class="legend" role="img" aria-label="Legend: plum means what you asked, amber means what it read, teal means what crossed between the two conversations.">
+        <span><i style="background:#8a4f9e"></i>What you asked</span>
+        <span><i style="background:#a86b00"></i>What it read</span>
+        <span><i style="background:#0e8a72"></i>What crossed over</span>
+      </div>
+
+      <p class="simnote">Same job, same reading, either way. The only thing that changes is which conversation is left holding it.</p>
+    </div>
+
+    <p>Do it here, and your conversation fills with everything it read, and stays that way. Send it away, and the reading piles up in the second conversation instead &mdash; which closes when the job is done, taking all of it. What crosses back is two thin bands: the instruction that went out, and the answer that came back.</p>
+
+    <p>Those two bands are the price of crossing. The second conversation also loads its own copy of the setup before it starts &mdash; its instructions, your project notes &mdash; so that part gets paid for twice, once in each conversation. Next to a job this size, none of that overhead shows. Next to a one-line job it would be most of the cost, which is why sending small work away tends to lose.</p>
+
+    <p class="beat">The work happens somewhere else. Only the answer comes back.</p>
+
+    <h2>What to actually do</h2>
+
+    <p>You don&rsquo;t need a sub-agent to use the idea.</p>
+
+    <p>Open a fresh conversation. Do the messy work there &mdash; the reading, the comparing, the digging. Then bring one good answer back to the conversation you were already in.</p>
+
+    <p>That&rsquo;s the whole trick.</p>
+
+    <p>Claude Code and Cowork &mdash; Anthropic&rsquo;s two tools for working with an agent on your own files &mdash; automate this by opening and closing the second conversation for you. In ordinary chat, you can do exactly the same thing yourself.</p>
+
+    <div class="ri"><h3>The instruction is written for you</h3><p>You ask your agent for something; your agent decides what the second conversation gets told. You don&rsquo;t write that sentence and you don&rsquo;t normally see it. Everything the second conversation knows comes from it, so the more you say in your ask, the more there is to pass on.</p></div>
+
+    <div class="ri"><h3>Sending small jobs away costs more than doing them</h3><p>An instruction has to be written and read; an answer has to come back and be read again. On a job that would have taken a hundred words to do in place, that overhead is the whole cost and then some. The saving shows up when what gets left behind is much bigger than what comes back.</p></div>
+
+    <p>Three things are worth remembering.</p>
+
+    <ul>
+      <li><strong>Keep work you want to watch in your main conversation.</strong> If you&rsquo;ll want to steer it as it goes, or to understand how it reached its answer, don&rsquo;t send it somewhere else.</li>
+      <li><strong>Ask for what you want back.</strong> If you want the shortlist, the numbers, or the reasoning, ask for them. Otherwise you&rsquo;ll only get the final conclusion.</li>
+      <li><strong>Expect to try again sometimes.</strong> If the answer comes back wrong, you don&rsquo;t step through the second conversation&rsquo;s work the way you would in your own. It&rsquo;s usually simpler to send it again with a better instruction.</li>
+    </ul>
+
+    <h2>The next wall</h2>
+
+    <p>One sub-agent is easy to understand. The obvious next question is whether five are even better.</p>
+
+    <p>There&rsquo;s real evidence for it. In June 2025 Anthropic <a href="https://www.anthropic.com/engineering/built-multi-agent-research-system">published a system where several agents worked on one research question</a> and beat a single agent by 90.2% on an internal test of research quality &mdash; a test they&rsquo;ve never released, run on a model two generations old, burning around fifteen times the tokens of an ordinary chat.</p>
+
+    <p>Seven months later, the same company published <a href="https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them">a much quieter page</a> on when to use them and when not to. Outside three situations it names, it says, &ldquo;coordination costs typically exceed the benefits.&rdquo;</p>
+
+    <p>One is broadly accepted. Five are still an active debate.</p>
+
+    <p>What&rsquo;s in dispute is what happens when you run five of these at once, given what makes a single one work.</p>
+
+    <p>Coordinating several conversations turns out to be much harder than opening one. Two of them run the same search. Work passes from one to the next, and a little of it goes missing at every handover.</p>
+
+    <div class="note"><strong>Sources &amp; further reading</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><a href="https://code.claude.com/docs/en/sub-agents">Sub-agents &mdash; Claude Code documentation</a>: where the isolation described here comes from, plus the setup this post skips over. Written for people working in a terminal, and it carries version numbers &mdash; check the date before trusting any of it, including this post.</li>
+      <li><a href="https://code.claude.com/docs/en/context-window">Context window &mdash; Claude Code documentation</a>: the worked example behind the read-in and come-back figures. Counted there in tokens rather than words; this post converts.</li>
+      <li><a href="https://www.anthropic.com/engineering/built-multi-agent-research-system">How we built our multi-agent research system &mdash; Anthropic</a>: the 90.2% and the fifteen-times figure, and a candid account of what went wrong on the way. The eval behind the headline number isn&rsquo;t published.</li>
+      <li><a href="https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them">Building multi-agent systems: when and how to use them &mdash; Anthropic</a>: the qualification, from the same company, January 2026. It builds on the research post rather than retracting it. The single most useful page here if you&rsquo;re deciding whether to bother.</li>
+      <li><a href="https://cognition.ai/blog/dont-build-multi-agents">Don&rsquo;t Build Multi-Agents &mdash; Cognition</a>: argued close to the opposite of the Anthropic post, and published about twenty-four hours earlier. Worth reading alongside it rather than instead of it.</li>
+      <li><a href="https://arxiv.org/abs/2503.13657">Why Do Multi-Agent LLM Systems Fail? &mdash; Cemri et al.</a>: a Berkeley-led team read 150 recorded runs closely enough to sort the failures into fourteen kinds, then used that list to annotate more than 1,600 runs across seven frameworks. Useful mostly for how ordinary most of the failures turn out to be.</li>
+    </ul>
+    </div>
+  </article>
+
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    © 2026 Ranjita Naik
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+
+  var ASK   = { lab: "What you asked", txt: "Compare three website analytics tools and recommend one.", w: 15 };
+  var INSTR = { lab: "Sent out — the instruction", txt: "Compare these three analytics tools on price, features and what customers say. Come back with the trade-offs and a recommendation.", w: 40 };
+  var ANSWER= { lab: "Came back — the answer", txt: "Three tools compared, with the trade-offs. Two ruled out, and why. The third is the one to pick.", w: 300 };
+
+  var MATERIAL = [
+    { txt: "Pricing pages — all three", w: 1200 },
+    { txt: "Feature lists — all three", w: 1100 },
+    { txt: "Customer reviews", w: 1300 },
+    { txt: "Documentation — the two front-runners", w: 600 },
+    { txt: "Notes — ruled two of them out", w: 300 }
+  ];
+
+  var MAX = 6000;
+  var mode = "here";
+
+  function esc(t) {
+    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function num(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function matTotal() {
+    var t = 0, i;
+    for (i = 0; i < MATERIAL.length; i++) { t += MATERIAL[i].w; }
+    return t;
+  }
+  function group(cls, lab, items, extra, showTotal) {
+    var i, b = "", t = 0;
+    for (i = 0; i < items.length; i++) {
+      b += '<span class="li">' + esc(items[i].txt)
+         + " <em>" + num(items[i].w) + " words</em></span>";
+      t += items[i].w;
+    }
+    return '<div class="row ' + cls + (extra ? " " + extra : "") + '"><span class="rdot"></span>'
+         + '<span class="rlab">' + esc(lab) + "</span>"
+         + '<span class="rbody">' + b
+         + (showTotal ? '<span class="w">' + num(t) + " words in all</span>" : "")
+         + "</span></div>";
+  }
+
+  function row(cls, lab, txt, w, extra) {
+    return '<div class="row ' + cls + (extra ? " " + extra : "") + '"><span class="rdot"></span>'
+         + '<span class="rlab">' + esc(lab) + "</span>"
+         + '<span class="rbody">' + esc(txt)
+         + '<span class="w">' + num(w) + " words</span></span></div>";
+  }
+
+  function render() {
+    var html = "", awayHtml = "";
+
+    html += row("you", ASK.lab, ASK.txt, ASK.w);
+
+    if (mode === "here") {
+      html += group("mat", "Read — and still here", MATERIAL, "", true);
+      html += row("cross", "The answer it wrote", ANSWER.txt, ANSWER.w);
+
+      awayHtml = '<p class="emptynote">Not opened. The reading is happening in your conversation, '
+               + "so there is no second one.</p>";
+      $("awaysub").textContent = "Nothing sent, so nothing here.";
+      $("awaycol").className = "col away idle";
+      $("away").className = "card empty";
+    } else {
+      html += row("cross", INSTR.lab, INSTR.txt, INSTR.w);
+      html += row("cross", ANSWER.lab, ANSWER.txt, ANSWER.w);
+
+      awayHtml = group("mat", "Read — and left behind", MATERIAL, "gone", false);
+      $("awaysub").textContent = "Started fresh. Closed when the job finished.";
+      $("awaycol").className = "col away";
+      $("away").className = "card";
+    }
+
+    $("yours").innerHTML = html;
+    $("away").innerHTML = awayHtml;
+    if (mode === "away") {
+      $("away").insertAdjacentHTML("beforeend",
+        '<p class="closed">Closed — all ' + num(matTotal()) + " words went with it</p>");
+    }
+    return meter();
+  }
+
+  function meter() {
+    var p = ASK.w;
+    var a = (mode === "here") ? matTotal() : 0;
+    var t2 = (mode === "here") ? 0 : INSTR.w;
+    var t = ANSWER.w;
+    var total = p + a + t2 + t;
+
+    $("mb-p").style.width = (p / MAX * 100) + "%";
+    $("mb-a").style.width = (a / MAX * 100) + "%";
+    $("mb-t2").style.width = (t2 / MAX * 100) + "%";
+    $("mb-t").style.width = (t / MAX * 100) + "%";
+
+    var msg;
+    if (mode === "here") {
+      msg = "<b>" + num(total) + " words</b> in your conversation, re-read on every turn for as long as it lasts. "
+          + "The answer you actually wanted is " + num(ANSWER.w) + " of them.";
+    } else {
+      msg = "<b>" + num(total) + " words</b> in your conversation. The instruction that went out and the answer that "
+          + "came back are the two teal bands — next to a job this size, barely visible.";
+    }
+    $("mtext").innerHTML = msg;
+    $("meterbar").setAttribute("aria-label",
+      "Your conversation is carrying " + num(total) + " words of a " + num(MAX) + " word window");
+  }
+
+  $("modebar").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-mode]");
+    if (!b) { return; }
+    mode = b.getAttribute("data-mode");
+    var all = $("modebar").getElementsByTagName("button");
+    for (var i = 0; i < all.length; i++) {
+      var pressed = all[i].getAttribute("data-mode") === mode;
+      all[i].className = pressed ? "on" : "";
+      all[i].setAttribute("aria-pressed", pressed ? "true" : "false");
+    }
+    render();
+  });
+
+  render();
+}());
+</script>
+<!-- Analytics: GoatCounter — privacy-friendly, cookie-free -->
+<script data-goatcounter="https://ranjita-naik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
