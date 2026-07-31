@@ -240,6 +240,10 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
     <a class="sb-item" href="../learn/skills.html"><span class="sb-d">Jul 29</span><span>Skills: write it down once</span></a>
     <a class="sb-item" href="../learn/sub-agents.html"><span class="sb-d">Jul 30</span><span>Sub-agents: a second conversation</span></a>
   </details>
+  <details class="sb-group" open>
+    <summary>Part IV — Orchestration</summary>
+    <a class="sb-item" href="../learn/workflows.html"><span class="sb-d">Jul 31</span><span>Workflows: same steps, every time</span></a>
+  </details>
 </aside>
 <main class="content">
   <section class="hero">
@@ -250,7 +254,7 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
 
   <div class="note" style="margin-bottom: 22px;">Why from scratch? Because it's what the best builders recommend — Anthropic's own guidance is to understand the underlying loop before reaching for frameworks. Most courses skip that step. This path <em>is</em> that step.</div>
 
-  <p class="pathintro">The path builds in four layers — what an agent <strong>knows</strong>, what it can <strong>do</strong>, the <strong>skills</strong> it reuses, and how the work gets <strong>coordinated</strong> — one rung at a time. Start at the top and read down.</p>
+  <p class="pathintro">The path builds in five layers — what an agent <strong>knows</strong>, what it can <strong>do</strong>, the <strong>skills</strong> it reuses, how the work gets <strong>coordinated</strong>, and what it takes to <strong>trust</strong> any of it in production — one rung at a time. Start at the top and read down.</p>
 
   <div class="layer"><div class="lname">Part I — Foundations</div><div class="lq">What an agent is and knows — get your bearings, build one, then give it memory.</div></div>
 
@@ -309,25 +313,33 @@ details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
   <div class="unit">
     <div>
       <h3>Sub-agents: a second conversation <span class="badge-live">LIVE</span></h3>
-      <p>A skill teaches one agent how you work, and the job can still be too big for one conversation. Research a decision and the reading stays in the conversation forever, re-read on every turn afterwards. A sub-agent is a second conversation that starts empty, does the messy work, and sends back one answer.</p>
-      <span class="viz">▶ Interactive: <a href="sub-agents.html" style="color:inherit;">choose where the reading happens, and watch what your conversation is left holding</a></span>
+      <p>It compared three analytics tools and wrote a good email — and twenty minutes of pricing pages are still sitting in the conversation, being re-read every time you ask it anything else. A conversation only adds. The way out is to do the reading somewhere else and bring back one answer.</p>
+      <span class="viz">▶ Interactive: <a href="sub-agents.html" style="color:inherit;">do the same job in one conversation or two, and see what each is left holding</a></span>
     </div>
   </div>
 
   <div class="layer"><div class="lname">Part IV — Orchestration</div><div class="lq">Coordinating the work once one agent isn't enough — workflows, planning, multi-agent.</div></div>
 
+  <div class="unit">
+    <div>
+      <h3>Workflows: same steps, every time <span class="badge-live">LIVE</span></h3>
+      <p>Hand the same four-part check to an agent twice and the second run may quietly skip a part, because the first three came back clean. Nothing said which checks were required, so it gets worked out again every time. A workflow is that list settled before the work starts: it buys you the ability to say what was actually done, and costs you the ability to react.</p>
+      <span class="viz">▶ Interactive: <a href="workflows.html" style="color:inherit;">run the same four checks five times, with and without a fixed list</a></span>
+    </div>
+  </div>
+
   <div class="unit planned">
     <div>
-      <h3>Workflow patterns <span class="badge-soon">COMING</span></h3>
-      <p>The composable patterns from Anthropic's guide — chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer — animated side by side, with a rule for when each earns its complexity.</p>
-      <span class="viz">Planned interactive: pattern picker — describe your task, see which pattern fits</span>
+      <h3>Planning: deciding before doing <span class="badge-soon">COMING</span></h3>
+      <p>A fixed order only helps on a job whose shape you already know. When nobody has done it before, the sequence has to be worked out at the start of the run instead — including which route to take at all, the part usually called routing. A plan you can read before it runs is a plan you can correct.</p>
+      <span class="viz">Planned interactive: watch a plan get written, then watch it get revised mid-job</span>
     </div>
   </div>
 
   <div class="unit planned">
     <div>
       <h3>Multi-agent systems <span class="badge-soon">COMING</span></h3>
-      <p>Manager and handoff architectures, when a second agent actually helps, and when "multi-agent" is a demo trick wearing a suit. (A workflow pattern — not a separate kind of thing.)</p>
+      <p>Manager and handoff architectures, several running at once — parallelization, in the usual vocabulary — when a second agent actually helps, and when "multi-agent" is a demo trick wearing a suit. One second conversation is broadly accepted; five at once is still an argument, with published evidence on both sides.</p>
       <span class="viz">Planned interactive: message-passing visualization</span>
     </div>
   </div>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="Same steps, every time (Workflows) &mdash; Ranjita Naik">
+<meta property="og:description" content="The same job, run twice, done two different ways &mdash; and one check quietly never happened. A workflow is what you have when the steps are settled first.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/learn/workflows.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik &mdash; all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>Same steps, every time (Workflows) &mdash; Ranjita Naik</title>
+<meta name="description" content="The same job, run twice, done two different ways &mdash; and one check quietly never happened. A workflow is what you have when the steps are settled first.">
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 1040px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+footer.site .wrap { max-width: 1040px; }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+<style>
+/* ---- a standalone beat (the mental model) ---- */
+.beat { font-family: var(--serif); font-size: 1.25rem; font-style: italic; color: var(--accent-dark); text-align: center; margin: 20px 0; }
+
+/* ---- signature interactive: five runs of the same job ---- */
+.sim { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin: 22px 0; }
+.modebar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.modebar button { font-family: var(--sans); font-size: 0.77rem; font-weight: 600; border: 1px solid var(--line); background: #fff; color: var(--muted); border-radius: 8px; padding: 7px 11px; cursor: pointer; text-align: left; }
+.modebar button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.simlab { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin: 16px 0 6px; }
+
+.runs { list-style: none; margin: 0; padding: 0; background: #efece5; border-radius: 14px; padding: 6px 13px 10px; }
+.run { display: grid; grid-template-columns: 54px 1fr; gap: 10px; align-items: start; padding: 9px 0; border-top: 1px solid var(--line); }
+.run:first-child { border-top: 0; }
+.rn { font-family: var(--sans); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding-top: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--sans); font-size: 0.75rem; font-weight: 600; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 7px; padding: 4px 9px; display: inline-flex; align-items: center; gap: 6px; }
+.chip i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; }
+.chip.read i { background: #a86b00; }
+.chip.write i { background: #0e8a72; }
+.chip .n { font-family: var(--mono); font-size: 0.67rem; font-weight: 400; color: #6b665c; }
+.miss { font-family: var(--sans); font-size: 0.75rem; font-weight: 600; color: #8f5b00; background: #f7ecd8; border: 1px solid #e8d6b4; border-radius: 7px; padding: 4px 9px; }
+
+.tally { display: flex; flex-wrap: wrap; gap: 4px 22px; margin: 15px 2px 0; font-family: var(--sans); font-size: 0.8rem; color: var(--muted); }
+.tally span { display: inline-flex; align-items: baseline; gap: 7px; }
+.tally b { font-size: 1.02rem; color: var(--ink); }
+.tallynote { font-family: var(--sans); font-size: 0.86rem; color: var(--muted); margin: 10px 2px 0; line-height: 1.6; }
+.tallynote b { color: var(--ink); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 15px; margin: 13px 2px 0; font-family: var(--sans); font-size: 0.76rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.simnote { font-family: var(--sans); font-size: 0.83rem; color: var(--muted); font-style: italic; margin: 13px 2px 0; }
+
+@media (max-width: 620px) {
+  .modebar button, .recbar button { flex: 1 1 100%; }
+  .run { grid-template-columns: 1fr; gap: 5px; }
+  .rn { padding-top: 0; }
+}
+
+/* ---- the two run records, side by side ---- */
+.recbar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.recbar button { font-family: var(--sans); font-size: 0.77rem; font-weight: 600; border: 1px solid var(--line); background: #fff; color: var(--muted); border-radius: 8px; padding: 7px 11px; cursor: pointer; text-align: left; }
+.recbar button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.recs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; align-items: start; }
+.rec { background: #efece5; border-radius: 12px; padding: 14px 16px; }
+.rec .rh { font-family: var(--sans); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin: 0 0 2px; }
+.rec.lead .rh { color: var(--ink); }
+.rec .rs { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--ink); margin: 0 0 11px; }
+.rec ol { list-style: none; margin: 0 -7px; padding: 0; font-family: var(--mono); font-size: 0.78rem; line-height: 2.05; }
+.rec li { display: flex; align-items: baseline; gap: 8px; padding: 0 7px; }
+.rec li .n { color: var(--muted); width: 1.1em; flex: none; }
+.rec li .s { margin-left: auto; color: var(--accent-dark); }
+.rec li.gap { background: #f7ecd8; border-radius: 7px; color: #8f5b00; }
+.rec li.gap .n, .rec li.gap .s { color: #8f5b00; }
+@media (max-width: 620px) { .recs { grid-template-columns: 1fr; } }
+
+/* ---- run-in case labels (heading and its paragraph share a line) ---- */
+.ri { margin: 0 0 1.15em; }
+.ri h3 { display: inline; font-size: 1.08rem; font-style: italic; margin: 0; }
+.ri h3::after { content: ": "; font-weight: 400; font-style: normal; }
+.ri p { display: inline; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="Posts, grouped by curriculum part">
+  <div class="sb-title">Agents</div>
+  <details class="sb-group" open>
+    <summary>Part I &mdash; Foundations</summary>
+    <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 20</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 21</span><span>The Agent Loop</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage with an agent</span></a>
+    <a class="sb-item" href="../learn/make-it-remember.html"><span class="sb-d">Jul 23</span><span>Make it remember</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part II &mdash; Capabilities</summary>
+    <a class="sb-item" href="../learn/tools.html"><span class="sb-d">Jul 24</span><span>Tools: give it hands</span></a>
+    <a class="sb-item" href="../learn/mcp.html"><span class="sb-d">Jul 28</span><span>MCP: let tools travel</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part III &mdash; Expertise</summary>
+    <a class="sb-item" href="../learn/skills.html"><span class="sb-d">Jul 29</span><span>Skills: write it down once</span></a>
+    <a class="sb-item" href="../learn/sub-agents.html"><span class="sb-d">Jul 30</span><span>Sub-agents: a second conversation</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part IV &mdash; Orchestration</summary>
+    <a class="sb-item on" href="../learn/workflows.html"><span class="sb-d">Jul 31</span><span>Workflows: same steps, every time</span></a>
+  </details>
+</aside>
+<main class="content">
+  <article>
+    <h1>Same steps, every time</h1>
+    <div class="meta">31 July 2026</div>
+
+    <p>Last post ended with five agents running at once and no way for them to see each other. Before you can sort out who waits for whom, though, there is a plainer problem underneath it &mdash; and you can watch it happen with one agent and one job.</p>
+
+    <p>Your company is buying a smaller company. Before the money moves, somebody checks it over: the accounts, the legal filings, the security setup, and the contracts with existing customers. That is due diligence &mdash; the checking you do before you commit &mdash; and it is all four, every time, because any one of them can hold the thing that changes the price. A lawsuit nobody mentioned. A customer with the right to walk away the day the sale closes.</p>
+
+    <p>You hand the job to your agent. It reads all four and writes a good summary. Two months later, another acquisition: this time it starts with the security setup, then the contracts, then the accounts, and it never opens the legal filings. Everything else had come back clean, so it decided there was nothing in the paperwork worth chasing.</p>
+
+    <p>It might be right. The summary reads fine. But you can&rsquo;t put your name on a legal check that didn&rsquo;t happen, and nothing in the run told you it hadn&rsquo;t.</p>
+
+    <h2>Why it decided for itself</h2>
+
+    <p>Nothing about the run was settled in advance &mdash; not which checks, not what order. The agent worked out what to do first, did it, looked at what it had, and worked out what to do next.</p>
+
+    <p>That is the thing you wanted. It&rsquo;s the whole reason an agent can help with a job you couldn&rsquo;t spell out in advance: it doesn&rsquo;t need the steps, because it <a href="../learn/agent-loop.html">works them out as it goes</a>.</p>
+
+    <p>And skipping the filings wasn&rsquo;t stupid. Clean accounts and dull contracts are weak evidence that nothing is hiding in the legal history, but they are evidence, and a person under time pressure might have made the same judgement.</p>
+
+    <p>Here is the part that doesn&rsquo;t go away. The conclusion can be right and the process still be broken. When you hand someone a due-diligence summary you are making two claims at once: what you found, and what you looked at. The first claim survives a skipped check. The second one doesn&rsquo;t, and it fails without saying so.</p>
+
+    <h2>What if the steps were settled first?</h2>
+
+    <p>There&rsquo;s another way to run the same job.</p>
+
+    <p>Decide the steps yourself, before anything starts. Accounts, legal filings, security, contracts, then the summary. Write them down. Every run works through the same list, so every run covers all four.</p>
+
+    <p>The agent still does the work. It still opens the documents, still weighs what it finds, still writes the summary at the end. The one decision it no longer makes is what to do next.</p>
+
+    <p>That&rsquo;s all a workflow is: the steps, and the order they go in, settled before the task begins rather than during it.</p>
+
+    <p>Instead of asking the agent to decide what to do next, you decide that part once, ahead of time. That is the question an agent otherwise answers over and over, all the way through a job. A workflow takes it off the table and leaves the rest.</p>
+
+    <p>Nobody is deciding, during the run, whether the legal filings get read. That was settled before the work began, which is the whole reason you can say in advance what a run will cover.</p>
+
+    <p class="beat">Organize the work, not the workers.</p>
+
+    <h2>Watch what each run covers</h2>
+
+    <p>Below are five runs of that same job, one run per line, with each check shown in the position it actually happened in. Switch between the two buttons; the count that matters is the middle one.</p>
+
+    <div class="sim">
+      <div class="modebar" role="group" aria-label="Who decides the steps">
+        <button type="button" data-mode="agent" class="on" aria-pressed="true">The agent decides each time</button>
+        <button type="button" data-mode="fixed" aria-pressed="false">The steps are fixed in advance</button>
+      </div>
+
+      <p class="simlab" id="simlab">Five runs &mdash; the agent decides</p>
+
+      <ol class="runs" id="runs" aria-live="polite"></ol>
+
+      <div class="tally">
+        <span>Runs <b id="t-runs">5</b></span>
+        <span>Checks not done <b id="t-skip">1</b></span>
+        <span>Runs that took a different route <b id="t-chg">3</b></span>
+      </div>
+
+      <p class="tallynote" id="tnote"></p>
+
+      <div class="legend" role="img" aria-label="Legend: amber means a step that reads something, teal means the step that writes the summary.">
+        <span><i style="background:#a86b00"></i>A step that reads something</span>
+        <span><i style="background:#0e8a72"></i>The step that writes the summary</span>
+      </div>
+
+      <p class="simnote">Every run produced a summary either way &mdash; including the one that left a check undone. That is the part that makes it hard to catch.</p>
+    </div>
+
+    <h2>The record a workflow creates</h2>
+
+    <p>A summary is not the only thing a run leaves behind.</p>
+
+    <p>When the steps are settled first, the list exists before the run does, so the run can be written down against it.</p>
+
+    <div class="sim">
+      <div class="recbar" role="group" aria-label="How to show the two records">
+        <button type="button" data-rec="left" class="on" aria-pressed="true">As each run left it</button>
+        <button type="button" data-rec="cmp" aria-pressed="false">Hold them against each other</button>
+      </div>
+
+      <p class="simlab">Due diligence &mdash; two runs, written down</p>
+
+      <div class="recs">
+        <div class="rec" aria-live="polite">
+          <p class="rh" id="rec-head">The agent decides each time</p>
+          <p class="rs" id="rec-stamp">4 steps taken</p>
+          <ol id="rec-list">
+            <li><span class="n">1</span>Security<span class="s">done</span></li>
+            <li><span class="n">2</span>Contracts<span class="s">done</span></li>
+            <li><span class="n">3</span>Accounts<span class="s">done</span></li>
+            <li><span class="n">4</span>Summary<span class="s">done</span></li>
+          </ol>
+        </div>
+        <div class="rec lead">
+          <p class="rh">The steps are fixed in advance</p>
+          <p class="rs">5 steps done, out of 5 planned</p>
+          <ol>
+            <li><span class="n">1</span>Accounts<span class="s">done</span></li>
+            <li><span class="n">2</span>Legal filings<span class="s">done</span></li>
+            <li><span class="n">3</span>Security<span class="s">done</span></li>
+            <li><span class="n">4</span>Contracts<span class="s">done</span></li>
+            <li><span class="n">5</span>Summary<span class="s">done</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <p class="tallynote" id="recnote" aria-live="polite">Nothing in the record from the run that decided as it went is false. There&rsquo;s no line for the legal filings, and no line saying a line is missing &mdash; because no list said one was owed. <b>The gap only appears when you hold that record against a list written in advance</b> &mdash; and that run never had one.</p>
+    </div>
+
+    <p>The summary said what was found. The record is the part that says what was looked at.</p>
+
+    <h2>What it costs you</h2>
+
+    <p>A fixed list buys one thing and gives up another.</p>
+
+    <p>What you get is coverage you can vouch for. The same steps every time, so you can say beforehand what a run will cover and check afterwards that it did. When it goes wrong it goes wrong in the same place, which is most of how you find out why.</p>
+
+    <p>Reaction is the thing you lose. If the filings aren&rsquo;t online today, an agent working the job out as it goes might try the company&rsquo;s own site, or come back and ask you, or decide it has enough to go on. A fixed list does none of that. It does the step or it stops, unless somebody thought of that case beforehand and wrote it in.</p>
+
+    <p>Neither one is the better one. The thing that decides between them is whether anyone will need to say, afterwards, exactly what was looked at.</p>
+
+    <h2>What to actually do</h2>
+
+    <p>You don&rsquo;t need any particular software for this. Writing the steps into your ask &mdash; the message you type and send, which you will also see called a prompt &mdash; is already the whole idea. &ldquo;Read the accounts, then the legal filings, then the security setup, then the customer contracts, then summarise all four&rdquo; is a workflow.</p>
+
+    <div class="ri"><h3>Try it as one ask before you split it up</h3><p>Start with one ask that includes the whole process. If that works reliably, you&rsquo;re finished &mdash; you didn&rsquo;t need to build anything. <a href="https://claude.com/blog/common-workflow-patterns-for-ai-agents-and-when-to-use-them">Anthropic recommends</a> splitting a task into separate steps only once a single ask stops being dependable.</p></div>
+
+    <div class="ri"><h3>Keep the shape plain</h3><p>If you do split the work, default to a simple sequence. One step after another is easier to understand and easier to fix than more elaborate arrangements, and most jobs don&rsquo;t need anything more. That is where the same post tells you to start.</p></div>
+
+    <div class="ri"><h3>Only fix a list you&rsquo;ll use again</h3><p>A written-down list pays for itself on a job you run over and over in the same shape, which is exactly what due diligence is. On a job you&rsquo;re doing once, working the steps out in advance is just you doing the agent&rsquo;s work for it.</p></div>
+
+    <div class="note"><strong>Honesty corner</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><strong>The word is overloaded.</strong> &ldquo;Workflow&rdquo; is also what the drag-and-drop automation services call themselves &mdash; when this happens, do that. Not the same thing. Here it only means the steps were decided before the work started, not while it ran.</li>
+      <li><strong>It usually costs more, not less.</strong> All four checks happen every run, including the one an agent might reasonably have skipped. That is the point, and it is also the bill. A fixed list buys you the ability to say what was done; on jobs where skipping was fine, it is straightforwardly worse value.</li>
+      <li><strong>It says nothing about whether several agents beat one.</strong> The panels above are here to show a settled list, and a settled list is all they are evidence for. Whether those four checks are better run as four separate conversations or as one long ask is a different question, and this page doesn&rsquo;t settle it.</li>
+    </ul></div>
+
+    <h2>The next wall</h2>
+
+    <p>A workflow assumes the hard part is already done. Somebody worked out what this job takes, and the workflow only holds you to it. On a job you&rsquo;ve run twenty times that assumption is free: you know what has to be covered, and you&rsquo;re writing it down.</p>
+
+    <p>The jobs where you&rsquo;d most want the help are the other kind. Nobody has run them before. There is no list to write down, because working out what belongs on the list is the job.</p>
+
+    <p>So the question changes. It stops being who follows the process and starts being where the process comes from. The answer can still arrive before any of the work does &mdash; just not from you, and not once and for all. The agent works out what the job takes, writes that down, and then does what it wrote.</p>
+
+    <p>That&rsquo;s planning.</p>
+
+    <div class="note"><strong>Sources &amp; further reading</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><a href="https://claude.com/blog/common-workflow-patterns-for-ai-agents-and-when-to-use-them">Common workflow patterns for AI agents, and when to use them</a> &mdash; Anthropic, March 2026. Where the practical advice above comes from. It names three arrangements &mdash; sequential, parallel, evaluator-optimizer &mdash; rather than the five that circulate more widely. The part worth scrolling to is &ldquo;Choosing the right workflow pattern&rdquo;, about halfway down, which is where it tells you to try the job as one ask before building anything.</li>
+      <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a> &mdash; Anthropic. Where &ldquo;parallelization&rdquo; comes from, and most of this vocabulary with it. It also describes a close cousin called orchestrator-workers, where the split is worked out at run time instead of by you in advance; the two are easy to mix up. The page carries a December 2024 date but has been edited since without a note saying so &mdash; it names models that didn&rsquo;t exist then &mdash; so read its wording as current rather than as a record of what anyone thought in 2024.</li>
+      <li><a href="https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf">A practical guide to building agents</a> &mdash; OpenAI, undated (PDF). Defines a workflow as &ldquo;a sequence of steps that must be executed to meet the user&rsquo;s goal&rdquo;, which is close to the usage above, though it reserves &ldquo;agent&rdquo; for the thing that runs one. Useful as a second opinion from people with no reason to copy Anthropic&rsquo;s wording.</li>
+      <li><a href="https://blog.langchain.com/how-to-think-about-agent-frameworks/">How to think about agent frameworks</a> &mdash; Harrison Chase, LangChain, April 2025. Comes down on Anthropic&rsquo;s side of the definition and then complicates it: &ldquo;Nearly all of the &lsquo;agentic systems&rsquo; we see in production are a combination of &lsquo;workflows&rsquo; and &lsquo;agents&rsquo;.&rdquo; Read it after this page rather than before.</li>
+      <li><a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027">Gartner press release</a> &mdash; June 2025. The analyst quoted, Anushree Verma: &ldquo;Many use cases positioned as agentic today don&rsquo;t require agentic implementations.&rdquo; Cited here for the restraint, not for the forecast in the headline.</li>
+      <li>The five runs and the two run records in the panels above are written out by hand, to show two shapes clearly. They aren&rsquo;t a measurement of how often a real agent reorders or drops a step &mdash; I don&rsquo;t have that number, and I haven&rsquo;t found anyone who has published one.</li>
+    </ul></div>
+  </article>
+
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    &copy; 2026 Ranjita Naik
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+
+  var STEP = {
+    a: { lab: "Accounts",        k: "read"  },
+    l: { lab: "Legal filings",   k: "read"  },
+    s: { lab: "Security",        k: "read"  },
+    c: { lab: "Contracts",       k: "read"  },
+    w: { lab: "Summary",         k: "write" }
+  };
+
+  /* Written out by hand, not generated: the point is two shapes, not randomness. */
+  var RUNS = {
+    agent: [
+      ["a", "l", "s", "c", "w"],
+      ["s", "c", "a", "l", "w"],
+      ["a", "l", "s", "c", "w"],
+      ["s", "a", "c", "l", "w"],
+      ["s", "c", "a", "w"]
+    ],
+    fixed: [
+      ["a", "l", "s", "c", "w"],
+      ["a", "l", "s", "c", "w"],
+      ["a", "l", "s", "c", "w"],
+      ["a", "l", "s", "c", "w"],
+      ["a", "l", "s", "c", "w"]
+    ]
+  };
+
+  var COPY = {
+    agent: {
+      lab: "Five runs \u2014 the agent decides",
+      note: "One of these five never opened the legal filings \u2014 the accounts and the contracts had come back clean, so it decided the question was settled. Three took a different route to the end, which matters much less. All five produced a summary, and no summary mentions either."
+    },
+    fixed: {
+      lab: "Five runs \u2014 the steps fixed in advance",
+      note: "All four checks, five times out of five, plus the summary. You could have written that list down before the first run and been right about every one of them."
+    }
+  };
+
+  function label(order) {
+    var names = order.map(function (k) { return STEP[k].lab; });
+    return "Run order: " + names.join(", then ");
+  }
+
+  function render(mode) {
+    var runs = RUNS[mode];
+    var first = runs[0].join(",");
+    var changed = 0, skipped = 0;
+    var html = "";
+
+    runs.forEach(function (order, n) {
+      if (order.join(",") !== first) { changed += 1; }
+      var missing = Object.keys(STEP).filter(function (k) { return order.indexOf(k) < 0; });
+      skipped += missing.length;
+
+      var chips = order.map(function (k, idx) {
+        return '<span class="chip ' + STEP[k].k + '"><i></i>' + STEP[k].lab +
+               ' <span class="n">' + (idx + 1) + '</span></span>';
+      }).join("");
+
+      missing.forEach(function (k) {
+        chips += '<span class="miss">' + STEP[k].lab + ' \u2014 not opened</span>';
+      });
+
+      html += '<li class="run"><span class="rn">Run ' + (n + 1) + '</span>' +
+              '<span class="chips" aria-label="' + label(order) + '">' + chips + '</span></li>';
+    });
+
+    $("runs").innerHTML = html;
+    $("simlab").innerHTML = COPY[mode].lab;
+    $("tnote").innerHTML = COPY[mode].note;
+    $("t-runs").textContent = String(runs.length);
+    $("t-chg").textContent = String(changed);
+    $("t-skip").textContent = String(skipped);
+  }
+
+  var buttons = [].slice.call(document.querySelectorAll(".modebar button"));
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      buttons.forEach(function (o) {
+        var on = (o === b);
+        o.classList.toggle("on", on);
+        o.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      render(b.getAttribute("data-mode"));
+    });
+  });
+
+  render("agent");
+})();
+
+(function () {
+  "use strict";
+  var head = document.getElementById("rec-head");
+  var stamp = document.getElementById("rec-stamp");
+  var list = document.getElementById("rec-list");
+  var note = document.getElementById("recnote");
+  if (!head || !stamp || !list || !note) { return; }
+
+  var VIEW = {
+    left: {
+      head: "The agent decides each time",
+      stamp: "4 steps taken",
+      rows: [
+        ["1", "Security", "done", ""],
+        ["2", "Contracts", "done", ""],
+        ["3", "Accounts", "done", ""],
+        ["4", "Summary", "done", ""]
+      ],
+      note: "Nothing in the record from the run that decided as it went is false. There&rsquo;s no line for the legal filings, and no line saying a line is missing &mdash; because no list said one was owed. <b>The gap only appears when you hold that record against a list written in advance</b> &mdash; and that run never had one."
+    },
+    cmp: {
+      head: "The agent&rsquo;s run, laid against the list",
+      stamp: "4 steps taken, against a 5-step list",
+      rows: [
+        ["1", "Accounts", "done", ""],
+        ["2", "Legal filings", "no line for it", "gap"],
+        ["3", "Security", "done", ""],
+        ["4", "Contracts", "done", ""],
+        ["5", "Summary", "done", ""]
+      ],
+      note: "Laid against the list, the legal filings have nowhere to sit. The amber line isn&rsquo;t something the record says &mdash; <b>it&rsquo;s what the list written in advance says should have been there</b>. Somebody had to write that list first, or there&rsquo;s nothing to hold the record against."
+    }
+  };
+
+  function draw(view) {
+    var v = VIEW[view];
+    head.innerHTML = v.head;
+    stamp.textContent = v.stamp;
+    list.innerHTML = v.rows.map(function (r) {
+      return "<li" + (r[3] ? ' class="' + r[3] + '"' : "") + '><span class="n">' +
+             r[0] + "</span>" + r[1] + '<span class="s">' + r[2] + "</span></li>";
+    }).join("");
+    note.innerHTML = v.note;
+  }
+
+  var recbtns = [].slice.call(document.querySelectorAll(".recbar button"));
+  recbtns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      recbtns.forEach(function (o) {
+        var on = (o === b);
+        o.classList.toggle("on", on);
+        o.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      draw(b.getAttribute("data-rec"));
+    });
+  });
+
+  draw("left");
+})();
+</script>
+<!-- Analytics: GoatCounter — privacy-friendly, cookie-free -->
+<script data-goatcounter="https://ranjita-naik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
