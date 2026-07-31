@@ -7,6 +7,13 @@
 <language>en</language>
 <atom:link href="https://ranjita-naik.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 <item>
+<title>Same steps, every time (Workflows)</title>
+<link>https://ranjita-naik.github.io/learn/workflows.html</link>
+<guid isPermaLink="true">https://ranjita-naik.github.io/learn/workflows.html</guid>
+<description>The same job, run twice, done two different ways — and one check quietly never happened. A workflow is what you have when the steps are settled first.</description>
+<pubDate>Fri, 31 Jul 2026 12:00:00 GMT</pubDate>
+</item>
+<item>
 <title>A second conversation (Sub-agents)</title>
 <link>https://ranjita-naik.github.io/learn/sub-agents.html</link>
 <guid isPermaLink="true">https://ranjita-naik.github.io/learn/sub-agents.html</guid>
