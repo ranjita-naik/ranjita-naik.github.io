@@ -7,6 +7,13 @@
 <language>en</language>
 <atom:link href="https://ranjita-naik.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 <item>
+<title>Show me first (Planning)</title>
+<link>https://ranjita-naik.github.io/learn/planning.html</link>
+<guid isPermaLink="true">https://ranjita-naik.github.io/learn/planning.html</guid>
+<description>An agent investigates, proposes a plan, and waits for your review before carrying it out. The plan is not a verdict — it is a draft you can edit.</description>
+<pubDate>Tue, 04 Aug 2026 12:00:00 GMT</pubDate>
+</item>
+<item>
 <title>Same steps, every time (Workflows)</title>
 <link>https://ranjita-naik.github.io/learn/workflows.html</link>
 <guid isPermaLink="true">https://ranjita-naik.github.io/learn/workflows.html</guid>
