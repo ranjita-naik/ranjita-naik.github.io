@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230d7a68%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 font-weight=%27bold%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d7a68">
+<meta property="og:title" content="Show me first (Planning) &mdash; Ranjita Naik">
+<meta property="og:description" content="An agent investigates, proposes a plan, and waits for your review before carrying it out. The plan is not a verdict &mdash; it is a draft you can edit.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ranjita-naik.github.io/learn/planning.html">
+<meta property="og:site_name" content="Ranjita Naik">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/rss+xml" title="Ranjita Naik &mdash; all writing" href="https://ranjita-naik.github.io/feed.xml">
+<title>Show me first (Planning) &mdash; Ranjita Naik</title>
+<meta name="description" content="An agent investigates, proposes a plan, and waits for your review before carrying it out. The plan is not a verdict &mdash; it is a draft you can edit.">
+<style>
+:root {
+  --bg: #fdfcf9;
+  --ink: #1f2430;
+  --muted: #5c6370;
+  --accent: #0d7a68;
+  --accent-dark: #0a5c4f;
+  --line: #e7e3da;
+  --card: #ffffff;
+  --serif: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+::selection { background: #cdeae2; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wrap { max-width: 700px; margin: 0 auto; padding: 0 22px; }
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: var(--bg);
+}
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 1040px; }
+.logo { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.logo span { color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.95rem; }
+nav a:hover, nav a.active { color: var(--accent); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; }
+h1 { font-size: 2.15rem; line-height: 1.22; letter-spacing: -0.015em; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; letter-spacing: -0.008em; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-decoration-color: rgba(13, 122, 104, 0.35); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); text-decoration-color: rgba(10, 92, 79, 0.7); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.hero { padding: 56px 0 28px; }
+.hero .kicker {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.hero p.lead { font-family: var(--serif); font-size: 1.22rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.post-list { list-style: none; padding: 0; margin: 24px 0 60px; }
+.post-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease;
+}
+.post-list li:hover { border-color: #cfc9bc; }
+.post-list .date { color: var(--muted); font-size: 0.85rem; }
+.post-list a.title { font-family: var(--serif); font-weight: 700; font-size: 1.18rem; line-height: 1.35; text-decoration: none; display: block; margin: 2px 0 6px; }
+.post-list p { font-family: var(--serif); margin: 0; color: var(--muted); font-size: 1rem; }
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e4f2ee;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+article { padding: 48px 0 30px; }
+article .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+article p, article blockquote, article ul, article ol {
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+article p { margin: 0 0 1.15em; }
+article blockquote {
+  margin: 1.4em 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.14rem;
+}
+article code, code {
+  font-family: var(--mono);
+  background: #f0ede6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.82em;
+}
+.note {
+  font-family: var(--serif);
+  background: #f4f1ea;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.signup {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px;
+  margin: 40px 0 60px;
+  text-align: center;
+}
+.signup h2 { margin: 0 0 6px; font-size: 1.3rem; }
+.signup p { font-family: var(--serif); color: var(--muted); margin: 0 0 16px; }
+.signup .btn {
+  display: inline-block;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 22px;
+}
+.signup .btn:hover { background: var(--accent-dark); }
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer.site a { color: var(--muted); }
+footer.site .wrap { max-width: 1040px; }
+@media (max-width: 520px) {
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 36px 0 20px; }
+  article p, article blockquote, article ul, article ol { font-size: 1.04rem; }
+}
+@media print {
+  header.site nav, .signup, footer.site { display: none; }
+  body { background: #fff; }
+}
+
+/* two-column layout with date-grouped post pane */
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+.layout > main.content { max-width: 700px; min-width: 0; }
+.layout > main.content.wide { max-width: none; }
+.sidebar { position: sticky; top: 24px; align-self: start; padding: 26px 0; }
+.sb-title { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 10px; }
+.sb-month { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px; }
+.sb-item { display: flex; gap: 9px; align-items: baseline; font-family: var(--sans); font-size: 0.88rem; line-height: 1.45; color: var(--ink); text-decoration: none; padding: 6px 9px; border-radius: 8px; }
+.sb-item:hover { background: #f0ede6; color: var(--accent-dark); }
+.sb-item.on { background: #e4f2ee; color: var(--accent-dark); font-weight: 600; }
+.sb-d { flex: 0 0 42px; font-size: 0.73rem; color: var(--muted); }
+.sb-links { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); line-height: 2; }
+.sb-links a { color: var(--muted); }
+.sb-links a:hover { color: var(--accent-dark); }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; gap: 0; }
+  .sidebar { position: static; order: 2; border-top: 1px solid var(--line); margin-top: 20px; }
+}
+@media print { .sidebar { display: none; } }
+
+/* inline-code chips must NOT apply inside pre blocks */
+pre code { background: transparent; padding: 0; border-radius: 0; font-size: inherit; color: inherit; }
+/* readable selection inside dark code blocks */
+pre ::selection, pre::selection { background: #0d7a68; color: #ffffff; }
+/* collapsible month groups (pane + homepage) */
+details.sb-group > summary, details.mgroup > summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-dark); margin: 14px 0 4px;
+}
+details.sb-group > summary::-webkit-details-marker, details.mgroup > summary::-webkit-details-marker { display: none; }
+details.sb-group > summary::before, details.mgroup > summary::before { content: "\25B8"; font-size: 0.85em; transition: transform 0.15s ease; }
+details.sb-group[open] > summary::before, details.mgroup[open] > summary::before { transform: rotate(90deg); }
+details.mgroup > summary { font-size: 0.78rem; margin: 20px 0 10px; }
+</style>
+<style>
+/* ---- the pull-quote carrying the mental model ---- */
+.beat { font-family: var(--serif); font-size: 1.25rem; font-style: italic; color: var(--accent-dark); text-align: center; margin: 20px 0; }
+
+/* ---- the plan, shown rather than described, in the cold open ---- */
+.planlist { margin: 0 0 1.15em; padding-left: 1.9em; }
+.planlist li { margin: 0.1em 0; padding-left: 0.2em; }
+
+/* ---- signature figure: the marked-up plan ---- */
+.fig { margin: 26px 0 8px; }
+/* viewBox is 400 wide on purpose: at a 360px viewport the column is ~316px, so
+   the figure scales 0.79 and its 15px labels still render above 11px. Capping
+   the desktop width at 470 keeps the same labels from ballooning past 18px. */
+.fig svg { display: block; width: 100%; max-width: 470px; height: auto; margin: 0 auto; }
+/* the lifecycle timeline is narrower, so it can be capped tighter and still
+   render its labels larger than the marked-up-plan figure does. */
+.fig.flow svg { max-width: 400px; }
+.figkey { display: flex; flex-wrap: wrap; gap: 8px 15px; justify-content: center; margin: 12px 2px 0; font-family: var(--sans); font-size: 0.76rem; color: var(--muted); }
+.figkey span { display: inline-flex; align-items: center; gap: 6px; }
+.figkey i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+
+/* ---- run-in case labels (heading and its paragraph share a line) ---- */
+.ri { margin: 0 0 1.15em; }
+.ri h3 { display: inline; font-size: 1.08rem; font-style: italic; margin: 0; }
+.ri h3::after { content: ": "; font-weight: 400; font-style: normal; }
+.ri p { display: inline; }
+
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="../index.html">Ranjita<span>.</span>Naik</a>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar" aria-label="Posts, grouped by curriculum part">
+  <div class="sb-title">Agents</div>
+  <details class="sb-group" open>
+    <summary>Part I &mdash; Foundations</summary>
+    <a class="sb-item" href="../posts/start-here-llms-and-agents.html"><span class="sb-d">Jul 19</span><span>Start here: AI, LLMs &amp; agents</span></a>
+    <a class="sb-item" href="../posts/what-is-an-ai-agent.html"><span class="sb-d">Jul 20</span><span>What is an AI agent?</span></a>
+    <a class="sb-item" href="../learn/agent-loop.html"><span class="sb-d">Jul 21</span><span>The Agent Loop</span></a>
+    <a class="sb-item" href="../learn/build-with-an-agent.html"><span class="sb-d">Jul 22</span><span>Build a webpage with an agent</span></a>
+    <a class="sb-item" href="../learn/make-it-remember.html"><span class="sb-d">Jul 23</span><span>Make it remember</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part II &mdash; Capabilities</summary>
+    <a class="sb-item" href="../learn/tools.html"><span class="sb-d">Jul 24</span><span>Tools: give it hands</span></a>
+    <a class="sb-item" href="../learn/mcp.html"><span class="sb-d">Jul 28</span><span>MCP: let tools travel</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part III &mdash; Expertise</summary>
+    <a class="sb-item" href="../learn/skills.html"><span class="sb-d">Jul 29</span><span>Skills: write it down once</span></a>
+    <a class="sb-item" href="../learn/sub-agents.html"><span class="sb-d">Jul 30</span><span>Sub-agents: a second conversation</span></a>
+  </details>
+  <details class="sb-group" open>
+    <summary>Part IV &mdash; Orchestration</summary>
+    <a class="sb-item" href="../learn/workflows.html"><span class="sb-d">Jul 31</span><span>Workflows: same steps, every time</span></a>
+    <a class="sb-item on" href="../learn/planning.html"><span class="sb-d">Aug 4</span><span>Planning: show me first</span></a>
+  </details>
+</aside>
+<main class="content">
+  <article>
+    <h1>Show me first</h1>
+    <div class="meta">4 August 2026</div>
+
+    <p>You ask for something ordinary. <em>Go through the renewals list and email everyone whose contract ends this quarter.</em></p>
+
+    <p>It doesn&rsquo;t do it.</p>
+
+    <p>What comes back is a plan.</p>
+
+    <ol class="planlist">
+      <li>Identify customers whose contracts end this quarter.</li>
+      <li>Draft one renewal email per customer.</li>
+      <li>Review the emails.</li>
+      <li>Send the emails.</li>
+      <li>Report back what went out.</li>
+    </ol>
+
+    <p>Then it stops, and waits for you.</p>
+
+    <p>You asked it to do the work. It answered with a proposal instead.</p>
+
+    <p>The first time this happens, it feels like hesitation. Or like being asked for permission you didn&rsquo;t know you were withholding.</p>
+
+    <h2>Where the plan came from</h2>
+
+    <p>Those five steps didn&rsquo;t appear out of nowhere.</p>
+
+    <p>Before writing the plan, the agent spent a few moments understanding the job. It looked through the renewals list, checked the contract dates, and built a picture of what needed to happen. From that, it wrote the five-step plan you just saw.</p>
+
+    <p>Nothing has been changed yet. No emails have been drafted or sent. The only thing it has produced is the plan. When you approve it, the work begins.</p>
+
+    <h2>Treat the plan like a draft</h2>
+
+    <p>Those five steps weren&rsquo;t copied from a manual. They came from the agent&rsquo;s understanding of the job.</p>
+
+    <p>That means they&rsquo;re informed. It also means they can be wrong.</p>
+
+    <p>The first instinct is usually to skim the plan, decide it looks sensible, and press Yes. Treating it that way makes the plan feel like a verdict.</p>
+
+    <p>It isn&rsquo;t. It&rsquo;s the first draft of how the work will be done.</p>
+
+    <p>Say what&rsquo;s wrong in ordinary words &mdash; <em>these customers have already renewed</em>, <em>check the invoices before sending anything</em>, <em>hold the emails until Monday</em> &mdash; and the plan changes before any work begins. In Claude Code you can even open the plan directly in a text editor and edit it before anything runs.</p>
+
+    <p>That settles what kind of thing a plan is. It opens in a text editor. Whatever else it might be, it&rsquo;s a document.</p>
+
+    <div class="fig">
+      <svg viewBox="0 0 430 322" role="img" aria-label="The first draft of a plan, drawn as a page of five numbered steps, with one step inserted by the reader in purple straight after step one: &lsquo;exclude customers who have already renewed&rsquo;. Underneath, a teal band reads: it ran the revised plan &mdash; 28 renewal emails were sent, none were sent to customers who had already renewed.">
+        <text x="12" y="17" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#5c6370">The first draft of the plan</text>
+
+        <rect x="12" y="28" width="406" height="190" rx="12" fill="#ffffff" stroke="#e7e3da"></rect>
+
+        <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#1f2430">
+          <text x="30" y="55" font-size="13.5" fill="#5c6370" text-anchor="middle">1</text>
+          <text x="46" y="55">Identify customers whose contracts end this quarter</text>
+
+          <text x="30" y="84" font-size="15" fill="#8a4f9e" text-anchor="middle" font-weight="700">+</text>
+          <text x="46" y="84" font-size="14" fill="#8a4f9e">Exclude customers who have already renewed</text>
+
+          <text x="30" y="113" font-size="13.5" fill="#5c6370" text-anchor="middle">2</text>
+          <text x="46" y="113">Draft one renewal email per customer</text>
+
+          <text x="30" y="142" font-size="13.5" fill="#5c6370" text-anchor="middle">3</text>
+          <text x="46" y="142">Review the emails</text>
+
+          <text x="30" y="171" font-size="13.5" fill="#5c6370" text-anchor="middle">4</text>
+          <text x="46" y="171">Send the emails</text>
+
+          <text x="30" y="200" font-size="13.5" fill="#5c6370" text-anchor="middle">5</text>
+          <text x="46" y="200">Report back what went out</text>
+        </g>
+
+        <line x1="215" y1="222" x2="215" y2="236" stroke="#5c6370" stroke-width="1.5"></line>
+        <path d="M211 232 L215 239 L219 232 Z" fill="#5c6370"></path>
+
+        <rect x="12" y="244" width="406" height="70" rx="12" fill="#0d7a68"></rect>
+        <text x="215" y="267" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13.5" fill="#ffffff" text-anchor="middle">It ran the revised plan.</text>
+        <text x="215" y="285" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13.5" fill="#ffffff" text-anchor="middle">28 renewal emails were sent.</text>
+        <text x="215" y="303" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13.5" fill="#ffffff" text-anchor="middle">None were sent to customers who had already renewed.</text>
+      </svg>
+      <div class="figkey">
+        <span><i style="background:#8a4f9e"></i>Your edits</span>
+        <span><i style="background:#0d7a68"></i>The work that followed</span>
+      </div>
+    </div>
+
+    <p class="beat">The plan is a draft, not a decision.</p>
+
+    <h2>From plan to work</h2>
+
+    <p>The plan isn&rsquo;t the work. It is the last chance to change the work before it begins.</p>
+
+    <p>Once you are happy with it, ask the agent to carry it out. It will follow the version you approved &mdash; whether that is its original proposal or the version you revised.</p>
+
+    <p>You do not need to copy the plan somewhere else or turn it into another prompt. In Claude Code, approval starts the work. In an ordinary chat, ask the agent to carry out the agreed plan.</p>
+
+    <div class="fig flow">
+      <svg viewBox="0 0 340 196" role="img" aria-label="A five-step sequence running top to bottom: you ask, the agent investigates, the agent proposes a plan, you approve or edit it, the agent carries out the agreed plan.">
+        <line x1="30" y1="26" x2="30" y2="170" stroke="#e7e3da" stroke-width="2"></line>
+        <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#1f2430">
+
+          <circle cx="30" cy="26" r="5.5" fill="#8a4f9e"></circle>
+          <text x="50" y="31"><tspan font-weight="700" fill="#8a4f9e">You</tspan> ask</text>
+
+          <circle cx="30" cy="62" r="5.5" fill="#0a5c4f"></circle>
+          <text x="50" y="67"><tspan font-weight="700" fill="#0a5c4f">The agent</tspan> investigates</text>
+
+          <circle cx="30" cy="98" r="7" fill="#0a5c4f"></circle>
+          <text x="50" y="103"><tspan font-weight="700" fill="#0a5c4f">The agent</tspan> proposes a plan</text>
+
+          <circle cx="30" cy="134" r="5.5" fill="#8a4f9e"></circle>
+          <text x="50" y="139"><tspan font-weight="700" fill="#8a4f9e">You</tspan> approve or edit it</text>
+
+          <circle cx="30" cy="170" r="5.5" fill="#0a5c4f"></circle>
+          <text x="50" y="175"><tspan font-weight="700" fill="#0a5c4f">The agent</tspan> carries out the agreed plan</text>
+
+        </g>
+      </svg>
+    </div>
+
+    <h2>What it costs you</h2>
+
+    <p>Planning is not free. You read something, you decide something, and none of the work has happened yet. On a small job, that is the entire cost with none of the benefit.</p>
+
+    <p><a href="https://code.claude.com/docs/en/best-practices">Planning earns its keep</a> when you are unsure of the approach, when the work touches several files, or when you do not yet understand the thing you are changing. If the job is already obvious &mdash; a typo, a renamed variable, a single sentence &mdash; skip the plan and ask the agent to do it.</p>
+
+    <p>There is a second cost, and it is quieter. A written plan is less likely to skip something important. It is also less flexible when something unexpected turns up. That is why you review it before the work begins. If you approve every plan without reading it, you lose the only benefit planning gives you.</p>
+
+    <p>That also explains why a plan is different from <a href="../learn/workflows.html">a checklist you write for yourself</a>. A checklist records what has worked before. A plan proposes what to do this time.</p>
+
+    <h2>What to actually do</h2>
+
+    <div class="ri"><h3>Ask for the plan before the work</h3><p>On anything you haven&rsquo;t done before, &ldquo;Plan this first. Don&rsquo;t change anything yet.&rdquo; is the whole technique. It works in a plain chat window with no special mode or feature involved. You are asking the agent to propose a plan before it starts the work, and anyone can do that.</p></div>
+
+    <div class="ri"><h3>Look for one thing to question</h3><p>Not as ceremony &mdash; plenty of plans are fine as they stand. The point is simply to check that you actually read it. If nothing in the plan is worth questioning, either it is a genuinely good plan or you skimmed it. It is worth knowing which one you just did.</p></div>
+
+    <div class="ri"><h3>Skip it when the job is small</h3><p>Five steps for a renamed variable teach you nothing about whether planning helps, and they cost you time. Ask directly and get on with it.</p></div>
+
+    <div class="note"><strong>Honesty corner</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><strong>A plan isn&rsquo;t a promise.</strong> Nothing about writing step four makes step four happen. The plan says what it means to do; only the run says what it did. Reading the first is not checking the second.</li>
+      <li><strong>The first plan won&rsquo;t survive contact.</strong> That isn&rsquo;t a defect. It was written before the work began, when the agent knew the least about the job. The interesting question was never whether the first plan was perfect; it was whether it changed when it should have.</li>
+      <li><strong>Reading the plan is the point.</strong> A longer plan is not automatically better, especially if nobody finishes reading it.</li>
+    </ul></div>
+
+    <h2>The next wall</h2>
+
+    <p>Everything in this post depended on one thing.</p>
+
+    <p>There was only one plan.</p>
+
+    <p>The moment there are several agents, there is more than one plan.</p>
+
+    <p>That&rsquo;s where multi-agent begins.</p>
+
+    <div class="note"><strong>Sources &amp; further reading</strong>
+    <ul style="margin:8px 0 2px; padding-left:20px; font-size:inherit;">
+      <li><a href="https://code.claude.com/docs/en/permission-modes">Choose a permission mode</a> &mdash; Claude Code documentation. The load-bearing source for this page, under the heading &ldquo;Analyze before you edit with plan mode&rdquo;. The working details all live here rather than above, because they are the part most likely to be out of date by the time you read this: at the time of writing you enter plan mode with <code>Shift+Tab</code>, with <code>/plan</code> at the start of a message, or by launching with <code>--permission-mode plan</code>; the desktop app, the VS Code extension and claude.ai have a mode selector instead, so none of it needs a terminal; <code>Ctrl+G</code> opens the proposed plan in your text editor; and when a plan is ready you get four options, one of which is &ldquo;No, keep planning&rdquo;, which keeps you in plan mode and takes your correction. Two caveats from the same page worth knowing: version markers run all the way through it, and in a session you deliberately started with permission checks disabled, plan mode&rsquo;s blocks are not enforced at all &mdash; the agent is still told to plan without editing, but nothing stops it.</li>
+      <li><a href="https://code.claude.com/docs/en/best-practices">Best practices for Claude Code</a> &mdash; Anthropic. The section &ldquo;Explore first, then plan, then code&rdquo; is the short version of this whole article, written for people who already write code, and it is the source of the one-sentence test quoted above. Its opening line is the plainest reason planning exists: &ldquo;Letting Claude jump straight to coding can produce code that solves the wrong problem.&rdquo;</li>
+      <li><a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a> &mdash; Claude Code documentation. &ldquo;Plan before editing&rdquo; is four sentences long and is the fastest way to try this today if you have a terminal open.</li>
+      <li>The renewals job is made up, and so are the forty contracts, the twelve that had already renewed and the twenty-eight left over. They are written by hand to show one shape clearly. They are not a measurement of how often a real plan meets something it didn&rsquo;t account for &mdash; I don&rsquo;t have that number, and I haven&rsquo;t found anyone who has published one.</li>
+    </ul></div>
+  </article>
+
+  <section class="signup">
+    <h2>Get in touch</h2>
+    <p>Questions, ideas, and corrections are all welcome.</p>
+    <a class="btn" href="mailto:ranjitawrites@gmail.com">Email</a>
+  </section>
+</main>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    &copy; 2026 Ranjita Naik
+  </div>
+</footer>
+
+<!-- Analytics: GoatCounter — privacy-friendly, cookie-free -->
+<script data-goatcounter="https://ranjita-naik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
